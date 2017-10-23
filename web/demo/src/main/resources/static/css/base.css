@@ -1,0 +1,117 @@
+.show {
+    display: block !important;
+}
+.hidden {
+    display: none !important;
+}
+a{
+    text-decoration: none !important;
+}
+.header{
+    width: 100%;
+    height: 56px;
+    max-width: 1080px;
+    margin: 0 auto;
+}
+.header > .container > a{
+    min-width: 120px;
+    display: inline-block;
+    line-height: 56px;
+    max-height: 56px;
+    margin-right: 16px;
+    padding: 12px 0;
+    background: url("../img/logo.png") no-repeat;
+    background-position-y: 24px;
+    background-size: auto;
+
+}
+.header > .container > * {
+    display: inline-block;
+}
+.city-address{
+    line-height: 74px !important;
+    color: #666;
+    font-weight: 300;
+    -webkit-transition: all .4s;
+    -moz-transition: all .4s;
+    -ms-transition: all .4s;
+    -o-transition: all .4s;
+    transition: all .4s;
+}
+.header > .container > ul > li {
+    list-style: none;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 16px;
+    padding: 0 16px;
+    height: 56px;
+    line-height: 56px;
+    margin: 0;
+    -webkit-transition:     border-bottom-color  .4s,color .4s;
+    -moz-transition:     border-bottom-color  .4s,color .4s;
+    -ms-transition:     border-bottom-color  .4s,color .4s;
+    -o-transition:     border-bottom-color  .4s,color .4s;
+    transition:     border-bottom-color  .4s,color .4s;
+}
+.header .container ul li .nav_item, .header .container ul li .clear_fix_item{
+
+    cursor: pointer;
+}
+.header .container ul .nav_li{
+    color: #999999;
+    border-bottom: 2px solid #FFFFFF
+}
+.header .container ul .nav_li:hover{
+    color: black;
+    border-bottom: 2px solid #6aa2e4;
+}
+.header .container ul .current{
+    color: black;
+    border-bottom: 2px solid #6aa2e4;
+}
+.clear_fix{
+    position: relative;
+
+
+}
+.wrap > .header > .container >.clear_fix li{
+    padding: 0 5px;!important;
+}
+.header .container ul li .clear_fix_item{
+    font-size: 12px;
+}
+.wrap > .header > .container >.clear_fix{
+    padding-top: 8px;
+}
+#dLabel{
+    color: #999999;
+    text-decoration: none;
+}
+
+#dLabel h6,#dLabel i{
+    display: inline;
+}
+
+.dropdown-menu > li{
+    display: block;
+}
+.dropdown-menu>li>a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 200;
+    line-height: 1.22857143;
+    color: #333;
+    white-space: nowrap;
+    -webkit-transition:     background-color  .4s;
+    -moz-transition:     background-color  .4s;
+    -ms-transition:     background-color  .4s;
+    -o-transition:     background-color  .4s;
+    transition:     background-color  .4s;
+}
+.dropdown-menu>li>a :hover{
+    background-color: #e7e7e7;
+}
+.container .nav > li >a{
+    background-color: rgba(255,255,255,0) !important;
+}

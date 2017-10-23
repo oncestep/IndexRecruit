@@ -1,0 +1,145 @@
+body{
+    background: url("../img/banner_2.jpg") no-repeat;
+    margin: 0 0;
+    height: 100%;
+    width: 100%;
+    min-width: 1024px;
+    font: 14px/22px "Microsoft YaHei",Verdana,Arial;
+    text-align: center;
+}
+.login_box{
+    cursor: default;
+    color: #777;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    width: 444px;
+    height: 580px;
+    margin: 0 0 0 -220px;
+    z-index: 1002;
+    background-color: #fff;
+    border-radius: 2px;
+}
+.go_home{
+    position: relative;
+    width: 150px;
+    height: 48px;
+    display: inline-block;
+    margin-top: 40px;
+}
+.switch_to_hr{
+
+    text-align: right;
+    height: 28px;
+    width: 350px;
+    padding: 20px 45px 6px 45px;
+}
+.switch_to_hr .switch_btn{
+    position: absolute;
+    right: 55px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    width: 78px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #6aa2e4;
+
+    border: solid 1px #6aa2e4;
+    border-radius: 2px;
+}
+.switch_to_hr .switch_btn a{
+    cursor: pointer!important;
+    text-decoration: none !important;
+    color: #6aa2e4 !important;
+}
+.login_form_content{
+    border-radius: 15px;
+
+    overflow: hidden;
+    position: relative;
+    width: 350px;
+    padding: 20px 45px 6px 45px;
+}
+.login_form_content input{
+    outline: none;
+    display: block;
+    margin-bottom: 18px;
+    width: 310px;
+    padding: 13px 15px;
+    font-size: 14px;
+    color: #000;
+    border: 1px solid #ccc;
+    float: left;
+    border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -webkit-transition: border .4s ease-in-out;
+    -moz-transition: border .4s ease-in-out;
+    -o-transition: border .4s ease-in-out;
+    transition: border .4s ease-in-out;
+}
+.login_form_content input:hover{
+    border: solid 1px #6aa2e4;
+}
+.login_form_content input:focus{
+    border: solid 1px #6aa2e4!important;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+#login_btn{
+    border: none;
+    background-color: #6aa2e4;
+    color: whitesmoke;
+    font-size: 18px;
+    width: 342px;
+    cursor: pointer;
+    height:40px;
+    padding: 0;
+}
+.found_pass{
+    display: block;
+    margin-right: 3px;
+    margin-bottom: 18px;
+    float: right;
+    color: #6aa2e4;
+    text-decoration: none;
+    font-size: 14px;
+}
+.p_content{
+    display: block;
+    text-align: left;
+    padding-left: 45px;
+}
+.p1{
+    text-align: left;
+}
+.reg_a{
+    color: #6aa2e4;
+    text-decoration: none;
+    font-size: 14px;
+}
+.div_bottom{
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    width: 350px;
+    padding: 57px 45px 6px 45px;
+}
+.login_way ul{
+    padding: 0;
+}
+.login_way li{
+    display: inline-block;
+    text-decoration: none;
+    margin: 14px 8px;
+}
+.login_way li a{
+    cursor: pointer;
+    font-size: 26px;
+    transition: color .4s;
+}
+.login_way li a:hover{
+    color: #6aa2e4;
+}

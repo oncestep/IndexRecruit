@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf</title>
+    <link rel="stylesheet" href="/css/test.css"/>
+    <script src="/js/vue.min.js"></script>
+</head>
+<body>
+<div id="test" >
+    <div v-for="item in items">
+        <div>
+            {{item.message}}
+        </div>
+    </div>
+</div>
+<script>
+    new Vue({
+        el:'#test',
+        data:{
+            items:[
+                {message:"test1"},
+                {message:'test2'}
+            ]
+        }
+    });
+</script>
+</body>
+</html>

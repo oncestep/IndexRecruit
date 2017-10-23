@@ -1,0 +1,139 @@
+.jot-tab-content .nav_item{
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    display: block;
+    padding: 10px 18px;
+    color: #999999;
+    font-size: 16px;
+}
+
+.jot-tab-content .nav_item.active , .jot-tab-content .nav_item:hover{
+    color: #6aa2e4;
+    border-bottom: 2px solid #6aa2e4;
+}
+.jot-tab-content .line{
+    width: 100%;
+    border-bottom: solid 1px #e6e6e6;
+    margin-right: 40px;
+}
+.no-margin-bottom{
+    margin-bottom: 0!important;
+    margin-left: -15px!important;
+}
+.job-summary-container .content{
+    padding-top: 15px ;
+}
+.job-list-container{
+
+}
+.job-summary-container{
+    margin-left: -42px;
+}
+.job-summary-container .col-lg-4{
+    padding: 0 10px!important;
+}
+.job-summary{
+    box-sizing: border-box;
+    position: relative;
+
+    height: 180px;
+    margin: 16px 0 0 0;
+    padding: 12px 12px 0;
+    border: solid 1px #EAEEED;
+}
+.summary-border{
+
+}
+.job-summary:hover {
+    box-shadow: 0 0 10px 0 rgba(56, 81, 76, .12);
+
+}
+
+.line-1{
+    color: #333;
+
+}
+.job-name{
+    font-size: 16px;
+    display: inline-block;
+    padding-left: 15px;
+    margin: 0;
+    color: #333;
+
+}
+.job-name a:hover{
+    cursor: pointer;
+    color: #6aa2e4 !important;
+}
+
+.job-salary{
+    font-size: 16px;
+    color: #fa6041;
+    padding-left: 0 !important;
+}
+.create-item{
+    color: #999;
+    font-size: 14px;
+}
+.lianxi{
+    margin-left: 5px;
+    color: #6aa2e4;
+    cursor: pointer;
+}
+.job-require{
+    padding-top: 6px;
+
+    display: inline-block;
+
+    margin: 0;
+    color: #999;
+}
+.job-tag-content{
+    padding-top: 6px;
+    font-size: 10px;
+    display: block;
+    height:30px;
+    line-height: 30px;
+    margin-left: -43px;
+    color: #777;
+}
+.job-tag{
+    display: inline-block;
+    width: 61px;
+    height: 26px;
+    padding: 0 5px;
+    font-size: 12px;
+    line-height: 26px;
+    color: #999;
+    border: 1px solid #F0F0F0;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: 6px;
+}
+.company {
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px dashed #E0E0E0;
+}
+.company img{
+    display: inline-block;
+}
+
+.company .company-right{
+    margin-left: 54px;
+    position: absolute;
+    display: inline-block;
+}
+.company .company-right .company-name a{
+    font-size: 14px;
+    color: #555555;
+
+}
+.company .company-right .company-name a:hover{
+    color: #6aa2e4;
+}
+.company .company-right .company-description{
+    font-size: 12px;
+    color: #999999;
+}
