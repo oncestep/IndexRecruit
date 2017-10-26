@@ -1,0 +1,77 @@
+<application>
+  <component name="LocalDatabaseDriverManager" version="163">
+    <driver id="h2.unified">
+      <artifact name="H2" use="true" />
+      <option name="auto-sync" value="true" />
+    </driver>
+    <driver id="azure.ms">
+      <artifact name="SQL Server" use="true" />
+      <option name="auto-sync" value="false" />
+    </driver>
+    <driver id="oracle">
+      <artifact name="Oracle" use="true" />
+      <option name="auto-sync" value="true" />
+      <option name="auto-commit" value="false" />
+    </driver>
+    <driver id="derby.embedded">
+      <artifact name="Apache Derby" use="true" />
+      <option name="auto-sync" value="true" />
+    </driver>
+    <driver id="sybase.jtds">
+      <artifact name="jTDS (SQL Server and Sybase)" use="true" />
+      <option name="auto-sync" value="true" />
+    </driver>
+    <driver id="sqlserver.jtds">
+      <artifact name="jTDS (SQL Server and Sybase)" use="true" />
+      <option name="auto-sync" value="true" />
+    </driver>
+    <driver id="hsqldb.local">
+      <artifact name="HSQLDB" use="true" />
+      <option name="auto-sync" value="true" />
+    </driver>
+    <driver id="derby.remote">
+      <artifact name="Apache Derby" use="true" />
+      <option name="auto-sync" value="true" />
+    </driver>
+    <driver id="sqlite.xerial">
+      <artifact name="Xerial SQLiteJDBC" use="true" />
+      <option name="auto-sync" value="true" />
+    </driver>
+    <driver id="sybase.ase">
+      <option name="auto-sync" value="true" />
+    </driver>
+    <driver id="postgresql">
+      <artifact name="PostgreSQL" use="true" />
+      <option name="auto-sync" value="true" />
+    </driver>
+    <driver id="redshift">
+      <artifact name="Redshift" use="true" />
+      <option name="auto-sync" value="true" />
+    </driver>
+    <driver id="db2">
+      <artifact name="DB2" use="true" />
+      <option name="auto-sync" value="false" />
+    </driver>
+    <driver id="sqlserver.ms">
+      <artifact name="SQL Server" use="true" />
+      <option name="auto-sync" value="true" />
+    </driver>
+    <driver id="db2.jtopen">
+      <artifact name="JTOpen (DB2 iSeries)" use="true" />
+      <option name="auto-sync" value="false" />
+    </driver>
+    <driver id="mysql">
+      <artifact name="MySQL Connector/J" use="true" version="5.1.40" />
+      <option name="auto-sync" value="true" />
+      <option name="auto-commit" value="true" />
+      <option name="send-app-info" value="true" />
+      <library>
+        <url>file://$USER_HOME$/Desktop/上课用工具/mysql-new.jar</url>
+      </library>
+    </driver>
+    <driver id="hsqldb.remote">
+      <artifact name="HSQLDB" use="true" />
+      <option name="auto-sync" value="true" />
+    </driver>
+  </component>
+</application>
