@@ -1,4 +1,4 @@
-package qdu.java.recruit.domain;
+package qdu.java.recruit.entity;
 
 import java.sql.Date;
 

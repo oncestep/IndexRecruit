@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import qdu.java.recruit.domain.Position;
-import qdu.java.recruit.domain.User;
-import qdu.java.recruit.service.RecServiceImpl;
+import qdu.java.recruit.entity.Position;
+import qdu.java.recruit.entity.User;
+import qdu.java.recruit.service.RecService;
 import qdu.java.recruit.util.PositionRec;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.HashMap;
 public class MainController {
 
     @Autowired
-    private RecServiceImpl recService;
+    private RecService recService;
 
     @RequestMapping("/")
     String home() {

@@ -37,7 +37,7 @@
             </exclusions>
         </dependency>
 
-        <!--使用log4j记录日志-->
+        <!--使用log4j2记录日志-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>

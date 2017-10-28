@@ -3,9 +3,9 @@ package qdu.java.recruit.util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
-import qdu.java.recruit.domain.*;
-import qdu.java.recruit.domain.Collection;
-import qdu.java.recruit.service.RecServiceImpl;
+import qdu.java.recruit.entity.*;
+import qdu.java.recruit.entity.Collection;
+import qdu.java.recruit.service.RecService;
 
 import java.util.*;
 
@@ -14,7 +14,7 @@ import java.util.*;
 public class PositionRec {
 
     @Autowired
-    private RecServiceImpl recService;
+    private RecService recService;
 
     // map          ->  存在ServletContext中所有职位当日PV数
     // user         ->  当前登录用户

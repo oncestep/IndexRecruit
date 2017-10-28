@@ -2,10 +2,10 @@ package qdu.java.recruit.util;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import qdu.java.recruit.domain.HR;
-import qdu.java.recruit.domain.Position;
-import qdu.java.recruit.domain.User;
-import qdu.java.recruit.service.RecServiceImpl;
+import qdu.java.recruit.entity.HR;
+import qdu.java.recruit.entity.Position;
+import qdu.java.recruit.entity.User;
+import qdu.java.recruit.service.RecService;
 
 import java.util.*;
 
@@ -14,7 +14,7 @@ import java.util.*;
 public class UserRec {
 
     @Autowired
-    private RecServiceImpl recService;
+    private RecService recService;
 
     //所有User列表
     ArrayList<User> listUserAll = recService.findUserAll();

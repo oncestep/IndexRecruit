@@ -2,7 +2,7 @@ package qdu.java.recruit.mapper;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
-import qdu.java.recruit.domain.Position;
+import qdu.java.recruit.entity.Position;
 
 import java.util.ArrayList;
 

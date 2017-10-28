@@ -1,17 +1,17 @@
 package qdu.java.recruit.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import qdu.java.recruit.domain.Comment;
-import qdu.java.recruit.domain.Position;
-import qdu.java.recruit.domain.User;
-import qdu.java.recruit.service.RecServiceImpl;
+import qdu.java.recruit.entity.Comment;
+import qdu.java.recruit.entity.Position;
+import qdu.java.recruit.entity.User;
+import qdu.java.recruit.service.RecService;
 
 import java.util.*;
 
 public class RecArithmetic {
 
     @Autowired
-    private RecServiceImpl recService;
+    private RecService recService;
 
     //所有Position列表
     ArrayList<Position> listPosAll = recService.findPosAll();
