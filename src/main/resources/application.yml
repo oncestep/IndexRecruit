@@ -44,3 +44,9 @@ spring:
       mode: LEGACYHTML5
       content-type: text/html
 
+mybatis:
+  #mapper.xml所在位置
+#  mapper-locations: classpath:mappers/*.xml
+  # 实体类所在包
+  type-aliases-package: qdu.java.recruit.entity
+

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public interface CommentMapper {
 
     @Select("select * from comment where userId = #{userId}")
-    ArrayList<Comment> queryComment(@Param("userId") int userId);
+    ArrayList<Comment> listCommentAll(@Param("userId") int userId);
 
     @Select("select * from comment where userId = #{userId} and positionId = #{posId}")
-    Comment queryMatch(@Param("userId") int userId, @Param("posId") int posId);
+    Comment listComment(@Param("userId") int userId, @Param("posId") int posId);
 }
