@@ -13,4 +13,7 @@ public interface UserMapper {
 
     @Select("select * from user where userId = #{userId}")
     User getUser(@Param("userId") int userId);
+
+    @Select("select COUNT(*) from user")
+    int getUserSize();
 }

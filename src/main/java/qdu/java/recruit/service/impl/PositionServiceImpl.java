@@ -9,7 +9,7 @@ import qdu.java.recruit.entity.Position;
 import qdu.java.recruit.entity.User;
 import qdu.java.recruit.mapper.PositionMapper;
 import qdu.java.recruit.service.PositionService;
-import qdu.java.recruit.utils.PositionRec;
+import qdu.java.recruit.util.RecPositionUtil;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class PositionServiceImpl implements PositionService {
             posMap.put(pos.getPositionId(),pos.getHits());
         }
 
-        PositionRec rec = new PositionRec();
+        RecPositionUtil rec = new RecPositionUtil();
 
         //返回推荐职位ArrayList
         recList = rec.recommend(posMap,user);

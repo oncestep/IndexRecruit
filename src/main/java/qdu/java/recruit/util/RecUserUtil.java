@@ -1,4 +1,4 @@
-package qdu.java.recruit.utils;
+package qdu.java.recruit.util;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ import java.util.*;
 
 //@Service
 //@EnableAutoConfiguration
-public class UserRec {
+public class RecUserUtil {
 
     @Autowired
     private ApplicationMapper applicationMapper;

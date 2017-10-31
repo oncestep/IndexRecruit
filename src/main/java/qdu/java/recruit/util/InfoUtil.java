@@ -1,4 +1,4 @@
-package qdu.java.recruit.utils;
+package qdu.java.recruit.util;
 
 import qdu.java.recruit.constant.GlobalConst;
 import qdu.java.recruit.entity.User;

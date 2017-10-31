@@ -16,5 +16,7 @@ public class GlobalConst {
     public static int MAX_PAGE = 100;
 
 
+    //用户数组最大长度
+    public static int MAX_ARRAY_SIZE = 100;
 
 }

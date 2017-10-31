@@ -11,8 +11,7 @@ public interface FavorMapper {
     @Select("select * from favor where userId = #{userId}")
     ArrayList<Favor> listFavor(@Param("userId") int userId);
 
-    //
-    @Select("select top 1 * from favor where userId = #{userId} and positionId = #{posId}")
+    @Select("select * from favor where userId = #{userId} and positionId = #{posId} limit 1")
     Favor getFavor(@Param("userId") int userId,@Param("posId") int posId);
 
     @Select("select positionId from favor where userId = #{userId} and positionId not in(select positionId from favor where userId = #{hostId})")
