@@ -14,6 +14,7 @@ public class Position {
     Date releaseDate;
     Date validDate;
     int state;
+    int hits;
     int categoryId;
     int departmentId;
     int hrId;
@@ -97,6 +98,10 @@ public class Position {
     public void setState(int state) {
         this.state = state;
     }
+
+    public int getHits() { return hits; }
+
+    public void setHits(int hits) { this.hits = hits; }
 
     public int getCategoryId() {
         return categoryId;

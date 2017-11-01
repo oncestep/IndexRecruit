@@ -1,17 +1,17 @@
 package qdu.java.recruit.entity;
 
-public class Collection {
+public class Favor {
 
-    int collectionId;
+    int favorId;
     int userId;
     int positionId;
 
-    public int getCollectionId() {
-        return collectionId;
+    public int getFavorId() {
+        return favorId;
     }
 
-    public void setCollectionId(int collectionId) {
-        this.collectionId = collectionId;
+    public void setFavorId(int favorId) {
+        this.favorId = favorId;
     }
 
     public int getUserId() {

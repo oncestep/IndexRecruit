@@ -9,8 +9,11 @@ import java.util.ArrayList;
 public interface UserMapper {
 
     @Select("select * from user")
-    ArrayList<User> queryUserAll();
+    ArrayList<User> listUser();
 
     @Select("select * from user where userId = #{userId}")
-    User queryUser(@Param("userId") int userId);
+    User getUser(@Param("userId") int userId);
+
+    @Select("select COUNT(*) from user")
+    int getUserSize();
 }

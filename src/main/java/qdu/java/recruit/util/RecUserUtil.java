@@ -5,19 +5,34 @@ import org.springframework.beans.factory.annotation.Autowired;
 import qdu.java.recruit.entity.HR;
 import qdu.java.recruit.entity.Position;
 import qdu.java.recruit.entity.User;
-import qdu.java.recruit.service.RecService;
+import qdu.java.recruit.mapper.*;
 
 import java.util.*;
 
 //@Service
 //@EnableAutoConfiguration
-public class UserRec {
+public class RecUserUtil {
 
     @Autowired
-    private RecService recService;
+    private ApplicationMapper applicationMapper;
+
+    @Autowired
+    private FavorMapper favorMapper;
+
+    @Autowired
+    private CommentMapper commentMapper;
+
+    @Autowired
+    private PositionMapper positionMapper;
+
+    @Autowired
+    private ResumeMapper resumeMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     //所有User列表
-    ArrayList<User> listUserAll = recService.findUserAll();
+    ArrayList<User> listUserAll = userMapper.listUser();
 
     //基于内容的推荐
     //当前HR
@@ -29,7 +44,7 @@ public class UserRec {
         //定义当前HR发布的职位列表，按发布日期降序排列
         ArrayList<Position> posList = new ArrayList<Position>();
 
-        posList = recService.findPosHR(hrId);
+        posList = positionMapper.listPosHR(hrId);
 
         //定义选中职位分类Id,工作城市
         int itemPosId = -1;
@@ -89,7 +104,7 @@ public class UserRec {
 
         for (Map.Entry<Integer,Integer> mapping:entryList
              ) {
-            userRecList.add(recService.findUser(mapping.getKey()));
+            userRecList.add(userMapper.getUser(mapping.getKey()));
         }
 
         return userRecList;

@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `recruit` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `recruit`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: recruit
@@ -66,31 +68,6 @@ LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
 INSERT INTO `category` VALUES (1,'IOS','IOS Development'),(2,'Android','Android Development'),(3,'Java','J2EE Development'),(4,'PHP','PHP Development'),(5,'Python','Python Development');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `collection`
---
-
-DROP TABLE IF EXISTS `collection`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `collection` (
-  `collectionId` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL,
-  `positionId` int(11) NOT NULL,
-  PRIMARY KEY (`collectionId`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `collection`
---
-
-LOCK TABLES `collection` WRITE;
-/*!40000 ALTER TABLE `collection` DISABLE KEYS */;
-INSERT INTO `collection` VALUES (1,1,1),(2,2,2),(3,3,3),(4,1,5),(5,1,3),(6,5,5),(7,3,4);
-/*!40000 ALTER TABLE `collection` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -174,6 +151,31 @@ INSERT INTO `department` VALUES (1,'Develop',NULL,1),(2,'Sales',NULL,1),(3,'Admi
 UNLOCK TABLES;
 
 --
+-- Table structure for table `favor`
+--
+
+DROP TABLE IF EXISTS `favor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `favor` (
+  `favorId` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL,
+  `positionId` int(11) NOT NULL,
+  PRIMARY KEY (`favorId`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `favor`
+--
+
+LOCK TABLES `favor` WRITE;
+/*!40000 ALTER TABLE `favor` DISABLE KEYS */;
+INSERT INTO `favor` VALUES (1,1,1),(2,2,2),(3,3,3),(4,1,5),(5,1,3),(6,5,5),(7,3,4);
+/*!40000 ALTER TABLE `favor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `hr`
 --
 
@@ -221,6 +223,7 @@ CREATE TABLE `position` (
   `releaseDate` date DEFAULT NULL,
   `validDate` date DEFAULT NULL,
   `state` int(11) DEFAULT NULL,
+  `hits` int(11) DEFAULT NULL,
   `categoryId` int(11) NOT NULL,
   `departmentId` int(11) NOT NULL,
   `hrId` int(11) NOT NULL,
@@ -234,7 +237,7 @@ CREATE TABLE `position` (
 
 LOCK TABLES `position` WRITE;
 /*!40000 ALTER TABLE `position` DISABLE KEYS */;
-INSERT INTO `position` VALUES (1,'IOS Developer','bachelor',5,'QD',10000,8000,NULL,NULL,0,1,1,1),(2,'Android Developer','bachelor',10,'QD',12000,8000,NULL,NULL,0,2,1,1),(3,'Java Developer','bachelor',5,'QD',15000,8000,NULL,NULL,0,3,1,1),(4,'PHP Developer','bachelor',5,'QD',12000,8000,NULL,NULL,0,4,1,1),(5,'Python Developer','bachelor',5,'BJ',12000,8000,NULL,NULL,0,5,1,1);
+INSERT INTO `position` VALUES (1,'IOS Developer','bachelor',5,'QD',10000,8000,NULL,NULL,0,NULL,1,1,1),(2,'Android Developer','bachelor',10,'QD',12000,8000,NULL,NULL,0,NULL,2,1,1),(3,'Java Developer','bachelor',5,'QD',15000,8000,NULL,NULL,0,NULL,3,1,1),(4,'PHP Developer','bachelor',5,'QD',12000,8000,NULL,NULL,0,NULL,4,1,1),(5,'Python Developer','bachelor',5,'BJ',12000,8000,NULL,NULL,0,NULL,5,1,1);
 /*!40000 ALTER TABLE `position` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -318,4 +321,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-26 13:01:34
+-- Dump completed on 2017-10-29 21:31:16

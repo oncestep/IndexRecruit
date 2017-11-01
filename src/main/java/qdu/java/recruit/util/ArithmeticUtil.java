@@ -1,30 +1,58 @@
 package qdu.java.recruit.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import qdu.java.recruit.constant.GlobalConst;
 import qdu.java.recruit.entity.Comment;
 import qdu.java.recruit.entity.Position;
 import qdu.java.recruit.entity.User;
-import qdu.java.recruit.service.RecService;
+import qdu.java.recruit.mapper.*;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.*;
 
-public class RecArithmetic {
+@Component
+public class ArithmeticUtil {
 
-    @Autowired
-    private RecService recService;
+    public static ArithmeticUtil ariConst;
 
-    //所有Position列表
-    ArrayList<Position> listPosAll = recService.findPosAll();
+    @PostConstruct
+    public void init() {
+        ariConst = this;
+    }
 
-    //所有User列表
-    ArrayList<User> listUserAll = recService.findUserAll();
+    @Resource
+    private ApplicationMapper applicationMapper;
 
+    @Resource
+    private FavorMapper favorMapper;
+
+    @Resource
+    private CommentMapper commentMapper;
+
+    @Resource
+    private PositionMapper positionMapper;
+
+    @Resource
+    private ResumeMapper resumeMapper;
+
+    @Resource
+    private UserMapper userMapper;
+
+    ArrayList<Position> listPosAll = new ArrayList<Position>();
+
+    ArrayList<User> listUserAll = new ArrayList<User>();
 
     //基于pv流行性推荐算法
     // map          ->  存在ServletContext中所有职位当日PV数
     // user         ->  当前用户
     // listPos      ->  所有职位 列表
-    public ArrayList<Position> popularityRec(HashMap<String, String> map, User user) {
+    public ArrayList<Position> popularityRec(HashMap<Integer, Integer> map, User user) {
+
+        //所有Position,所有用户
+        listPosAll = ariConst.positionMapper.listPosAll();
+        listUserAll = ariConst.userMapper.listUser();
 
         //职位推荐程度值
         double matchDegree = 0.0;
@@ -39,7 +67,7 @@ public class RecArithmetic {
         ArrayList<Position> listOrder = null;
 
         //所有职位列表
-        ArrayList<Position> listPosAll = recService.findPosAll();
+        ArrayList<Position> listPosAll = ariConst.positionMapper.listPosAll();
 
         for (Position pos : listPosAll) {
             //定义该职位当日pv数
@@ -50,8 +78,8 @@ public class RecArithmetic {
             Iterator iter = map.entrySet().iterator();
             while (iter.hasNext()) {
                 Map.Entry entry = (Map.Entry) iter.next();
-                String key = (String) entry.getKey();
-                if (key.equals(pos.getTitle())) {
+                int key = Integer.valueOf((String) entry.getKey());
+                if (key == pos.getPositionId()) {                            //getTitle -> getPositionId
                     pv = Integer.valueOf((String) entry.getValue());
                 }
             }
@@ -92,11 +120,9 @@ public class RecArithmetic {
     // user     ->  当前用户
     public ArrayList<Position> synergyUserRec(User user) {
 
-//        //所有Position列表
-//        ArrayList<Position> listPosAll = recService.findPosAll();
-//
-//        //所有User列表
-//        ArrayList<User> listUserAll = recService.findUserAll();
+        //所有Position,所有用户
+        listPosAll = ariConst.positionMapper.listPosAll();
+        listUserAll = ariConst.userMapper.listUser();
 
         //当前用户Id
         int userId = user.getUserId();
@@ -117,12 +143,13 @@ public class RecArithmetic {
         TreeMap<Double, Integer> simMap = new TreeMap<Double, Integer>(new Comparator<Double>() {
             @Override
             public int compare(Double o1, Double o2) {
-                if ((o2 - o1) < 0)
+                if ((o2 - o1) < 0) {
                     return -1;
-                else if (o2 == o1)
+                } else if ((o2 - o1) == 0) {
                     return 0;
-                else
+                } else {
                     return 1;
+                }
             }
         });
 
@@ -139,7 +166,7 @@ public class RecArithmetic {
         for (User u : listUserAll) {
             //矩阵元素填充，用户收藏该职位，则元素值为1，否则值为0
             for (Position p : listPosAll) {
-                if (recService.matchCollection(u.getUserId(), p.getPositionId()) == true) {
+                if (ariConst.favorMapper.getFavor(u.getUserId(), p.getPositionId()) != null) {
                     itemArray[count] = 1;
                 } else {
                     itemArray[count] = 0;
@@ -208,10 +235,10 @@ public class RecArithmetic {
             Map.Entry entry = (Map.Entry) iter.next();
             userId = (int) entry.getValue();
 
-            posIdList = recService.findElse(userId, hostId);
+            posIdList = ariConst.favorMapper.getQuery(userId, hostId);
 
             for (int posId : posIdList) {
-                recList.add(recService.findPosition(posId));
+                recList.add(ariConst.positionMapper.getPosition(posId));
             }
         }
 
@@ -223,20 +250,27 @@ public class RecArithmetic {
     //user  ->  当前用户
     public ArrayList<Position> synergyItemRec(User user) {
 
+        //所有Position,所有用户
+        listPosAll = ariConst.positionMapper.listPosAll();
+        listUserAll = ariConst.userMapper.listUser();
+
         //当前用户Id
         int userId = user.getUserId();
 
         //当前用户对应简历Id
-        int resumeId = recService.findResume(userId);
+        int resumeId = ariConst.resumeMapper.getResumeId(userId);
 
         //定义键为职业Id值，值为每个用户对该职业好感度的键值对图HashMap
         Map<Integer, int[]> favorMap = new HashMap<Integer, int[]>();
 
         //定义键为 职位Id，值为 当前用户对选定职位的好感度 的键值对图HashMap
-        TreeMap<Integer, Integer> defaultMap = new TreeMap<Integer, Integer>();
+        Map<Integer, Integer> defaultMap = new HashMap<Integer, Integer>();
+
+        //用户总数
+        int userSize = ariConst.userMapper.getUserSize();
 
         //定义好感度评分数组
-        int[] itemArray = null;
+        int[] itemArray = new int[userSize];
 
         //定义单个职位Id，单个用户Id,单个简历Id
         int posItemId;
@@ -249,29 +283,33 @@ public class RecArithmetic {
 
             for (int j = 0; j < listUserAll.size(); j++) {
                 userItemId = listUserAll.get(j).getUserId();
-                resumeItemId = recService.findResume(userItemId);
+                resumeItemId = ariConst.resumeMapper.getResumeId(userItemId);
 
-                if (recService.matchApplication(resumeItemId, posItemId))
+                if (ariConst.applicationMapper.getApplication(resumeItemId, posItemId) != null) {
                     itemArray[j] = 3;
-                else
+                } else {
                     itemArray[j] = 0;
+                }
 
-                if (recService.matchCollection(userItemId, posItemId))
+                if (ariConst.favorMapper.getFavor(userItemId, posItemId) != null) {
                     itemArray[j] += 3;
+                }
 
-                Comment com = recService.matchComment(userItemId, posItemId);
-                switch (com.getType()) {
-                    case 1:
-                        itemArray[j] += 1;
-                        break;
-                    case 2:
-                        itemArray[j] += 2;
-                        break;
-                    case 3:
-                        itemArray[j] += 3;
-                        break;
-                    default:
-                        break;
+                Comment com = ariConst.commentMapper.listComment(userItemId, posItemId);
+                if (com != null) {
+                    switch (com.getType()) {
+                        case 1:
+                            itemArray[j] += 1;
+                            break;
+                        case 2:
+                            itemArray[j] += 2;
+                            break;
+                        case 3:
+                            itemArray[j] += 3;
+                            break;
+                        default:
+                            break;
+                    }
                 }
 
                 if (userItemId == userId) {
@@ -279,9 +317,9 @@ public class RecArithmetic {
                     defaultMap.put(posItemId, itemArray[j]);
                 }
             }
-            favorMap.put(posItemId, itemArray);
 
-            itemArray = null;
+            favorMap.put(posItemId, itemArray);
+            itemArray = new int[userSize];
         }
 
         //构造当前用户好感度降序排列的职位ArrayList
@@ -317,8 +355,8 @@ public class RecArithmetic {
         int n = 0;
 
         //favorVector,itemVector元素和,均值,模的平方,模，向量积
-        int favorSum = 0;
-        int itemSum = 0;
+        double favorSum = 0;
+        double itemSum = 0;
         double favorAvg = 0;
         double itemAvg = 0;
         double favorMod = 0;
@@ -327,8 +365,9 @@ public class RecArithmetic {
         double itemModSqrt = 0;
         double vectorProduct = 0;
 
-        for (int i = 0; i < favorVector.length; i++)
+        for (int i = 0; i < favorVector.length; i++) {
             favorSum += favorVector[i];
+        }
         favorAvg = favorSum / favorVector.length;
 
         for (int j = 0; j < favorVector.length; j++) {
@@ -350,8 +389,9 @@ public class RecArithmetic {
             Map.Entry entry = (Map.Entry) iter.next();
             itemVector = (int[]) entry.getValue();
 
-            for (m = 0; m < itemVector.length; m++)
+            for (m = 0; m < itemVector.length; m++) {
                 itemSum += itemVector[m];
+            }
             itemAvg = itemSum / itemVector.length;
 
             for (n = 0; n < itemVector.length; n++) {
@@ -382,8 +422,8 @@ public class RecArithmetic {
                 ) {
 
             //将没有应聘过的职位加入推荐列表
-            if(!recService.matchApplication(resumeId,mapping.getKey())){
-                similarPosList.add(recService.findPosition(mapping.getKey()));
+            if (ariConst.applicationMapper.getApplication(resumeId, mapping.getKey()) == null) {
+                similarPosList.add(ariConst.positionMapper.getPosition(mapping.getKey()));
             }
         }
 
