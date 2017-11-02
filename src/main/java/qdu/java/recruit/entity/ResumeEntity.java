@@ -1,14 +1,14 @@
 package qdu.java.recruit.entity;
 
-public class Resume {
+public class ResumeEntity {
 
-    int resumeId;
-    String ability;
-    String internship;
-    String workExperience;
-    String certificate;
-    String jobDesire;
-    int userId;
+    private int resumeId;
+    private String ability;
+    private String internship;
+    private String workExperience;
+    private String certificate;
+    private String jobDesire;
+    private int userId;
 
     public int getResumeId() {
         return resumeId;

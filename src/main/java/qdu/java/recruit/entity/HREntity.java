@@ -1,14 +1,14 @@
 package qdu.java.recruit.entity;
 
-public class HR {
+public class HREntity {
 
-    int hrId;
-    String hrMobile;
-    String hrPassword;
-    String hrName;
-    String hrEmail;
-    String description;
-    int departmentId;
+    private int hrId;
+    private String hrMobile;
+    private String hrPassword;
+    private String hrName;
+    private String hrEmail;
+    private String description;
+    private int departmentId;
 
     public int getHrId() {
         return hrId;

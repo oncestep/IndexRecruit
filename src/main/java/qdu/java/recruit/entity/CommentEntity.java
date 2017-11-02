@@ -1,12 +1,15 @@
 package qdu.java.recruit.entity;
 
-public class Comment {
+import java.sql.Timestamp;
 
-    int commentId;
-    int type;
-    String content;
-    int userId;
-    int positionId;
+public class CommentEntity {
+
+    private int commentId;
+    private int type;
+    private String content;
+    private Timestamp releaseTime;
+    private int userId;
+    private int positionId;
 
     public int getCommentId() {
         return commentId;
@@ -32,6 +35,14 @@ public class Comment {
         this.content = content;
     }
 
+    public Timestamp getReleaseTime() {
+        return releaseTime;
+    }
+
+    public void setReleaseTime(Timestamp releaseTime) {
+        this.releaseTime = releaseTime;
+    }
+
     public int getUserId() {
         return userId;
     }
@@ -47,4 +58,6 @@ public class Comment {
     public void setPositionId(int positionId) {
         this.positionId = positionId;
     }
+
+
 }

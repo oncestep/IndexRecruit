@@ -54,9 +54,10 @@ DROP TABLE IF EXISTS `category`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `category` (
   `categoryId` int(11) NOT NULL AUTO_INCREMENT,
-  `categoryName` varchar(50) DEFAULT NULL,
+  `categoryName` varchar(50) NOT NULL,
   `description` longtext,
-  PRIMARY KEY (`categoryId`)
+  PRIMARY KEY (`categoryId`),
+  UNIQUE KEY `categoryName_UNIQUE` (`categoryName`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -81,6 +82,7 @@ CREATE TABLE `comment` (
   `commentId` int(11) NOT NULL AUTO_INCREMENT,
   `type` int(11) DEFAULT NULL,
   `content` longtext,
+  `releaseTime` datetime DEFAULT NULL,
   `userId` int(11) NOT NULL,
   `positionId` int(11) NOT NULL,
   PRIMARY KEY (`commentId`)
@@ -93,7 +95,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,1,NULL,1,1),(2,3,NULL,2,1),(3,2,NULL,3,1),(4,3,NULL,5,5),(5,2,NULL,4,4),(6,2,NULL,3,2);
+INSERT INTO `comment` VALUES (1,1,NULL,NULL,1,1),(2,3,NULL,NULL,2,1),(3,2,NULL,NULL,3,1),(4,3,NULL,NULL,5,5),(5,2,NULL,NULL,4,4),(6,2,NULL,NULL,3,2);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,7 +225,7 @@ CREATE TABLE `position` (
   `releaseDate` date DEFAULT NULL,
   `validDate` date DEFAULT NULL,
   `state` int(11) DEFAULT NULL,
-  `hits` int(11) DEFAULT NULL,
+  `hits` int(11) DEFAULT '0',
   `categoryId` int(11) NOT NULL,
   `departmentId` int(11) NOT NULL,
   `hrId` int(11) NOT NULL,
@@ -237,7 +239,7 @@ CREATE TABLE `position` (
 
 LOCK TABLES `position` WRITE;
 /*!40000 ALTER TABLE `position` DISABLE KEYS */;
-INSERT INTO `position` VALUES (1,'IOS Developer','bachelor',5,'QD',10000,8000,NULL,NULL,0,NULL,1,1,1),(2,'Android Developer','bachelor',10,'QD',12000,8000,NULL,NULL,0,NULL,2,1,1),(3,'Java Developer','bachelor',5,'QD',15000,8000,NULL,NULL,0,NULL,3,1,1),(4,'PHP Developer','bachelor',5,'QD',12000,8000,NULL,NULL,0,NULL,4,1,1),(5,'Python Developer','bachelor',5,'BJ',12000,8000,NULL,NULL,0,NULL,5,1,1);
+INSERT INTO `position` VALUES (1,'IOS Developer','bachelor',5,'QD',10000,8000,NULL,NULL,1,8,1,1,1),(2,'Android Developer','bachelor',10,'QD',12000,8000,NULL,NULL,1,0,2,1,1),(3,'Java Developer','bachelor',5,'QD',15000,8000,NULL,NULL,1,0,3,1,1),(4,'PHP Developer','bachelor',5,'QD',12000,8000,NULL,NULL,1,0,4,1,1),(5,'Python Developer','bachelor',5,'BJ',12000,8000,NULL,NULL,1,0,5,1,1);
 /*!40000 ALTER TABLE `position` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -321,4 +323,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-29 21:31:16
+-- Dump completed on 2017-11-03  0:36:25

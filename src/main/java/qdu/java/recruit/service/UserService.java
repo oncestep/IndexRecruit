@@ -1,8 +1,8 @@
 package qdu.java.recruit.service;
 
-import qdu.java.recruit.entity.User;
+import qdu.java.recruit.entity.UserEntity;
 
 public interface UserService {
 
-    User getUser(int userId);
+    UserEntity getUser(int userId);
 }

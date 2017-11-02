@@ -1,10 +1,10 @@
 package qdu.java.recruit.entity;
 
-public class Favor {
+public class FavorEntity {
 
-    int favorId;
-    int userId;
-    int positionId;
+    private int favorId;
+    private int userId;
+    private int positionId;
 
     public int getFavorId() {
         return favorId;

@@ -2,13 +2,13 @@ package qdu.java.recruit.entity;
 
 import java.sql.Date;
 
-public class Application {
-    int applicationId;
-    int applicationState;
-    Date recentDate;
-    int resumeId;
-    int positionId;
-    int hrId;
+public class ApplicationEntity {
+    private int applicationId;
+    private int applicationState;
+    private Date recentDate;
+    private int resumeId;
+    private int positionId;
+    private int hrId;
 
     public int getApplicationId() {
         return applicationId;

@@ -1,7 +1,7 @@
 package qdu.java.recruit.controller;
 
 import qdu.java.recruit.constant.GlobalConst;
-import qdu.java.recruit.entity.User;
+import qdu.java.recruit.entity.UserEntity;
 import qdu.java.recruit.util.InfoUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 public class BaseController {
 
     //返回错误页面
-//    public String direct_404(){ return "general/404"; }
+    public String errorDirect_404(){ return "general/404"; }
 
     //指向用户表现层
     public String userDirect(String viewName) {
@@ -27,7 +27,7 @@ public class BaseController {
     }
 
     //获取绑定登录对象
-    public User getUser(HttpServletRequest request) {
+    public UserEntity getUser(HttpServletRequest request) {
         return InfoUtil.getLoginUser(request);
     }
 

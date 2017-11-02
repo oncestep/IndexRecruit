@@ -1,17 +1,17 @@
 package qdu.java.recruit.entity;
 
-public class User {
+public class UserEntity {
 
-    int userId;
-    String mobile;
-    String password;
-    String name;
-    String nickname;
-    String email;
-    String city;
-    String eduDegree;
-    String graduation;
-    int dirDesire;
+    private int userId;
+    private String mobile;
+    private String password;
+    private String name;
+    private String nickname;
+    private String email;
+    private String city;
+    private String eduDegree;
+    private String graduation;
+    private int dirDesire;
 
     public String getMobile() { return mobile; }
 

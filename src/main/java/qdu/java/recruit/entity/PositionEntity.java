@@ -2,22 +2,22 @@ package qdu.java.recruit.entity;
 
 import java.sql.Date;
 
-public class Position {
+public class PositionEntity {
 
-    int positionId;
-    String title;
-    String requirement;
-    int quantity;
-    String workCity;
-    int salaryUp;
-    int salaryDown;
-    Date releaseDate;
-    Date validDate;
-    int state;
-    int hits;
-    int categoryId;
-    int departmentId;
-    int hrId;
+    private int positionId;
+    private String title;
+    private String requirement;
+    private int quantity;
+    private String workCity;
+    private int salaryUp;
+    private int salaryDown;
+    private Date releaseDate;
+    private Date validDate;
+    private int state;
+    private int hits;
+    private int categoryId;
+    private int departmentId;
+    private int hrId;
 
     public int getPositionId() {
         return positionId;

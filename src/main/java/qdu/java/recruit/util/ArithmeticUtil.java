@@ -1,11 +1,9 @@
 package qdu.java.recruit.util;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import qdu.java.recruit.constant.GlobalConst;
-import qdu.java.recruit.entity.Comment;
-import qdu.java.recruit.entity.Position;
-import qdu.java.recruit.entity.User;
+import qdu.java.recruit.entity.CommentEntity;
+import qdu.java.recruit.entity.PositionEntity;
+import qdu.java.recruit.entity.UserEntity;
 import qdu.java.recruit.mapper.*;
 
 import javax.annotation.PostConstruct;
@@ -40,15 +38,15 @@ public class ArithmeticUtil {
     @Resource
     private UserMapper userMapper;
 
-    ArrayList<Position> listPosAll = new ArrayList<Position>();
+    ArrayList<PositionEntity> listPosAll = new ArrayList<PositionEntity>();
 
-    ArrayList<User> listUserAll = new ArrayList<User>();
+    ArrayList<UserEntity> listUserAll = new ArrayList<UserEntity>();
 
     //基于pv流行性推荐算法
     // map          ->  存在ServletContext中所有职位当日PV数
     // user         ->  当前用户
     // listPos      ->  所有职位 列表
-    public ArrayList<Position> popularityRec(HashMap<Integer, Integer> map, User user) {
+    public ArrayList<PositionEntity> popularityRec(HashMap<Integer, Integer> map, UserEntity user) {
 
         //所有Position,所有用户
         listPosAll = ariConst.positionMapper.listPosAll();
@@ -63,13 +61,13 @@ public class ArithmeticUtil {
         double pvRate = 1;
 
         //有序TreeMap及ArrayList
-        TreeMap<Double, Position> mapOrder = null;
-        ArrayList<Position> listOrder = null;
+        TreeMap<Double, PositionEntity> mapOrder = null;
+        ArrayList<PositionEntity> listOrder = null;
 
         //所有职位列表
-        ArrayList<Position> listPosAll = ariConst.positionMapper.listPosAll();
+        ArrayList<PositionEntity> listPosAll = ariConst.positionMapper.listPosAll();
 
-        for (Position pos : listPosAll) {
+        for (PositionEntity pos : listPosAll) {
             //定义该职位当日pv数
             int pv = 0;
 
@@ -105,7 +103,7 @@ public class ArithmeticUtil {
         Iterator iter = mapOrder.entrySet().iterator();
         while (iter.hasNext()) {
             Map.Entry entry = (Map.Entry) iter.next();
-            listOrder.add((Position) entry.getValue());
+            listOrder.add((PositionEntity) entry.getValue());
         }
 
         return listOrder;
@@ -118,7 +116,7 @@ public class ArithmeticUtil {
     //    查询N用户收藏，而当前用户未收藏的X个记录
 
     // user     ->  当前用户
-    public ArrayList<Position> synergyUserRec(User user) {
+    public ArrayList<PositionEntity> synergyUserRec(UserEntity user) {
 
         //所有Position,所有用户
         listPosAll = ariConst.positionMapper.listPosAll();
@@ -163,9 +161,9 @@ public class ArithmeticUtil {
         int itemKey = -1;
 
         int count = 0;
-        for (User u : listUserAll) {
+        for (UserEntity u : listUserAll) {
             //矩阵元素填充，用户收藏该职位，则元素值为1，否则值为0
-            for (Position p : listPosAll) {
+            for (PositionEntity p : listPosAll) {
                 if (ariConst.favorMapper.getFavor(u.getUserId(), p.getPositionId()) != null) {
                     itemArray[count] = 1;
                 } else {
@@ -218,7 +216,7 @@ public class ArithmeticUtil {
         return this.recordRec(userId, simMap);
     }
 
-    public ArrayList<Position> recordRec(int hostId, TreeMap<Double, Integer> map) {
+    public ArrayList<PositionEntity> recordRec(int hostId, TreeMap<Double, Integer> map) {
 
         //选中用户Id值
         int userId = -1;
@@ -227,7 +225,7 @@ public class ArithmeticUtil {
         ArrayList<Integer> posIdList = null;
 
         //推荐职位 队列
-        ArrayList<Position> recList = null;
+        ArrayList<PositionEntity> recList = null;
 
         Iterator iter = map.entrySet().iterator();
 
@@ -248,7 +246,7 @@ public class ArithmeticUtil {
 
     //基于职位协同过滤算法
     //user  ->  当前用户
-    public ArrayList<Position> synergyItemRec(User user) {
+    public ArrayList<PositionEntity> synergyItemRec(UserEntity user) {
 
         //所有Position,所有用户
         listPosAll = ariConst.positionMapper.listPosAll();
@@ -295,7 +293,7 @@ public class ArithmeticUtil {
                     itemArray[j] += 3;
                 }
 
-                Comment com = ariConst.commentMapper.listComment(userItemId, posItemId);
+                CommentEntity com = ariConst.commentMapper.listComment(userItemId, posItemId);
                 if (com != null) {
                     switch (com.getType()) {
                         case 1:
@@ -409,7 +407,7 @@ public class ArithmeticUtil {
         List<Map.Entry<Integer, Double>> similarEntryList = new ArrayList<Map.Entry<Integer, Double>>(similarMap.entrySet());
 
         //按与选中职业相似度皮尔逊系数降序排序 的元素为职位 的ArrayList
-        ArrayList<Position> similarPosList = new ArrayList<Position>();
+        ArrayList<PositionEntity> similarPosList = new ArrayList<PositionEntity>();
 
         Collections.sort(similarEntryList, new Comparator<Map.Entry<Integer, Double>>() {
             @Override
