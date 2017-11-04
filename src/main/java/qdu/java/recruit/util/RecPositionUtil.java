@@ -46,7 +46,11 @@ public class RecPositionUtil {
     public ArrayList<PositionEntity> recommend(HashMap<Integer, Integer> map, UserEntity user) {
 
         int userId = user.getUserId();
-        int resumeId = posConst.resumeMapper.getResumeId(userId);
+        int resumeId = 0;
+
+        if(posConst.resumeMapper.getResumeById(userId)!= null){
+            resumeId = posConst.resumeMapper.getResumeId(userId);
+        }
 
         //应聘记录
         ArrayList<ApplicationEntity> listPos = posConst.applicationMapper.listApplication(resumeId);

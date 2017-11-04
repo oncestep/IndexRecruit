@@ -9,8 +9,7 @@ import qdu.java.recruit.mapper.*;
 
 import java.util.*;
 
-//@Service
-//@EnableAutoConfiguration
+
 public class RecUserUtil {
 
     @Autowired

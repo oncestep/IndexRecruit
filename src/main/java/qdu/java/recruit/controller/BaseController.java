@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 public class BaseController {
 
     //返回错误页面
-    public String errorDirect_404(){ return "general/404"; }
+    public String errorDirect_404(){ return "general/error_404"; }
 
     //指向用户表现层
     public String userDirect(String viewName) {

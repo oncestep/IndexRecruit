@@ -76,8 +76,7 @@ public class IndexController extends BaseController {
     @ApiImplicitParam(name = "page", value = "推荐职位分页", dataType = "Integer")
     public String index(HttpServletRequest request, @PathVariable int page, @RequestParam(value = "limit", defaultValue = "12") int limit) {
         //测试用户
-        UserEntity user = new UserEntity();
-        user = userService.getUser(1);
+        UserEntity user = userService.getUser(6);
 
         //推荐职位列表
         page = (page < 1 || page > GlobalConst.MAX_PAGE) ? 1 : page;
@@ -206,11 +205,13 @@ public class IndexController extends BaseController {
      * @param id
      * @return
      */
-    @PostMapping(value = "position/{id}/apply")
+    @GetMapping(value = "apply/{id}")
     public String apply(HttpServletRequest request, @PathVariable int id) {
 
         //当前用户
         UserEntity user = this.getUser(request);
+//        UserEntity user = userService.getUser(1);
+
         //当前用户简历
         ResumeEntity resume = resumeService.getResumeById(user.getUserId());
         //当前浏览职位
@@ -239,11 +240,12 @@ public class IndexController extends BaseController {
      * @param content
      * @return
      */
-    @PostMapping(value = "position/{id}/comment")
+    @PostMapping(value = "comment/{id}")
     public String comment(HttpServletRequest request, @PathVariable int id,
                           @RequestParam int type, @RequestParam String content) {
         //当前用户
-        UserEntity user = this.getUser(request);
+//        UserEntity user = this.getUser(request);
+        UserEntity user = userService.getUser(5);
 
         if (user == null) {
             this.errorDirect_404();
@@ -267,7 +269,8 @@ public class IndexController extends BaseController {
     public String showInfo(HttpServletRequest request) {
 
         //用户个人信息
-        UserEntity user = this.getUser(request);
+//        UserEntity user = this.getUser(request);
+        UserEntity user = userService.getUser(5);
         if (user == null) {
             this.errorDirect_404();
         }

@@ -71,7 +71,7 @@ public class PositionServiceImpl implements PositionService {
 
         PageHelper.startPage(page, limit);
 
-        List<PositionEntity> searchList = positionMapper.listSearchPos(keyword);
+        List<PositionEntity> searchList = positionMapper.listSearchPos("%"+keyword+"%");
 
         return new PageInfo<>(searchList);
     }

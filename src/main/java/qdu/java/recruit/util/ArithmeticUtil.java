@@ -61,11 +61,8 @@ public class ArithmeticUtil {
         double pvRate = 1;
 
         //有序TreeMap及ArrayList
-        TreeMap<Double, PositionEntity> mapOrder = null;
-        ArrayList<PositionEntity> listOrder = null;
-
-        //所有职位列表
-        ArrayList<PositionEntity> listPosAll = ariConst.positionMapper.listPosAll();
+        HashMap<Integer, Double> mapOrder = new HashMap<>();
+        ArrayList<PositionEntity> listOrder = new ArrayList<>();
 
         for (PositionEntity pos : listPosAll) {
             //定义该职位当日pv数
@@ -76,9 +73,9 @@ public class ArithmeticUtil {
             Iterator iter = map.entrySet().iterator();
             while (iter.hasNext()) {
                 Map.Entry entry = (Map.Entry) iter.next();
-                int key = Integer.valueOf((String) entry.getKey());
+                int key = (Integer) entry.getKey();
                 if (key == pos.getPositionId()) {                            //getTitle -> getPositionId
-                    pv = Integer.valueOf((String) entry.getValue());
+                    pv = (Integer) entry.getValue();
                 }
             }
 
@@ -97,13 +94,21 @@ public class ArithmeticUtil {
                 }
             }
 
-            mapOrder.put(matchDegree, pos);
+            mapOrder.put(pos.getPositionId(), matchDegree);
         }
 
-        Iterator iter = mapOrder.entrySet().iterator();
-        while (iter.hasNext()) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            listOrder.add((PositionEntity) entry.getValue());
+        //将mapOrder按照value值(pv数)降序排序
+        List<Map.Entry<Integer, Double>> compareList = new ArrayList<>(mapOrder.entrySet());
+        Collections.sort(compareList, new Comparator<Map.Entry<Integer, Double>>() {
+            @Override
+            public int compare(Map.Entry<Integer, Double> o1, Map.Entry<Integer, Double> o2) {
+                return o2.getValue().compareTo(o1.getValue());
+            }
+        });
+
+        for (Map.Entry<Integer,Double> mapping:compareList
+             ) {
+            listOrder.add(ariConst.positionMapper.getPosition(mapping.getKey()));
         }
 
         return listOrder;
