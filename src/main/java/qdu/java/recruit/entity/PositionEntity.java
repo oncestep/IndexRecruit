@@ -13,11 +13,11 @@ public class PositionEntity {
     private int salaryDown;
     private Date releaseDate;
     private Date validDate;
-    private int state;
+    private int statePub;
     private int hits;
     private int categoryId;
     private int departmentId;
-    private int hrId;
+    private int hrIdPub;
 
     public int getPositionId() {
         return positionId;
@@ -91,12 +91,12 @@ public class PositionEntity {
         this.validDate = validDate;
     }
 
-    public int getState() {
-        return state;
+    public int getStatePub() {
+        return statePub;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setStatePub(int statePub) {
+        this.statePub = statePub;
     }
 
     public int getHits() { return hits; }
@@ -119,11 +119,11 @@ public class PositionEntity {
         this.departmentId = departmentId;
     }
 
-    public int getHrId() {
-        return hrId;
+    public int getHrIdPub() {
+        return hrIdPub;
     }
 
-    public void setHrId(int hrId) {
-        this.hrId = hrId;
+    public void setHrIdPub(int hrIdPub) {
+        this.hrIdPub = hrIdPub;
     }
 }

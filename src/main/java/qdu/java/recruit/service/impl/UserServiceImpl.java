@@ -23,4 +23,14 @@ public class UserServiceImpl implements UserService{
         user = userMapper.getUser(1);
         return user;
     }
+
+    @Override
+    public boolean updateUser(UserEntity userEntity){
+
+        int result = userMapper.saveUser(userEntity);
+        if(result > 0){
+            return true;
+        }
+        return false;
+    }
 }

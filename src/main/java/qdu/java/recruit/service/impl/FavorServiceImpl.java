@@ -1,0 +1,24 @@
+package qdu.java.recruit.service.impl;
+
+import org.springframework.stereotype.Service;
+import qdu.java.recruit.mapper.FavorMapper;
+import qdu.java.recruit.pojo.FavorPositionBO;
+import qdu.java.recruit.service.FavorService;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+@Service
+public class FavorServiceImpl implements FavorService {
+
+    @Resource
+    private FavorMapper favorMapper;
+
+    @Override
+    public List<FavorPositionBO> listFavorPosition(int userId){
+
+        return favorMapper.listFavorPosition(userId);
+    }
+
+
+}

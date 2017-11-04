@@ -27,10 +27,10 @@ DROP TABLE IF EXISTS `application`;
 CREATE TABLE `application` (
   `applicationId` int(11) NOT NULL AUTO_INCREMENT,
   `state` int(11) DEFAULT NULL,
-  `recentDate` date DEFAULT NULL,
+  `recentTime` datetime DEFAULT NULL,
   `resumeId` int(11) NOT NULL,
   `positionId` int(11) NOT NULL,
-  `hrId` int(11) NOT NULL,
+  `hrId` int(11) DEFAULT NULL,
   PRIMARY KEY (`applicationId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -224,11 +224,11 @@ CREATE TABLE `position` (
   `salaryDown` int(11) DEFAULT NULL,
   `releaseDate` date DEFAULT NULL,
   `validDate` date DEFAULT NULL,
-  `state` int(11) DEFAULT NULL,
+  `statePub` int(11) DEFAULT NULL,
   `hits` int(11) DEFAULT '0',
   `categoryId` int(11) NOT NULL,
   `departmentId` int(11) NOT NULL,
-  `hrId` int(11) NOT NULL,
+  `hrIdPub` int(11) NOT NULL,
   PRIMARY KEY (`positionId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -239,7 +239,7 @@ CREATE TABLE `position` (
 
 LOCK TABLES `position` WRITE;
 /*!40000 ALTER TABLE `position` DISABLE KEYS */;
-INSERT INTO `position` VALUES (1,'IOS Developer','bachelor',5,'QD',10000,8000,NULL,NULL,1,8,1,1,1),(2,'Android Developer','bachelor',10,'QD',12000,8000,NULL,NULL,1,0,2,1,1),(3,'Java Developer','bachelor',5,'QD',15000,8000,NULL,NULL,1,0,3,1,1),(4,'PHP Developer','bachelor',5,'QD',12000,8000,NULL,NULL,1,0,4,1,1),(5,'Python Developer','bachelor',5,'BJ',12000,8000,NULL,NULL,1,0,5,1,1);
+INSERT INTO `position` VALUES (1,'IOS Developer','bachelor',5,'QD',10000,8000,NULL,NULL,1,10,1,1,1),(2,'Android Developer','bachelor',10,'QD',12000,8000,NULL,NULL,1,0,2,1,1),(3,'Java Developer','bachelor',5,'QD',15000,8000,NULL,NULL,1,0,3,1,1),(4,'PHP Developer','bachelor',5,'QD',12000,8000,NULL,NULL,1,0,4,1,1),(5,'Python Developer','bachelor',5,'BJ',12000,8000,NULL,NULL,1,0,5,1,1);
 /*!40000 ALTER TABLE `position` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,4 +323,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-03  0:36:25
+-- Dump completed on 2017-11-04 11:01:35

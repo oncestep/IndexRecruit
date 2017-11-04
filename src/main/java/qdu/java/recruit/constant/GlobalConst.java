@@ -10,7 +10,7 @@ public class GlobalConst {
     public static String ADMIN_PATH = "/admin";
 
     //登录用户Session Key
-    public static String LOGIN_SESSION_KEY = "login_user";
+    public static String LOGIN_SESSION_KEY = "user";
 
     //主页最大显示职位页数
     public static int MAX_PAGE = 100;

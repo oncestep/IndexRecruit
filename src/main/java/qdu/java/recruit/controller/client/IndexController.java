@@ -3,27 +3,26 @@ package qdu.java.recruit.controller.client;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 import qdu.java.recruit.constant.GlobalConst;
 import qdu.java.recruit.controller.BaseController;
 import qdu.java.recruit.entity.*;
+import qdu.java.recruit.pojo.ApplicationPositionHRBO;
+import qdu.java.recruit.pojo.FavorPositionBO;
 import qdu.java.recruit.pojo.UserCommentBO;
 import qdu.java.recruit.service.*;
+import qdu.java.recruit.service.FavorService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
+import java.util.Enumeration;
+import java.util.List;
+
 
 @Controller
 @EnableAutoConfiguration
@@ -48,6 +47,15 @@ public class IndexController extends BaseController {
 
     @Resource
     private CompanyService companyService;
+
+    @Resource
+    private ResumeService resumeService;
+
+    @Resource
+    private ApplicationService applicationService;
+
+    @Resource
+    private FavorService favorService;
 
     /**
      * 主页输出用户个人信息,推荐职位信息
@@ -116,6 +124,7 @@ public class IndexController extends BaseController {
 
     /**
      * 分类职位列表页
+     *
      * @param request
      * @param id
      * @param limit
@@ -146,19 +155,22 @@ public class IndexController extends BaseController {
 
     /**
      * 职位细节页
+     *
      * @param request
      * @param id
      * @param limit
      * @return
      */
     @GetMapping(value = "position/{id}")
-    public String getPosition(HttpServletRequest request, @PathVariable int id,@RequestParam(value = "limit", defaultValue = "12") int limit) {
+    public String getPosition(HttpServletRequest request, @PathVariable int id,
+                              @RequestParam(value = "limit", defaultValue = "12") int limit) {
 
-        return getPosition(request,id,1,limit);
+        return getPosition(request, id, 1, limit);
     }
 
     @GetMapping(value = "position/{id}/{page}")
-    public String getPosition(HttpServletRequest request, @PathVariable int id, @PathVariable int page, @RequestParam(value = "limit", defaultValue = "12") int limit){
+    public String getPosition(HttpServletRequest request, @PathVariable int id, @PathVariable int page,
+                              @RequestParam(value = "limit", defaultValue = "12") int limit) {
 
         PositionEntity position = positionService.getPositionById(id);
         if (position == null) {
@@ -174,13 +186,13 @@ public class IndexController extends BaseController {
         //分页评论信息
         PageInfo<UserCommentBO> comList = commentService.listComment(id, page, limit);
 
-        request.setAttribute("position",position);
-        request.setAttribute("department",department);
-        request.setAttribute("company",company);
-        request.setAttribute("category",category);
-        request.setAttribute("comList",comList);
-        this.title(request,"职位信息");
-        if (!positionService.updateHits(id)){
+        request.setAttribute("position", position);
+        request.setAttribute("department", department);
+        request.setAttribute("company", company);
+        request.setAttribute("category", category);
+        request.setAttribute("comList", comList);
+        this.title(request, "职位信息");
+        if (!positionService.updateHits(id)) {
             this.errorDirect_404();
         }
 
@@ -188,11 +200,187 @@ public class IndexController extends BaseController {
     }
 
 
+    /**
+     * 用户申请职位
+     *
+     * @param id
+     * @return
+     */
+    @PostMapping(value = "position/{id}/apply")
+    public String apply(HttpServletRequest request, @PathVariable int id) {
+
+        //当前用户
+        UserEntity user = this.getUser(request);
+        //当前用户简历
+        ResumeEntity resume = resumeService.getResumeById(user.getUserId());
+        //当前浏览职位
+        PositionEntity position = positionService.getPositionById(id);
+
+        //获取当前日期时间
+        java.util.Date utilDate = new java.util.Date();
+        java.sql.Date recentDate = new java.sql.Date(utilDate.getTime());
+
+        if (user == null) {
+            this.errorDirect_404();
+        }
+
+        boolean result = applicationService.applyPosition(resume.getResumeId(), position.getPositionId());
+        if (!result) {
+            this.errorDirect_404();
+        }
+        return this.userDirect("apply_success");
+    }
+
+    /**
+     * 用户评论职位
+     *
+     * @param id
+     * @param type
+     * @param content
+     * @return
+     */
+    @PostMapping(value = "position/{id}/comment")
+    public String comment(HttpServletRequest request, @PathVariable int id,
+                          @RequestParam int type, @RequestParam String content) {
+        //当前用户
+        UserEntity user = this.getUser(request);
+
+        if (user == null) {
+            this.errorDirect_404();
+        }
+
+        boolean result = commentService.commentPosition(type, content, user.getUserId(), id);
+        if (!result) {
+            this.errorDirect_404();
+        }
+        return "redirect:/position/" + id;
+    }
 
 
+    /**
+     * 用户个人中心
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping(value = "user")
+    public String showInfo(HttpServletRequest request) {
+
+        //用户个人信息
+        UserEntity user = this.getUser(request);
+        if (user == null) {
+            this.errorDirect_404();
+        }
+
+        //个人简历信息
+        ResumeEntity resume = resumeService.getResumeById(user.getUserId());
+        //个人收藏职位
+        List<FavorPositionBO> favorPosList = favorService.listFavorPosition(user.getUserId());
+        //个人应聘处理记录
+        List<ApplicationPositionHRBO> applyPosList = applicationService.listApplyInfo(resume.getResumeId());
+
+        request.setAttribute("user", user);
+        request.setAttribute("resume", resume);
+        request.setAttribute("favorPosList", favorPosList);
+        request.setAttribute("applyPosList", applyPosList);
+
+        return this.userDirect("user_info");
+    }
+
+    /**
+     * 用户完整个人简历
+     *
+     * @param request
+     * @param ability
+     * @param internship
+     * @param workExperience
+     * @param certificate
+     * @param jobDesire
+     * @return
+     */
+    @PostMapping(value = "user/resumeUpdate")
+    public String updateResume(HttpServletRequest request, @RequestParam("ability") String ability,
+                               @RequestParam("internship") String internship, @RequestParam("workExperience") String workExperience,
+                               @RequestParam("certificate") String certificate, @RequestParam("jobDesire") String jobDesire) {
+        //当前用户
+        int userId = this.getUserId(request);
+
+        //参数对象
+        ResumeEntity resumeEntity = new ResumeEntity();
+        resumeEntity.setAbility(ability);
+        resumeEntity.setInternship(internship);
+        resumeEntity.setWorkExperience(workExperience);
+        resumeEntity.setCertificate(certificate);
+        resumeEntity.setJobDesire(jobDesire);
+        resumeEntity.setUserId(userId);
+
+        if (resumeService.getResumeById(userId) != null) {
+            if (!resumeService.updateResume(resumeEntity)) {
+                this.errorDirect_404();
+            }
+        } else {
+            if (!resumeService.createResume(resumeEntity)) {
+                this.errorDirect_404();
+            }
+        }
+        return "redirect:/user";
+    }
+
+    /**
+     * 用户更新个人信息
+     * @param request
+     * @param password
+     * @param name
+     * @param nickname
+     * @param email
+     * @param city
+     * @param eduDegree
+     * @param graduation
+     * @param dirDesire
+     * @return
+     */
+    @PostMapping(value = "user/infoUpdate")
+    public String updateInfo(HttpServletRequest request, @RequestParam("password") String password,@RequestParam("name") String name,@RequestParam("nickname") String nickname,
+                             @RequestParam("email") String email,@RequestParam("city") String city,@RequestParam("eduDegree") String eduDegree,@RequestParam("graduation") String graduation,
+                             @RequestParam("dirDesire") int dirDesire) {
+
+        int userId = this.getUserId(request);
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUserId(userId);
+        userEntity.setPassword(password);
+        userEntity.setName(name);
+        userEntity.setNickname(nickname);
+        userEntity.setEmail(email);
+        userEntity.setCity(city);
+        userEntity.setEduDegree(eduDegree);
+        userEntity.setGraduation(graduation);
+        userEntity.setDirDesire(dirDesire);
 
 
+        if(!userService.updateUser(userEntity)){
+            this.errorDirect_404();
+        }
+        return "redirect:/user";
+    }
 
+    /**
+     * 用户注销
+     * @param request
+     * @return
+     */
+    @GetMapping(value = "user/logout")
+    public String userLogout(HttpServletRequest request){
+        // 清除session
+        Enumeration<String> em = request.getSession().getAttributeNames();
+        while (em.hasMoreElements()) {
+            request.getSession().removeAttribute(em.nextElement().toString());
+        }
+        request.getSession().removeAttribute(GlobalConst.LOGIN_SESSION_KEY);
+        request.getSession().invalidate();
+
+        return userDirect("logout_success");
+    }
 
 
     @RequestMapping("test")

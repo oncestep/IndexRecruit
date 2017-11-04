@@ -1,15 +1,21 @@
-package qdu.java.recruit.entity;
+package qdu.java.recruit.pojo;
+
+import qdu.java.recruit.entity.HREntity;
+import qdu.java.recruit.entity.PositionEntity;
 
 import java.sql.Timestamp;
 
-public class ApplicationEntity {
-    private int applicationId;
-    private int applicationState;
-    private Timestamp recentTime;
+public class ApplicationPositionHRBO extends PositionEntity{
 
+    private int applicationId;
+    private int state;
+    private Timestamp recentTime;
     private int resumeId;
-    private int positionId;
+
     private int hrId;
+    private String hrmobile;
+    private String hrName;
+
 
     public int getApplicationId() {
         return applicationId;
@@ -19,13 +25,14 @@ public class ApplicationEntity {
         this.applicationId = applicationId;
     }
 
-    public int getApplicationState() {
-        return applicationState;
+    public int getState() {
+        return state;
     }
 
-    public void setApplicationState(int applicationState) {
-        this.applicationState = applicationState;
+    public void setState(int state) {
+        this.state = state;
     }
+
 
     public Timestamp getRecentTime() {
         return recentTime;
@@ -35,7 +42,6 @@ public class ApplicationEntity {
         this.recentTime = recentTime;
     }
 
-
     public int getResumeId() {
         return resumeId;
     }
@@ -44,19 +50,27 @@ public class ApplicationEntity {
         this.resumeId = resumeId;
     }
 
-    public int getPositionId() {
-        return positionId;
-    }
-
-    public void setPositionId(int positionId) {
-        this.positionId = positionId;
-    }
-
     public int getHrId() {
         return hrId;
     }
 
     public void setHrId(int hrId) {
         this.hrId = hrId;
+    }
+
+    public String getHrmobile() {
+        return hrmobile;
+    }
+
+    public void setHrmobile(String hrmobile) {
+        this.hrmobile = hrmobile;
+    }
+
+    public String getHrName() {
+        return hrName;
+    }
+
+    public void setHrName(String hrName) {
+        this.hrName = hrName;
     }
 }
