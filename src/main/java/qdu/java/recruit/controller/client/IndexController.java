@@ -1,6 +1,7 @@
 package qdu.java.recruit.controller.client;
 
 import com.github.pagehelper.PageInfo;
+import com.google.gson.Gson;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -23,7 +24,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.List;
-
+import java.util.Map;
+import java.util.TreeMap;
 
 @Controller
 @EnableAutoConfiguration
@@ -58,6 +60,13 @@ public class IndexController extends BaseController {
     @Resource
     private FavorService favorService;
 
+
+//    @GetMapping("/")
+//    @ApiOperation(value = "主页信息输出", notes = "主页输出用户个人信息，推荐职位信息")
+//    public String index(HttpServletRequest request, @RequestParam(value = "limit", defaultValue = "12") int limit) {
+//
+//        return this.index(request, 1, limit);
+//    }
     /**
      * 主页输出用户个人信息,推荐职位信息
      *
@@ -65,14 +74,8 @@ public class IndexController extends BaseController {
      * @param limit
      * @return
      */
-    @GetMapping("/")
-    @ApiOperation(value = "主页信息输出", notes = "主页输出用户个人信息，推荐职位信息")
-    public String index(HttpServletRequest request, @RequestParam(value = "limit", defaultValue = "12") int limit) {
-
-        return this.index(request, 1, limit);
-    }
-
     @GetMapping("page/{page}")
+    @ResponseBody
     @ApiOperation(value = "主页输出信息", notes = "主页输出用户个人信息，推荐职位信息分页")
     @ApiImplicitParam(name = "page", value = "推荐职位分页", dataType = "Integer")
     public String index(HttpServletRequest request, @PathVariable int page, @RequestParam(value = "limit", defaultValue = "12") int limit) {
@@ -94,7 +97,15 @@ public class IndexController extends BaseController {
             this.title(request, "Recruit主页");
         }
 
-        return this.userDirect("user_test");
+        Map output = new TreeMap();
+        output.put("title",("第"+page+"页"));
+        output.put("user",user);
+        output.put("posInfo",posInfo);
+
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(output);
+
+        return jsonStr;
     }
 
     /**

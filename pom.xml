@@ -117,6 +117,13 @@
             <version>2.6.1</version>
         </dependency>
 
+        <!--Gson-->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+
         <!--aop-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

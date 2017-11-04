@@ -6,6 +6,7 @@ public class PositionCompanyBO extends PositionEntity {
 
     private int companyId;
     private String companyName;
+    private int companyLogo;
     private String description;
     private int state;
     private String companyCode;
@@ -24,6 +25,14 @@ public class PositionCompanyBO extends PositionEntity {
 
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
+    }
+
+    public int getCompanyLogo() {
+        return companyLogo;
+    }
+
+    public void setCompanyLogo(int companyLogo) {
+        this.companyLogo = companyLogo;
     }
 
     public String getDescription() {
