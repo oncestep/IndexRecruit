@@ -3,6 +3,7 @@ package qdu.java.recruit.service;
 import com.github.pagehelper.PageInfo;
 import qdu.java.recruit.entity.PositionEntity;
 import qdu.java.recruit.entity.UserEntity;
+import qdu.java.recruit.pojo.PositionCompanyBO;
 
 
 public interface PositionService {
@@ -12,7 +13,7 @@ public interface PositionService {
      * @param user
      * @return
      */
-    PageInfo<PositionEntity> recPosition(UserEntity user, int page, int limit);
+    PageInfo<PositionCompanyBO> recPosition(UserEntity user, int page, int limit);
 
     /**
      * 分页职位搜索

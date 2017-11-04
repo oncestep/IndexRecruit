@@ -3,6 +3,7 @@ package qdu.java.recruit.util;
 import org.springframework.stereotype.Component;
 import qdu.java.recruit.entity.*;
 import qdu.java.recruit.mapper.*;
+import qdu.java.recruit.pojo.PositionCompanyBO;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -43,7 +44,7 @@ public class RecPositionUtil {
     // listCom      ->  当前用户评论过的所有评论 列表
     // listCol      ->  当前用户收藏过的所有评论 列表
 
-    public ArrayList<PositionEntity> recommend(HashMap<Integer, Integer> map, UserEntity user) {
+    public ArrayList<PositionCompanyBO> recommend(HashMap<Integer, Integer> map, UserEntity user) {
 
         int userId = user.getUserId();
         int resumeId = 0;
@@ -66,7 +67,7 @@ public class RecPositionUtil {
         double actStandard = 3.0;
 
         //推荐Position列表
-        ArrayList<PositionEntity> posList = new ArrayList<PositionEntity>();
+        ArrayList<PositionCompanyBO> posList = new ArrayList<>();
 
         //应聘 评论 收藏得分
         double pointPos = 1.0;

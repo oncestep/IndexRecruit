@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import qdu.java.recruit.entity.PositionEntity;
+import qdu.java.recruit.pojo.PositionCompanyBO;
 
 import java.util.ArrayList;
 
@@ -30,4 +31,7 @@ public interface PositionMapper {
     @Update("update position set hits = hits+1 where positionId = #{positionId}")
     int updateHits(@Param("positionId") int positionId);
 
+    @Select("select p.*,c.* from position p,department d,company c \n" +
+            "where p.departmentId = d.departmentId and d.companyId = c.companyId and p.positionId = #{posId} limit 1")
+    PositionCompanyBO listPosCompany(@Param("posId") int posId);
 }

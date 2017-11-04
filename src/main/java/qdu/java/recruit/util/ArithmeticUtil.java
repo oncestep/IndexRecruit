@@ -5,6 +5,7 @@ import qdu.java.recruit.entity.CommentEntity;
 import qdu.java.recruit.entity.PositionEntity;
 import qdu.java.recruit.entity.UserEntity;
 import qdu.java.recruit.mapper.*;
+import qdu.java.recruit.pojo.PositionCompanyBO;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -46,7 +47,7 @@ public class ArithmeticUtil {
     // map          ->  存在ServletContext中所有职位当日PV数
     // user         ->  当前用户
     // listPos      ->  所有职位 列表
-    public ArrayList<PositionEntity> popularityRec(HashMap<Integer, Integer> map, UserEntity user) {
+    public ArrayList<PositionCompanyBO> popularityRec(HashMap<Integer, Integer> map, UserEntity user) {
 
         //所有Position,所有用户
         listPosAll = ariConst.positionMapper.listPosAll();
@@ -62,7 +63,7 @@ public class ArithmeticUtil {
 
         //有序TreeMap及ArrayList
         HashMap<Integer, Double> mapOrder = new HashMap<>();
-        ArrayList<PositionEntity> listOrder = new ArrayList<>();
+        ArrayList<PositionCompanyBO> listOrder = new ArrayList<>();
 
         for (PositionEntity pos : listPosAll) {
             //定义该职位当日pv数
@@ -108,7 +109,7 @@ public class ArithmeticUtil {
 
         for (Map.Entry<Integer,Double> mapping:compareList
              ) {
-            listOrder.add(ariConst.positionMapper.getPosition(mapping.getKey()));
+            listOrder.add(ariConst.positionMapper.listPosCompany(mapping.getKey()));
         }
 
         return listOrder;
@@ -251,7 +252,7 @@ public class ArithmeticUtil {
 
     //基于职位协同过滤算法
     //user  ->  当前用户
-    public ArrayList<PositionEntity> synergyItemRec(UserEntity user) {
+    public ArrayList<PositionCompanyBO> synergyItemRec(UserEntity user) {
 
         //所有Position,所有用户
         listPosAll = ariConst.positionMapper.listPosAll();
@@ -412,7 +413,7 @@ public class ArithmeticUtil {
         List<Map.Entry<Integer, Double>> similarEntryList = new ArrayList<Map.Entry<Integer, Double>>(similarMap.entrySet());
 
         //按与选中职业相似度皮尔逊系数降序排序 的元素为职位 的ArrayList
-        ArrayList<PositionEntity> similarPosList = new ArrayList<PositionEntity>();
+        ArrayList<PositionCompanyBO> similarPosList = new ArrayList<>();
 
         Collections.sort(similarEntryList, new Comparator<Map.Entry<Integer, Double>>() {
             @Override
@@ -426,7 +427,7 @@ public class ArithmeticUtil {
 
             //将没有应聘过的职位加入推荐列表
             if (ariConst.applicationMapper.getApplication(resumeId, mapping.getKey()) == null) {
-                similarPosList.add(ariConst.positionMapper.getPosition(mapping.getKey()));
+                similarPosList.add(ariConst.positionMapper.listPosCompany(mapping.getKey()));
             }
         }
 

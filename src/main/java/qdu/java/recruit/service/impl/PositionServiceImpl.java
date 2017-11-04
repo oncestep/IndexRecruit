@@ -5,9 +5,13 @@ import com.github.pagehelper.PageInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import qdu.java.recruit.entity.DepartmentEntity;
 import qdu.java.recruit.entity.PositionEntity;
 import qdu.java.recruit.entity.UserEntity;
+import qdu.java.recruit.mapper.CompanyMapper;
+import qdu.java.recruit.mapper.DepartmentMapper;
 import qdu.java.recruit.mapper.PositionMapper;
+import qdu.java.recruit.pojo.PositionCompanyBO;
 import qdu.java.recruit.service.PositionService;
 import qdu.java.recruit.util.RecPositionUtil;
 
@@ -23,6 +27,7 @@ public class PositionServiceImpl implements PositionService {
     @Resource
     private PositionMapper positionMapper;
 
+
     /**
      * 分页推荐职位
      * @param user
@@ -31,14 +36,14 @@ public class PositionServiceImpl implements PositionService {
      * @return
      */
     @Override
-    public PageInfo<PositionEntity> recPosition(UserEntity user, int page, int limit) {
+    public PageInfo<PositionCompanyBO> recPosition(UserEntity user, int page, int limit) {
 
         //所有职位列表
-        List<PositionEntity> posList = new ArrayList<PositionEntity>();
+        List<PositionEntity> posList = new ArrayList<>();
         posList = positionMapper.listPosAll();
 
         //计算得推荐职位列表
-        List<PositionEntity> recList = new ArrayList<PositionEntity>();
+        List<PositionCompanyBO> recList = new ArrayList<>();
 
         //所有职位Id -> 点击量
         HashMap<Integer,Integer> posMap = new HashMap<Integer, Integer>();
@@ -53,7 +58,7 @@ public class PositionServiceImpl implements PositionService {
         recList = rec.recommend(posMap,user);
 
         PageHelper.startPage(page,limit);
-        PageInfo<PositionEntity> pageInfo = new PageInfo<>(recList);
+        PageInfo<PositionCompanyBO> pageInfo = new PageInfo<>(recList);
 
         LOGGER.debug("Exit recPosition method");
         return pageInfo;

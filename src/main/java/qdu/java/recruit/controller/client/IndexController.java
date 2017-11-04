@@ -14,6 +14,7 @@ import qdu.java.recruit.controller.BaseController;
 import qdu.java.recruit.entity.*;
 import qdu.java.recruit.pojo.ApplicationPositionHRBO;
 import qdu.java.recruit.pojo.FavorPositionBO;
+import qdu.java.recruit.pojo.PositionCompanyBO;
 import qdu.java.recruit.pojo.UserCommentBO;
 import qdu.java.recruit.service.*;
 import qdu.java.recruit.service.FavorService;
@@ -80,7 +81,7 @@ public class IndexController extends BaseController {
 
         //推荐职位列表
         page = (page < 1 || page > GlobalConst.MAX_PAGE) ? 1 : page;
-        PageInfo<PositionEntity> posInfo = positionService.recPosition(user, page, limit);
+        PageInfo<PositionCompanyBO> posInfo = positionService.recPosition(user, page, limit);
         request.setAttribute("posInfo", posInfo);
 
         //标题栏用户个人信息
