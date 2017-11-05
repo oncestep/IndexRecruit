@@ -117,11 +117,12 @@
             <version>2.6.1</version>
         </dependency>
 
-        <!--Gson-->
+        <!--json-lib-->
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
             <version>RELEASE</version>
+            <classifier>jdk15</classifier>
         </dependency>
 
         <!--aop-->

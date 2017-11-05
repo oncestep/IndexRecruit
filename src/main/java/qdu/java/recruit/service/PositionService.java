@@ -22,7 +22,7 @@ public interface PositionService {
      * @param limit
      * @return
      */
-    PageInfo<PositionEntity> searchPosition(String keyword, int page, int limit);
+    PageInfo<PositionCompanyBO> searchPosition(String keyword, int page, int limit);
 
     /**
      * 各分类职位索引页
@@ -31,7 +31,7 @@ public interface PositionService {
      * @param limit
      * @return
      */
-    PageInfo<PositionEntity> listPosition(int categoryId, int page, int limit);
+    PageInfo<PositionCompanyBO> listPosition(int categoryId, int page, int limit);
 
     /**
      * 根据职位Id查找返回职位

@@ -72,11 +72,11 @@ public class PositionServiceImpl implements PositionService {
      * @return
      */
     @Override
-    public PageInfo<PositionEntity> searchPosition(String keyword, int page, int limit){
+    public PageInfo<PositionCompanyBO> searchPosition(String keyword, int page, int limit){
 
         PageHelper.startPage(page, limit);
 
-        List<PositionEntity> searchList = positionMapper.listSearchPos("%"+keyword+"%");
+        List<PositionCompanyBO> searchList = positionMapper.listSearchPos("%"+keyword+"%");
 
         return new PageInfo<>(searchList);
     }
@@ -89,11 +89,11 @@ public class PositionServiceImpl implements PositionService {
      * @return
      */
     @Override
-    public PageInfo<PositionEntity> listPosition(int categoryId, int page, int limit){
+    public PageInfo<PositionCompanyBO> listPosition(int categoryId, int page, int limit){
         int total = positionMapper.countCategoryPos(categoryId);
         PageHelper.startPage(page,limit);
-        List<PositionEntity> posList = positionMapper.listCategoryPos(categoryId);
-        PageInfo<PositionEntity> pagination = new PageInfo<>(posList);
+        List<PositionCompanyBO> posList = positionMapper.listCategoryPos(categoryId);
+        PageInfo<PositionCompanyBO> pagination = new PageInfo<>(posList);
         pagination.setTotal(total);
         return pagination;
     }
