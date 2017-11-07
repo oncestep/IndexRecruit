@@ -19,6 +19,7 @@ import qdu.java.recruit.service.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +59,55 @@ public class DataController extends BaseController {
     @Resource
     private FavorService favorService;
 
+
+    /**
+     * 用户注册返回 0 -> 失败 1 -> 成功
+     *
+     * @param user
+     * @return
+     */
+    @PostMapping(value = "register")
+    @ResponseBody
+    public int userRegister(@RequestParam UserEntity user) {
+
+        String password = user.getPassword();
+
+        //验证mobile 和 password是否为空
+        if (user.getMobile() == null || user.getPassword() == null) {
+            return 0;
+        }
+
+        ResumeEntity resume = new ResumeEntity();
+        resume.setUserId(user.getUserId());
+        if (userService.registerUser(user) && resumeService.createResume(resume)) {
+            return 1;
+        }
+        return 0;
+    }
+
+    /**
+     * 用户登录
+     *
+     * @param httpSession
+     * @param mobile
+     * @param password
+     * @return
+     */
+    @PostMapping(value = "login")
+    public int userLogin(HttpSession httpSession, @RequestParam String mobile, @RequestParam String password) {
+
+        if (mobile == null || password == null) {
+            return 0;
+        }
+
+        if (userService.loginUser(mobile, password)) {
+
+            httpSession.setAttribute("user", userService.getUserByMobile(mobile));
+            return 1;
+        }
+        return 0;
+    }
+
     /**
      * 主页分页输出 （用户信息，职位列表）
      *
@@ -67,13 +117,13 @@ public class DataController extends BaseController {
      */
     @PostMapping(value = "/{page}")
     @ResponseBody
-    public String index(@PathVariable int page, @RequestParam(value = "limit", defaultValue = "12") int limit) {
+    public String index(@PathVariable int page, @RequestParam(value = "limit", defaultValue = "6") int limit) {
         //测试用户
         UserEntity user = userService.getUser(6);
 
         //推荐职位列表
         page = (page < 1 || page > GlobalConst.MAX_PAGE) ? 1 : page;
-        PageInfo<PositionCompanyBO> posInfo = positionService.recPosition(user, page, limit);
+        List<PositionCompanyBO> posInfo = positionService.recPosition(user, page, limit);
 
         Map output = new TreeMap();
         output.put("title", ("第" + page + "页"));
@@ -207,7 +257,7 @@ public class DataController extends BaseController {
         if (user == null) {
             this.errorDirect_404();
         }
-        if(resume == null){
+        if (resume == null) {
             this.userDirect("user_resume");
         }
         boolean result = applicationService.applyPosition(resume.getResumeId(), position.getPositionId());
@@ -284,9 +334,9 @@ public class DataController extends BaseController {
      * @param request
      * @return
      */
-    @PostMapping(value="/resume")
+    @PostMapping(value = "/resume")
     @ResponseBody
-    public String showResume(HttpServletRequest request){
+    public String showResume(HttpServletRequest request) {
 
         //用户个人信息
 //        UserEntity user = this.getUser(request);
@@ -295,8 +345,8 @@ public class DataController extends BaseController {
         ResumeEntity resume = resumeService.getResumeById(user.getUserId());
 
         Map output = new TreeMap();
-        output.put("user",user);
-        output.put("resume",resume);
+        output.put("user", user);
+        output.put("resume", resume);
 
         JSONObject jsonObject = JSONObject.fromObject(output);
         return jsonObject.toString();

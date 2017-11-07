@@ -17,21 +17,21 @@ public class IndexController extends BaseController {
     private static final Logger LOGGER = LogManager.getLogger();
 
     /**
-     * 用户登录
-     * @return
-     */
-    @GetMapping(value="login")
-    public String userLogin(){
-        return this.userDirect("user_login");
-    }
-
-    /**
      * 用户注册
      * @return
      */
     @GetMapping(value="register")
     public String userRegister(){
         return this.userDirect("user_register");
+    }
+
+    /**
+     * 用户登录
+     * @return
+     */
+    @GetMapping(value="login")
+    public String userLogin(){
+        return this.userDirect("user_login");
     }
 
     /**

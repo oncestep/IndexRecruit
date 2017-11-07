@@ -5,6 +5,8 @@ import qdu.java.recruit.entity.PositionEntity;
 import qdu.java.recruit.entity.UserEntity;
 import qdu.java.recruit.pojo.PositionCompanyBO;
 
+import java.util.List;
+
 
 public interface PositionService {
 
@@ -13,7 +15,7 @@ public interface PositionService {
      * @param user
      * @return
      */
-    PageInfo<PositionCompanyBO> recPosition(UserEntity user, int page, int limit);
+    List<PositionCompanyBO> recPosition(UserEntity user, int page, int limit);
 
     /**
      * 分页职位搜索

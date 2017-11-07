@@ -15,8 +15,12 @@ public class GlobalConst {
     //主页最大显示职位页数
     public static int MAX_PAGE = 100;
 
-
     //用户数组最大长度
     public static int MAX_ARRAY_SIZE = 100;
+
+    /**
+     * 登录session key
+     */
+    public final static String SESSION_KEY = "user";
 
 }

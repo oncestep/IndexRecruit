@@ -30,13 +30,14 @@ public class PositionServiceImpl implements PositionService {
 
     /**
      * 分页推荐职位
+     *
      * @param user
      * @param page
      * @param limit
      * @return
      */
     @Override
-    public PageInfo<PositionCompanyBO> recPosition(UserEntity user, int page, int limit) {
+    public List<PositionCompanyBO> recPosition(UserEntity user, int page, int limit) {
 
         //所有职位列表
         List<PositionEntity> posList = new ArrayList<>();
@@ -46,52 +47,56 @@ public class PositionServiceImpl implements PositionService {
         List<PositionCompanyBO> recList = new ArrayList<>();
 
         //所有职位Id -> 点击量
-        HashMap<Integer,Integer> posMap = new HashMap<Integer, Integer>();
+        HashMap<Integer, Integer> posMap = new HashMap<Integer, Integer>();
         for (PositionEntity pos : posList
                 ) {
-            posMap.put(pos.getPositionId(),pos.getHits());
+            posMap.put(pos.getPositionId(), pos.getHits());
         }
 
         RecPositionUtil rec = new RecPositionUtil();
 
         //返回推荐职位ArrayList
-        recList = rec.recommend(posMap,user);
+        recList = rec.recommend(posMap, user);
 
-        PageHelper.startPage(page,limit);
-        PageInfo<PositionCompanyBO> pageInfo = new PageInfo<>(recList);
+//        PageHelper.startPage(page,limit);
+//        PageInfo<PositionCompanyBO> pageInfo = new PageInfo<>(recList);       0-6 6-12 12-18
 
+        //(p-1)*6 6p
         LOGGER.debug("Exit recPosition method");
-        return pageInfo;
+
+        return recList.subList(limit * page - limit, limit * page);
     }
 
     /**
      * 分页职位搜索
+     *
      * @param keyword
      * @param page
      * @param limit
      * @return
      */
     @Override
-    public PageInfo<PositionCompanyBO> searchPosition(String keyword, int page, int limit){
+    public PageInfo<PositionCompanyBO> searchPosition(String keyword, int page, int limit) {
 
         PageHelper.startPage(page, limit);
 
-        List<PositionCompanyBO> searchList = positionMapper.listSearchPos("%"+keyword+"%");
+        List<PositionCompanyBO> searchList = positionMapper.listSearchPos("%" + keyword + "%");
 
         return new PageInfo<>(searchList);
     }
 
     /**
      * 各分类职位索引页
+     *
      * @param categoryId
      * @param page
      * @param limit
      * @return
      */
     @Override
-    public PageInfo<PositionCompanyBO> listPosition(int categoryId, int page, int limit){
+    public PageInfo<PositionCompanyBO> listPosition(int categoryId, int page, int limit) {
         int total = positionMapper.countCategoryPos(categoryId);
-        PageHelper.startPage(page,limit);
+        PageHelper.startPage(page, limit);
         List<PositionCompanyBO> posList = positionMapper.listCategoryPos(categoryId);
         PageInfo<PositionCompanyBO> pagination = new PageInfo<>(posList);
         pagination.setTotal(total);
@@ -100,18 +105,19 @@ public class PositionServiceImpl implements PositionService {
 
     /**
      * 根据职位Id查找返回职位
+     *
      * @param positionId
      * @return
      */
     @Override
-    public PositionEntity getPositionById(int positionId){
+    public PositionEntity getPositionById(int positionId) {
         return positionMapper.getPosition(positionId);
     }
 
 
     @Override
-    public boolean updateHits(int positionId){
-        if(positionMapper.updateHits(positionId) > 0){
+    public boolean updateHits(int positionId) {
+        if (positionMapper.updateHits(positionId) > 0) {
             return true;
         }
         return false;
