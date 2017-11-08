@@ -1,4 +1,4 @@
-package qdu.java.recruit.controller.client;
+package qdu.java.recruit.controller.user;
 
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
@@ -63,38 +63,49 @@ public class DataController extends BaseController {
     /**
      * 用户注册返回 0 -> 失败 1 -> 成功
      *
-     * @param user
      * @return
      */
-    @PostMapping(value = "register")
+    @PostMapping(value = "registerPost")
     @ResponseBody
-    public int userRegister(@RequestParam UserEntity user) {
-
-        String password = user.getPassword();
+    public int userRegister(@RequestParam String mobile, @RequestParam String password, @RequestParam String nickName) {
 
         //验证mobile 和 password是否为空
-        if (user.getMobile() == null || user.getPassword() == null) {
+        if (mobile == null || password == null || nickName == null) {
+            return 0;
+        }
+
+        if (userService.getUserByMobile(mobile) != null) {
+            return 0;
+        }
+
+        UserEntity userEntity = new UserEntity();
+        userEntity.setMobile(mobile);
+        userEntity.setPassword(password);
+        userEntity.setNickname(nickName);
+
+        if (!userService.registerUser(userEntity)) {
             return 0;
         }
 
         ResumeEntity resume = new ResumeEntity();
-        resume.setUserId(user.getUserId());
-        if (userService.registerUser(user) && resumeService.createResume(resume)) {
-            return 1;
+        resume.setUserId(userService.getUserByMobile(mobile).getUserId());
+        if (!resumeService.createResume(resume)) {
+            return 0;
         }
-        return 0;
+        return 1;
     }
 
     /**
      * 用户登录
      *
-     * @param httpSession
-     * @param mobile
-     * @param password
      * @return
      */
-    @PostMapping(value = "login")
-    public int userLogin(HttpSession httpSession, @RequestParam String mobile, @RequestParam String password) {
+    @PostMapping(value = "loginPost")
+    @ResponseBody
+    public int userLogin(HttpSession httpSession, @RequestParam String userName, @RequestParam String userPass) {
+
+        String mobile = userName;
+        String password = userPass;
 
         if (mobile == null || password == null) {
             return 0;
@@ -115,23 +126,32 @@ public class DataController extends BaseController {
      * @param limit
      * @return
      */
-    @PostMapping(value = "/{page}")
+    @PostMapping(value = "/page/{page}")
     @ResponseBody
-    public String index(@PathVariable int page, @RequestParam(value = "limit", defaultValue = "6") int limit) {
+    public String index(HttpSession httpSession, @PathVariable int page, @RequestParam(value = "limit", defaultValue = "6") int limit) {
         //测试用户
-        UserEntity user = userService.getUser(6);
+        UserEntity user = (UserEntity) httpSession.getAttribute("user");
+        HREntity hr = (HREntity) httpSession.getAttribute("hr");
 
         //推荐职位列表
         page = (page < 1 || page > GlobalConst.MAX_PAGE) ? 1 : page;
-        List<PositionCompanyBO> posInfo = positionService.recPosition(user, page, limit);
 
         Map output = new TreeMap();
-        output.put("title", ("第" + page + "页"));
-        output.put("user", user);
-        output.put("posInfo", posInfo);
+        try {
+            List<PositionCompanyBO> posInfo = positionService.recPosition(user, page, limit);
+            output.put("posInfo", posInfo);
+        } catch(NullPointerException ex){
+            return "out";
+        }
+
+        if (user != null) {
+            output.put("user", user);
+        }
+        if (hr != null) {
+            output.put("hr", hr);
+        }
 
         JSONObject jsonObject = JSONObject.fromObject(output);
-
         return jsonObject.toString();
     }
 
@@ -435,7 +455,7 @@ public class DataController extends BaseController {
      * @param request
      * @return
      */
-    @PostMapping(value = "/logout")
+    @GetMapping(value = "/logout")
     public String userLogout(HttpServletRequest request) {
         // 清除session
         Enumeration<String> em = request.getSession().getAttributeNames();
@@ -445,7 +465,7 @@ public class DataController extends BaseController {
         request.getSession().removeAttribute(GlobalConst.LOGIN_SESSION_KEY);
         request.getSession().invalidate();
 
-        return userDirect("logout_success");
+        return "redirect:/user/login";
     }
 
 

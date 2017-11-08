@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>注册</title>
+    <link rel="stylesheet" href="/sign_up/css/style.css" />
+    <script type="text/javascript" src="/sign_up/js/phone_varify.js" ></script>
+    <script type="text/javascript" src="/sign_up/js/jquery.min.js" ></script>
+    <script src="/sign_up/js/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/sign_up/css/sweetalert.css">
+</head>
+<body>
+<section class="container">
+    <article class="half">
+        <h1>注册</h1>
+
+        <div class="content">
+            <div class="signup-cont cont">
+                <form >
+                    <input type="name" name="id" id="name" class="inpt" required="required" placeholder="请输入昵称">
+                    <input type="tel" name="tel" id="tel" class="inpt" required="" placeholder="请输入您的电话" maxlength="11">
+                    <input type="password" name="psw" id="password" class="inpt" required="required" placeholder="请设置密码">
+                    <img src="sign_up/img/closeeye.jpg" id="show_pass" onclick="showPass();"/>
+
+
+                    <div class="phone-var">
+
+                        <input type="text" name="code" id="code" class="inpt" required="" placeholder="验证码" maxlength="4">
+                        <input type="button" value="获取验证码" class="submit" id="send_code" onclick="phone_varify_send();">
+                    </div>
+                    <div class="submit-wrap">
+                        <input type="button" value="下一步" class="submit" id ="submit"  onclick="phone_varify_code();return false;">
+                        <!--<button value="varify" id="submit_form" class="submit" onclick="phone_varify_code()">SIgn up</button>-->
+                        <a href="" >Design By A113n</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </article>
+    <div class="half bg">
+
+
+    </div>
+</section>
+
+</body>
+</html>

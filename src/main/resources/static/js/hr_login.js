@@ -10,10 +10,10 @@ var form =new Vue({
     methods:{
         login : function () {
             this.$http.post(this.url, this.form).then((message) => {
-                alert("success")
+                alert("success");
             }).
             catch((message) => {
-                alert("false")
+                alert("false");
             });
         }
     }

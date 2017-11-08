@@ -26,11 +26,21 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
         InterceptorRegistration addInterceptor = registry.addInterceptor(getSecurityInterceptor());
 
         // 排除配置
-        addInterceptor.excludePathPatterns("user/login");
-        addInterceptor.excludePathPatterns("user/register");
+//        addInterceptor.excludePathPatterns("/user/login");
+//        addInterceptor.excludePathPatterns("/register");
 
         // 拦截配置
-        addInterceptor.addPathPatterns("user/**");
+        addInterceptor.addPathPatterns("/user");
+        addInterceptor.addPathPatterns("/user/");
+        addInterceptor.addPathPatterns("/user/search/**");
+        addInterceptor.addPathPatterns("/user/category/**");
+        addInterceptor.addPathPatterns("/user/position/**");
+        addInterceptor.addPathPatterns("/user/info");
+        addInterceptor.addPathPatterns("/user/resume");
+
+        addInterceptor.addPathPatterns("/user#");
+        addInterceptor.addPathPatterns("/user/info#");
+        addInterceptor.addPathPatterns("/user/resume#");
     }
 
     private class SecurityInterceptor extends HandlerInterceptorAdapter {
@@ -38,15 +48,29 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
         @Override
         public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
                 throws Exception {
-            System.out.println("test run");
+            System.out.println("拦截");
             HttpSession session = request.getSession();
             if (session.getAttribute(GlobalConst.SESSION_KEY) != null) {
                 return true;
             }
             // 跳转登录
-            String url = "user/login";
+            String url = "/user/login";
             response.sendRedirect(url);
             return false;
         }
+
+        @Override
+        public void afterCompletion(
+                HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+                throws Exception {
+            System.out.println("拦截2");
+            HttpSession session = request.getSession();
+            if (session.getAttribute(GlobalConst.SESSION_KEY) == null) {
+                // 跳转登录
+                String url = "/user/login";
+                response.sendRedirect(url);
+            }
+        }
+
     }
 }

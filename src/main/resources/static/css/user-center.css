@@ -1,0 +1,13 @@
+.nav-content{
+    max-width: 300px;
+    margin-top: 30px;
+}
+
+.list-group a{
+    cursor: pointer;
+}
+
+.page-header{
+    margin-top: 0 !important;
+    margin-left: 20px;
+}

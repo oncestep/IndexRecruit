@@ -174,3 +174,33 @@ margin-left: -10px;
 .tab-content{
     width: 90%;
 }
+
+.viewMore{
+    display: block;
+    width: 387px;
+    height: 42px;
+    line-height: 42px;
+    margin: 36px auto 0;
+    background: #FFF;
+    border: 1px solid #6aa2e4;
+    font-size: 16px;
+    color: #6aa2e4;
+    text-align: center;
+    -webkit-transition: background .3s,color .1s;
+    cursor: pointer;
+}
+
+.viewMore:hover{
+    color: white;
+    background: #6aa2e4;
+}
+
+.disable{
+
+    cursor: not-allowed !important;
+}
+
+.disable:hover{
+    background: #FFF!important;
+    color: #6aa2e4 !important;
+}

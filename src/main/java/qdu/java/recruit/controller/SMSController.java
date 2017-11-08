@@ -14,11 +14,13 @@ import static qdu.java.recruit.util.SMSUtil.Verify.verifyCode;
 @Controller
 @RequestMapping(value = "sms")
 public class SMSController {
+
     @ResponseBody
     @PostMapping(value = "/sendCode")
     public void smssendCode(@RequestParam String mobile){
     sendCode(mobile);
     }
+
     @ResponseBody
     @PostMapping(value = "/verifyCode")
     public String smsverifyCode(@RequestParam String mobile,@RequestParam String code){

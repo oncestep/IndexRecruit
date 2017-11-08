@@ -15,6 +15,7 @@
 
 
     <script src="../../js/vue.min.js"></script>
+    <link rel="stylesheet" href="/css/job_details.css"/>
 
 </head>
 <body>
@@ -48,8 +49,16 @@
                         </a>
 
 
-                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                        <ul class="dropdown-menu" aria-labelledby="dLabel" th:if="${type=='user'}">
                             <li><a href="user/usercenter">个人中心</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="user/logout">注销</a></li>
+                        </ul>
+
+                        <ul class="dropdown-menu" aria-labelledby="dLabel" th:if="${type=='hr'}">
+                            <li><a href="user/usercenter">个人中心</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="user/usermanagecenter">管理中心</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="user/logout">注销</a></li>
                         </ul>
@@ -62,11 +71,105 @@
 
 
 
-    <hr>
+    <hr class="no-bottom">
 
 
     <div class="details_content">
+        <div class="job-header-content ">
+            <div class="job-header">
+                <div class="job-name">
+                    实习新闻编辑
+                </div>
+                <div class="job-request">
+                    <p>
+                        <span class="salary">15K-30K</span>
+                        <span>/深证</span>
+                        <span>/大专及以上/</span>
+                        <span>全职</span>
+                    </p>
+                    <ul class="position-label">
+                        <li class="job-label">软件开发</li>
+                        <li class="job-label">系统架构</li>
+                        <li class="job-label">Java</li>
+                    </ul>
+                    <p class="publish_time">1天前 发布于浙江招聘</p>
+                </div>
+                <div class="position-content-r">
+                    <div class="position-deal">
+                        <div class="collection">
+                            <a class="">收藏</a>
+                        </div>
+                        <div class="deliver">
+                            <a class="">投递</a>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="detail container">
+        <div class="content_l">
+            <div class="job_detail">
+                <h4>职位诱惑：</h4><br />
+                五险一金,节日福利,员工旅游,定期体检<br />
+                职位描述：<br />
+                <br />
+                <h4>岗位职责：</h4><br />
+                1、根据项目方案和用户需求，进行项目需求分析，以及研发设计工作；<br />
+                2、负责用户和业务系统的设计与实现；<br />
+                3、负责新系统的技术调研。<br />
+
+                <h4>任职要求：</h4><br />
+                1、计算机相关专业，本科以上学历；<br />
+                2、5年以上java开发经验，有金融类项目、电商类项目经验者优先；<br />
+                3、熟练掌握Java、JSP、JavaScript、Html、CSS、XML等开发技术，精通Struts、Spring、Hibernate、 SpringMVC等开发框架；<br />
+                4.、熟悉数据库概念和技术，熟悉MySQL；<br />
+                5、具有良好的团队协作精神，以及较强的分析、学习和创新能力；<br />
+                6、具有高度责任心，工作态度认真，严谨踏实，积极主动，能在较大的压力下保持良好的工作状态。<br />
+
+                <h4>福利待遇:</h4><br />
+                <br />
+                1、五险一金；<br />
+                <br />
+                2、上班时间：8：30-12:00,13:30-17:30，国家法定节假日<br />
+                <br />
+                3、生日福利卡；<br />
+                <br />
+                4、定期的员工活动，聚餐旅游等；<br />
+                <br />
+                5、扁平化管理，为员工提供公平公正公开的晋升渠道；<br />
+                <br />
+                <h4>工作地址</h4><br />
+                <br />
+                济南 - 市中区 - 杆石桥 - 经四路万达广场C座16层<br />
+                <br />
+                <div class="job_publisher">
+
+                </div>
+            </div>
+            <div class="interview_experience ">
+                <div class="review_anchor">职位评价</div>
+                <div class="review-area">
+
+                    <div class="list-empty">
+                       <i></i> 该职位尚未收到面试评价
+                    </div>
+                    <div class="list-notempty container">
+                        <div class="row review">
+                            <div class="uid">用户名</div>
+                            <div class="ustar">用户评分</div>
+                            <div class="ucomment">用户评价</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="content_r">
+
+            这里是右边部分
+        </div>
     </div>
 </div>
 

@@ -1,0 +1,149 @@
+.no-bottom{
+    margin-bottom: 0 !important;
+}
+.job-header-content{
+    background-color: #f2f5f4;
+    padding: 30px 0 11px;
+    width: 100%;
+    min-width: 1024px;
+}
+.job-header{
+    position: relative;
+    width: 1024px;
+    height: 174px;
+    margin: 0 auto;
+}
+.job-name{
+    position: relative;
+    font-size: 36px;
+    color: #333;
+    line-height: 36px;
+    margin-bottom: 15px;
+}
+.job-request{
+    margin-top: 2px;
+    font-size: 18px;
+    color: #555;
+}
+.job-label{
+    float: left;
+    height: 22px;
+    margin-right: 8px;
+    padding: 0 10px;
+    line-height: 22px;
+    background-color: #fff;
+    color: #70797b;
+    font-size: 12px;
+    border-radius: 10px;
+}
+.position-label{
+    padding-left: 0px !important;
+    margin: 0;
+
+    list-style: none;
+}
+.publish_time{
+    display: block;
+    padding-top: 30px;
+    font-size: 14px;
+    color: #999;
+}
+.position-content-r{
+    position: absolute;
+    right: 0;
+    top: 12px;
+    max-width: 328px;
+}
+.position-deal .collection{
+    position: relative;
+    float: right;
+    color: #fff;
+    background-color: #3992d6;
+    margin-left: 40px;
+}
+
+.position-deal .collection a{
+
+    padding: 12px 45px;
+    border: 1px solid #3992d6;
+    border-radius: 3px;
+    height: 44px;
+    line-height: 44px;
+    font-size: 18px;
+    background-color: #3992d6;
+    color: #fff;
+    cursor: pointer;
+
+}
+
+.position-deal .deliver{
+    position: relative;
+    float: right;
+    color: #fff;
+    background-color: #3992d6;
+}
+
+.position-deal .deliver a{
+
+    padding: 12px 45px;
+    border: 1px solid #3992d6;
+    border-radius: 3px;
+    height: 44px;
+    line-height: 44px;
+    font-size: 18px;
+    background-color: #3992d6;
+    color: #fff;
+    cursor: pointer;
+}
+.detail .content_l{
+    width: 696px;
+    background: url(//static.lagou.com/www/static/job-detail/page/index/img/gradient_e624ed8.png) repeat-y;
+    background-position: right;
+    padding-right: 52px;
+    padding-top: 26px;
+    position: relative;
+    float: left;
+    font-size: 14px;
+
+    color: #333;
+    word-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
+}
+.detail .content_r{
+    float: left;
+    width: 245px;
+    margin-left: 31px;
+    margin-top: 45px;
+
+    display: block;
+}
+.interview_experience{
+    border-top: 1px solid #e8e8e8;
+    min-height: 20px;
+    margin-top: 10px;
+    position: relative;
+
+}
+.review_anchor{
+    position: absolute;
+    left: 0;
+    top: -11px;
+    color: #000;
+    font-size: 18px;
+    padding-right: 16px;
+    background-color: #fff;
+}
+.list-empty{
+    margin: 80px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+}
+.list-empty i{
+    display: inline-block;
+    height: 45px;
+    width: 45px;
+    background-image: url(//static.lagou.com/www/static/job-detail/modules/interview-review/img/unhappy_d9b5db5.png);
+    vertical-align: middle;
+    margin-right: 15px;
+}

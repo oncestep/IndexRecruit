@@ -1,4 +1,4 @@
-package qdu.java.recruit.controller.client;
+package qdu.java.recruit.controller.user;
 
 import io.swagger.annotations.Api;
 import org.apache.logging.log4j.LogManager;
@@ -17,20 +17,12 @@ public class IndexController extends BaseController {
     private static final Logger LOGGER = LogManager.getLogger();
 
     /**
-     * 用户注册
-     * @return
-     */
-    @GetMapping(value="register")
-    public String userRegister(){
-        return this.userDirect("user_register");
-    }
-
-    /**
      * 用户登录
+     *
      * @return
      */
-    @GetMapping(value="login")
-    public String userLogin(){
+    @GetMapping(value = "/login")
+    public String userLogin() {
         return this.userDirect("user_login");
     }
 
@@ -71,7 +63,6 @@ public class IndexController extends BaseController {
      */
     @GetMapping(value = "/position/{id}")
     public String getPosition() {
-
         return this.userDirect("position_detail");
     }
 
@@ -85,9 +76,19 @@ public class IndexController extends BaseController {
         return this.userDirect("user_info");
     }
 
-    @GetMapping(value="/resume")
-    public String userResume(){
+    /**
+     * 用户简历页
+     * @return
+     */
+    @GetMapping(value = "/resume")
+    public String userResume() {
         return this.userDirect("user_resume");
+    }
+
+
+    @GetMapping(value = "/test")
+    public String usertest() {
+        return this.userDirect("position_detail");
     }
 
 }

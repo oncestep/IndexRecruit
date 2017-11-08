@@ -61,9 +61,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean loginUser(String mobile, String password) {
 
+        if (userMapper.getUserByMobile(mobile) == null) {
+            return false;
+        }
         String passwordDB = userMapper.getUserByMobile(mobile).getPassword();
 
         try {
+            System.out.println(passwordDB);
+            System.out.println(this.EncodingByMd5(password));
             if (this.EncodingByMd5(password).equals(passwordDB)) {
                 return true;
             }
@@ -71,13 +76,12 @@ public class UserServiceImpl implements UserService {
             System.out.println("md5加密出错");
         } catch (UnsupportedEncodingException e) {
             System.out.println("编码转化错误");
-        } finally {
-            return false;
         }
+        return false;
     }
 
     @Override
-    public UserEntity getUserByMobile(String mobile){
+    public UserEntity getUserByMobile(String mobile) {
 
         return userMapper.getUserByMobile(mobile);
     }

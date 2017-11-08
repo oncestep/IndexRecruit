@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>网站名称</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="../js/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../css/bootstrap.css"/>
+    <script src="../js/bootstrap.js"></script>
+
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/user-center.css"/>
+    <link rel="stylesheet" type="text/css" href="../icon/iconfont.css"/>
+
+    <link rel="stylesheet" type="text/css" href="../css/index.css"/>
+    <script src="/js/vue.min.js"></script>
+
+</head>
+<body>
+<div class="wrap">
+    <div class="header">
+
+        <div class="container row"  id="header-vue-bind-div">
+            <a class="logo"></a>
+            <ul class="nav col-lg-8">
+                <li class="address">全国</li>
+                <li class="nav_li current"><a class="nav_item">首页</a></li>
+                <li class="nav_li"><a class="nav_item">我的简历</a></li>
+                <li class="nav_li"><a class="nav_item">发布职位</a></li>
+                <li class="nav_li"><a class="nav_item">2018校招</a></li>
+                <li class="nav_li"><a class="nav_item">招聘社区</a></li>
+            </ul>
+
+            <ul class="clear_fix col-lg-2  "  v-if="type===null">
+                <li><a class="clear_fix_item login" href="/user/user_login">登录</a></li>
+                <li><a class="clear_fix_item register" href="/user/register">注册</a></li>
+            </ul>
+
+            <ul class="clear_fix col-lg-2 " v-else-if="type==='user'" >
+                <li><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3803332007,2672307128&fm=58" alt="" class="img-circle" style="width: 48px;height: 48px"></li>
+                <li>
+
+
+                    <div class="dropdown">
+                        <a id="dLabel"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <h6 >{{person.user.name}}</h6>
+                            <span class="caret"></span>
+                        </a>
+
+
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            <li><a href="/user/usercenter">个人中心</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/user/logout">注销</a></li>
+                        </ul>
+                    </div>
+
+                </li>
+            </ul>
+            <ul class="clear_fix col-lg-2 "  v-if="type==='hr'">
+                <li><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3803332007,2672307128&fm=58" alt="" class="img-circle" style="width: 48px;height: 48px"></li>
+                <li>
+
+
+                    <div class="dropdown">
+                        <a id="dLabel"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <h6 >{{person.hr.name}}</h6>
+                            <span class="caret"></span>
+                        </a>
+
+
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            <li><a href="user/usercenter">个人中心</a></li>
+                            <li><a href="user/usercenter">管理中心</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="user/logout">注销</a></li>
+                        </ul>
+                    </div>
+
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <script>
+        var headervue = new Vue({
+            el:'#header-vue-bind-div',
+
+            data:{
+                type:null,
+                person:{
+                    user:null,
+                    hr:null
+                }
+
+            }
+        });
+    </script>
+    <hr>
+</div>
+
+<div class="main container">
+    <div class="page-header row">
+        <h2 class="col-lg-4 ">欢迎来到用户中心<small>用户名</small></h2>
+    </div>
+    <div class="nav-content col-lg-3">
+        <div class="list-group">
+            <a class="list-group-item">个人资料</a>
+            <a class="list-group-item">个人收藏</a>
+            <a class="list-group-item">个人简历</a>
+            <a class="list-group-item">投件箱</a>
+        </div>
+
+        <div class="thumbnail">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1510069084770&di=039cecda74d59029496cb5459a6e64e8&imgtype=0&src=http%3A%2F%2Fdown.cnshu.cn%2F2013%2Fcnshu_images%2Fchenchunhong%2F201310070942.png" alt="...">
+            <div class="caption">
+                <h3>广告位</h3>
+                <p>平面广告设计课程,火星时代Adobe平面课程,PS/a i/ID软件培训+创意思维训练+实战作品.更可免费申请Adobe资格认证考试,全行业就业无压力.平面广告设计课程,预约0元试学</p>
+                <p><a href="#" class="btn btn-primary" role="button">查看</a> <a href="#" class="btn btn-default" role="button">关闭</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="main_content"></div>
+</div>
+
+</body>
+</html>
