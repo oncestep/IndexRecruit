@@ -33,4 +33,10 @@ public class ApplicationServiceImpl implements ApplicationService {
     public List<ApplicationPositionHRBO> listApplyInfo(int resumeId){
         return applicationMapper.listAppPosHR(resumeId);
     }
+
+    @Override
+    public List<ApplicationPositionHRBO> listApplyInfoByHr(int hrid) {
+        return applicationMapper.listAppPosHR(hrid);
+
+    }
 }

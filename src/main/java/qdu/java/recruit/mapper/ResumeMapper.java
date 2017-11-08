@@ -23,6 +23,4 @@ public interface ResumeMapper {
     int createResume(ResumeEntity resumeEntity);
 
 
-
-
 }

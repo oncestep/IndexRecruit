@@ -1,6 +1,8 @@
 package qdu.java.recruit.controller;
 
 import qdu.java.recruit.constant.GlobalConst;
+import qdu.java.recruit.entity.CompanyEntity;
+import qdu.java.recruit.entity.HREntity;
 import qdu.java.recruit.entity.UserEntity;
 import qdu.java.recruit.util.InfoUtil;
 
@@ -31,10 +33,22 @@ public class BaseController {
         return InfoUtil.getLoginUser(request);
     }
 
+    public HREntity getHR(HttpServletRequest request) {
+        return InfoUtil.getLoginHR(request);
+    }
+
+
+
     //获取绑定登录对象Id
     public Integer getUserId(HttpServletRequest request) {
         return getUser(request).getUserId();
     }
+
+    public Integer getHRId(HttpServletRequest request) {
+        return getHR(request).getHrId();
+    }
+
+
 
     //设置页面title
     public BaseController title(HttpServletRequest request,String title){

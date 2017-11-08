@@ -3,9 +3,9 @@ package qdu.java.recruit.service.impl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
-import qdu.java.recruit.entity.UserEntity;
-import qdu.java.recruit.mapper.UserMapper;
-import qdu.java.recruit.service.UserService;
+import qdu.java.recruit.entity.HREntity;
+import qdu.java.recruit.mapper.HRMapper;
+import qdu.java.recruit.service.HRService;
 import sun.misc.BASE64Encoder;
 
 import javax.annotation.Resource;
@@ -14,21 +14,21 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class HRServiceImpl implements HRService {
     private static final Logger LOGGER = LogManager.getLogger();
 
     @Resource
-    private UserMapper userMapper;
+    private HRMapper HRMapper;
 
     @Override
-    public UserEntity getUser(int userId) {
-        return userMapper.getUser(userId);
+    public HREntity getHR(int HRId) {
+        return HRMapper.getHR(HRId);
     }
 
     @Override
-    public boolean updateUser(UserEntity userEntity) {
+    public boolean updateHR(HREntity HREntity) {
 
-        int result = userMapper.updateUser(userEntity);
+        int result = HRMapper.updateHR(HREntity);
         if (result > 0) {
             return true;
         }
@@ -36,20 +36,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean registerUser(UserEntity userEntity) {
+    public boolean registerHR(HREntity HREntity) {
 
-        String mobile = userEntity.getMobile();
-        if(userMapper.getUserByMobile(mobile) != null) {
+        String password = HREntity.getHrPassword();
+        String mobile  = HREntity.getHrMobile();
+
+
+        if(HRMapper.getHRByMobile(mobile) != null) {
             return false;
         }
-
-        String password = userEntity.getPassword();
 
         int result = -1;
         try {
             String encPass = this.EncodingByMd5(password);
-            userEntity.setPassword(encPass);
-            result = userMapper.saveUser(userEntity);
+            HREntity.setHrPassword(encPass);
+            result = HRMapper.saveHR(HREntity);
 
         } catch (NoSuchAlgorithmException e) {
             System.out.println("md5加密出错");
@@ -64,9 +65,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean loginUser(String mobile, String password) {
+    public boolean loginHR(String mobile, String password) {
 
-        String passwordDB = userMapper.getUserByMobile(mobile).getPassword();
+        String passwordDB = HRMapper.getHRByMobile(mobile).getHrPassword();
 
         try {
             if (this.EncodingByMd5(password).equals(passwordDB)) {
@@ -82,9 +83,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity getUserByMobile(String mobile){
+    public HREntity getHRByMobile(String mobile){
 
-        return userMapper.getUserByMobile(mobile);
+        return HRMapper.getHRByMobile(mobile);
     }
 
 

@@ -114,6 +114,26 @@ public class PositionServiceImpl implements PositionService {
         return positionMapper.getPosition(positionId);
     }
 
+    /**
+     *采用PositionEntity而不是PositionCompanyBO，因为我不想让hr权限过高
+     * @param hrid
+     * @return
+     */
+    @Override
+    public PageInfo<PositionEntity> listPositionByHr(int hrid,int page, int limit) {
+        int total = positionMapper.countHRPos(hrid);
+        PageHelper.startPage(page, limit);
+        List<PositionEntity> posList = listPositionByHr(hrid);
+        PageInfo<PositionEntity> pagination = new PageInfo<>(posList);
+        pagination.setTotal(total);
+        return pagination;
+    }
+
+    @Override
+    public List<PositionEntity> listPositionByHr(int hrid) {
+        return positionMapper.listHRPos(hrid);
+    }
+
 
     @Override
     public boolean updateHits(int positionId) {
@@ -122,5 +142,26 @@ public class PositionServiceImpl implements PositionService {
         }
         return false;
     }
+
+    @Override
+    public int deletePosition(int positionId) {
+        return positionMapper.delete(positionId);
+    }
+
+    @Override
+    public int updatePosition(PositionEntity positionEntity) {
+        return positionMapper.updatePosition(positionEntity);
+    }
+
+    @Override
+    public int updatePosition(int statePub, int posId) {
+        return positionMapper.updatePosition(statePub,posId);
+    }
+
+    @Override
+    public int savePosition(PositionEntity positionEntity) {
+        return positionMapper.savePosition(positionEntity);
+    }
+
 
 }

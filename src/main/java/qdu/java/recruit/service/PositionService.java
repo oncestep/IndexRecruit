@@ -43,10 +43,34 @@ public interface PositionService {
     PositionEntity getPositionById(int positionId);
 
     /**
+     * 根据hrid查询返回职位
+     * @param hrid
+     * @return
+     */
+    PageInfo<PositionEntity> listPositionByHr(int hrid, int page, int limit);
+
+    List<PositionEntity> listPositionByHr(int hrid);
+
+    /**
      * 点击量+1
      * @param positionId
      * @return
      */
     boolean updateHits(int positionId);
+
+    /**
+     * delete
+     * @param positionId
+     */
+    int deletePosition(int positionId);
+
+    /**
+     * update
+     */
+    int updatePosition(PositionEntity positionEntity);
+
+    int updatePosition(int statePub, int posId);
+
+    int savePosition(PositionEntity positionEntity);
 
 }

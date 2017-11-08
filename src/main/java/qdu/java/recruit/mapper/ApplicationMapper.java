@@ -25,4 +25,5 @@ public interface ApplicationMapper {
             " where a.positionId = p.positionId and a.hrId = h.hrId and a.resumeId = #{resumeId}")
     ArrayList<ApplicationPositionHRBO> listAppPosHR(@Param("resumeId") int resumeId);
 
+
 }

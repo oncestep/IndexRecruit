@@ -1,6 +1,9 @@
 package qdu.java.recruit.service;
 
+import com.github.pagehelper.PageInfo;
 import qdu.java.recruit.entity.DepartmentEntity;
+
+import java.util.List;
 
 public interface DepartmentService  {
 
@@ -10,4 +13,9 @@ public interface DepartmentService  {
      * @return
      */
     DepartmentEntity getDepartment(int departId);
+
+    List<DepartmentEntity> getDepartmentByCompany(int companyId);
+
+    PageInfo<DepartmentEntity> getDepartmentByCompany(int companyId, int page, int limit);
+
 }

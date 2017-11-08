@@ -19,5 +19,5 @@ public interface CommentMapper {
     ArrayList<UserCommentBO> listUserComment(@Param("posId") int posId);
 
     @Insert("insert into comment(type,content,releaseTime,userId,positionId) values (#{type},#{content},#{releaseTime},#{userId},#{positionId})")
-    int saveComment(@Param("type") int type, @Param("content") String content, @Param("releaseTime") Timestamp releaseTime,@Param("userId") int userId,@Param("positionId") int positionId);
+    int saveComment(@Param("type") int type, @Param("content") String content, @Param("releaseTime") Timestamp releaseTime, @Param("userId") int userId, @Param("positionId") int positionId);
 }
