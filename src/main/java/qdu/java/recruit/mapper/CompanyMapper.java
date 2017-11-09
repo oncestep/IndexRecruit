@@ -22,7 +22,7 @@ public interface CompanyMapper {
     CompanyEntity getCompanyById(@Param("comId") int comId);
 
     @Select("select * from company where companyCode = #{companyCode}")
-    CompanyEntity getCompanyById(@Param("companyCode") String companyCode);
+    CompanyEntity getCompanyCode(@Param("companyCode") String companyCode);
 
     @Insert({"insert into user(companyName,companyLogo,description,state,companyCode})"
             +"values(#{companyName},#{companyLogo},#{description},#{state},#{companyCode})"})

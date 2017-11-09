@@ -71,7 +71,7 @@ public interface PositionMapper {
     int updatePosition(PositionEntity positionEntity);
 
     @Update("update position set statePub= #{statePub} where positionId = #{posId}")
-    int updatePosition(@RequestParam("statePub") int statePub, @RequestParam("posId") int posId);
+    int updatePositionState(@RequestParam("statePub") int statePub, @RequestParam("posId") int posId);
 
     @Insert("insert into position(title,requirement,quantity,workCity,salaryUp,salaryDown,releaseDate,validDate,statePub," +
             "departmentId,categoryId,hrIdPub) " +
