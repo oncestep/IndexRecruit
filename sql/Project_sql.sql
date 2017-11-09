@@ -304,6 +304,19 @@ INSERT INTO `user` VALUES (1,'15763525265','123456','Kate','',NULL,'QD',NULL,NUL
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+drop table if exists `admin`;
+create table `admin` (
+  `userid` bigint NOT NULL,
+  `mobile` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='管理员信息';
+
+insert into `admin` values (19980208,'17806228320',md5('java01'),'管理员','lb19961218@163.com');
+
 --
 -- Dumping events for database 'recruit'
 --

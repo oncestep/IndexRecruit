@@ -9,6 +9,6 @@ public class HRController {
 
     @RequestMapping("/hr_login")
     public String login() {
-        return "hr_login";
+        return "/hr/hr_login";
     }
 }
