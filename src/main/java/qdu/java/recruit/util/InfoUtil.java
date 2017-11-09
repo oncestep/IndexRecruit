@@ -1,10 +1,11 @@
 package qdu.java.recruit.util;
 
-        import qdu.java.recruit.constant.GlobalConst;
-        import qdu.java.recruit.entity.UserEntity;
+import qdu.java.recruit.constant.GlobalConst;
+import qdu.java.recruit.entity.HREntity;
+import qdu.java.recruit.entity.UserEntity;
 
-        import javax.servlet.http.HttpServletRequest;
-        import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class InfoUtil {
 
@@ -16,8 +17,15 @@ public class InfoUtil {
         if(null == session){
             return null;
         }
-        return (UserEntity) session.getAttribute(GlobalConst.LOGIN_SESSION_KEY);
+        return (UserEntity)session.getAttribute(GlobalConst.LOGIN_SESSION_KEY);
     }
 
 
+    public static HREntity getLoginHR(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(null == session){
+            return null;
+        }
+        return (HREntity) session.getAttribute(GlobalConst.LOGIN_SESSION_KEY);
+    }
 }

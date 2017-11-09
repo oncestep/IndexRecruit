@@ -3,6 +3,7 @@ package qdu.java.recruit.util;
 import org.springframework.stereotype.Component;
 import qdu.java.recruit.entity.*;
 import qdu.java.recruit.mapper.*;
+import qdu.java.recruit.pojo.PositionCompanyBO;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -43,17 +44,21 @@ public class RecPositionUtil {
     // listCom      ->  当前用户评论过的所有评论 列表
     // listCol      ->  当前用户收藏过的所有评论 列表
 
-    public ArrayList<Position> recommend(HashMap<Integer, Integer> map, User user) {
+    public ArrayList<PositionCompanyBO> recommend(HashMap<Integer, Integer> map, UserEntity user) {
 
         int userId = user.getUserId();
-        int resumeId = posConst.resumeMapper.getResumeId(userId);
+        int resumeId = 0;
+
+        if(posConst.resumeMapper.getResumeById(userId)!= null){
+            resumeId = posConst.resumeMapper.getResumeId(userId);
+        }
 
         //应聘记录
-        ArrayList<Application> listPos = posConst.applicationMapper.listApplication(resumeId);
+        ArrayList<ApplicationEntity> listPos = posConst.applicationMapper.listApplication(resumeId);
         //评论记录
-        ArrayList<Comment> listCom = posConst.commentMapper.listCommentAll(userId);
+        ArrayList<CommentEntity> listCom = posConst.commentMapper.listCommentAll(userId);
         //收藏记录
-        ArrayList<Favor> listCol = posConst.favorMapper.listFavor(userId);
+        ArrayList<FavorEntity> listCol = posConst.favorMapper.listFavor(userId);
 
         //计算用户活跃度，判断采取哪种匹配方式
         double activation = 0;
@@ -62,7 +67,7 @@ public class RecPositionUtil {
         double actStandard = 3.0;
 
         //推荐Position列表
-        ArrayList<Position> posList = new ArrayList<Position>();
+        ArrayList<PositionCompanyBO> posList = new ArrayList<>();
 
         //应聘 评论 收藏得分
         double pointPos = 1.0;

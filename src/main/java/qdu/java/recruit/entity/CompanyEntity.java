@@ -1,3 +1,4 @@
+
 package qdu.java.recruit.entity;
 
 public class CompanyEntity {
@@ -11,13 +12,6 @@ public class CompanyEntity {
     private String city;
     private String phone;
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 
     public String getCity() {
         return city;
@@ -25,6 +19,14 @@ public class CompanyEntity {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public int getCompanyId() {
