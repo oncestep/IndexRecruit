@@ -155,7 +155,7 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public int updatePosition(int statePub, int posId) {
-        return positionMapper.updatePosition(statePub,posId);
+        return positionMapper.updatePositionState(statePub,posId);
     }
 
     @Override

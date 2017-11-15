@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import qdu.java.recruit.entity.CompanyEntity;
 import qdu.java.recruit.entity.UserAreaEntity;
+import qdu.java.recruit.entity.UserEntity;
+import qdu.java.recruit.entity.WebCountEntity;
 import qdu.java.recruit.service.BackManagerService;
 import sun.security.provider.MD5;
 
@@ -48,9 +50,9 @@ public class BackManagerController {
         return "manager/contacts";
     }
 
-    @RequestMapping("/table_bootstrap")
+    @RequestMapping("/table_jqgrid")
     public String table() {
-        return "manager/table_bootstrap";
+        return "manager/table_jqgrid";
     }
 
 
@@ -74,6 +76,21 @@ public class BackManagerController {
         return map;
     }
 
+    @RequestMapping("/addcompany")
+    @ResponseBody
+    public Map<String,Object> addcompany(String companyName,String city,String companyCode,String description,String phone){
+        Map<String,Object> map = new HashMap<>();
+        int result = backManagerService.addCompany(companyName,city,companyCode,description,phone);
+        if (result==0){
+            map.put("state","0");
+        }
+        else {
+            map.put("state","1");
+        }
+        return map;
+    }
+
+
     @RequestMapping(value = "/userareachart", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> area(){
@@ -87,12 +104,38 @@ public class BackManagerController {
         return map;
     }
 
+    @RequestMapping("webcount")
+    @ResponseBody
+    public Map<String,Object> webcount(){
+        Map<String,Object> map = new HashMap<>();
+        WebCountEntity webCountEntity = backManagerService.getWebCount();
+        map.put("companynum",webCountEntity.getCompanynum());
+        map.put("offernum" ,webCountEntity.getOffernum());
+        map.put("usernum",webCountEntity.getUsernum());
+        map.put("visitnum",webCountEntity.getVisitnum());
+        System.out.println(map);
+        return map;
+    }
+
     @RequestMapping("getcompany")
-    public String getcompany(){
+    @ResponseBody
+    public String getCompany(){
         Gson gson = new Gson();
         ArrayList<CompanyEntity> companyEntities = backManagerService.getAllCompanies();
         String companyInfo = gson.toJson(companyEntities);
+        System.out.println(companyInfo);
         return companyInfo;
+    }
+
+
+    @RequestMapping("getuser")
+    @ResponseBody
+    public String getUser(){
+        Gson gson = new Gson();
+        ArrayList<UserEntity> userEntities = backManagerService.getAllUsers();
+        String userInfo = gson.toJson(userEntities);
+        System.out.println(userInfo);
+        return userInfo;
     }
 
 

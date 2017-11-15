@@ -22,68 +22,45 @@
 
         //以下为官方示例
         $().ready(function () {
-            // validate the comment form when it is submitted
-            $("#commentForm").validate();
+            
 
             // validate signup form on keyup and submit
             var icon = "<i class='fa fa-times-circle'></i> ";
-            $("#signupForm").validate({
+            $("#cform").validate({
                 rules: {
-                    firstname: "required",
-                    lastname: "required",
-                    username: {
+                    companyName: "required",
+                    city: {
+						required:true,
+						minlength: 2
+					},                
+                    companyCode: {
                         required: true,
-                        minlength: 2
+                        rangelength: [6,6]
+                    },                
+                    description: {
+                        required: true
                     },
-                    password: {
-                        required: true,
-                        minlength: 5
-                    },
-                    confirm_password: {
-                        required: true,
-                        minlength: 5,
-                        equalTo: "#password"
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    topic: {
-                        required: "#newsletter:checked",
-                        minlength: 2
-                    },
-                    agree: "required"
+                    phone: {
+						required: true,
+						digits:true
+                    }
                 },
                 messages: {
-                    firstname: icon + "请输入你的姓",
-                    lastname: icon + "请输入您的名字",
-                    username: {
-                        required: icon + "请输入您的用户名",
-                        minlength: icon + "用户名必须两个字符以上"
+                    companyName: icon + "请输入公司姓名",
+                    city: {
+                        required: icon + "请输入城市名",
+                        minlength: icon + "未知城市"
                     },
-                    password: {
-                        required: icon + "请输入您的密码",
-                        minlength: icon + "密码必须5个字符以上"
+                    companyCode: {
+                        required: icon + "请输入公司对应HR码",
+                        rangelength: icon + "只允许六位数HR码",
                     },
-                    confirm_password: {
-                        required: icon + "请再次输入密码",
-                        minlength: icon + "密码必须5个字符以上",
-                        equalTo: icon + "两次输入的密码不一致"
-                    },
-                    email: icon + "请输入您的E-mail",
-                    agree: {
-                        required: icon + "必须同意协议后才能注册",
-                        element: '#agree-error'
+                    description: icon + "请输入公司详情",
+                    phone: {
+                        required: icon + "请输入公司联系方式",
+                        digits: '联系方式格式错误'
                     }
                 }
             });
 
-            // propose username by combining first- and lastname
-            $("#username").focus(function () {
-                var firstname = $("#firstname").val();
-                var lastname = $("#lastname").val();
-                if (firstname && lastname && !this.value) {
-                    this.value = firstname + "." + lastname;
-                }
-            });
         });

@@ -4,18 +4,18 @@ Appenders:
       target: SYSTEM_OUT
       PatternLayout:
         pattern: "%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n"
-    RollingFile: # 输出到文件，超过256MB归档
-      - name: ROLLING_FILE
-        ignoreExceptions: false
-        fileName: /springboot/logs/springboot.log
-        filePattern: "/springboot/logs/$${date:yyyy-MM}/springboot -%d{yyyy-MM-dd}-%i.log.gz"
-        PatternLayout:
-          pattern: "%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n"
-        Policies:
-          SizeBasedTriggeringPolicy:
-            size: "256 MB"
-        DefaultRolloverStrategy:
-          max: 1000
+#    RollingFile: # 输出到文件，超过256MB归档
+#      - name: ROLLING_FILE
+#        ignoreExceptions: false
+#        fileName: /springboot/logs/springboot.log
+#        filePattern: "/springboot/logs/$${date:yyyy-MM}/springboot -%d{yyyy-MM-dd}-%i.log.gz"
+#        PatternLayout:
+#          pattern: "%d{yyyy-MM-dd HH:mm:ss,SSS}:%4p %t (%F:%L) - %m%n"
+#        Policies:
+#          SizeBasedTriggeringPolicy:
+#            size: "256 MB"
+#        DefaultRolloverStrategy:
+#          max: 1000
 Loggers:
     Root:
       level: info

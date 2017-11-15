@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import qdu.java.recruit.entity.CompanyEntity;
 import qdu.java.recruit.entity.UserAreaEntity;
+import qdu.java.recruit.entity.UserEntity;
+import qdu.java.recruit.entity.WebCountEntity;
 import qdu.java.recruit.mapper.BackManagerMapper;
 import qdu.java.recruit.service.BackManagerService;
 
@@ -30,5 +32,18 @@ public class BackManagerServiceImpl implements BackManagerService{
         return backManagerMapper.getAllCompanies();
     }
 
+    @Override
+    public ArrayList<UserEntity> getAllUsers() {
+        return backManagerMapper.getAllUsers();
+    }
 
+    @Override
+    public WebCountEntity getWebCount(){
+        return backManagerMapper.getWebCount();
+    }
+
+    @Override
+    public int addCompany(String companyName,String city,String companyCode,String description,String phone){
+        return backManagerMapper.addCompany(companyName,city,companyCode,description,phone);
+    }
 }
