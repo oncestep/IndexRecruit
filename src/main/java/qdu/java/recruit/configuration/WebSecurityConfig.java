@@ -30,15 +30,15 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter {
 //        addInterceptor.excludePathPatterns("/register");
 
         // 拦截配置
-        addInterceptor.addPathPatterns("/user");
-        addInterceptor.addPathPatterns("/user/");
-        addInterceptor.addPathPatterns("/user/search/**");
-        addInterceptor.addPathPatterns("/user/category/**");
-        addInterceptor.addPathPatterns("/user/position/**");
+        addInterceptor.addPathPatterns("");
+        addInterceptor.addPathPatterns("/");
+//        addInterceptor.addPathPatterns("/search/**");
+//        addInterceptor.addPathPatterns("/category/**");
+//        addInterceptor.addPathPatterns("/position/**");
         addInterceptor.addPathPatterns("/user/info");
         addInterceptor.addPathPatterns("/user/resume");
 
-        addInterceptor.addPathPatterns("/user#");
+        addInterceptor.addPathPatterns("#");
         addInterceptor.addPathPatterns("/user/info#");
         addInterceptor.addPathPatterns("/user/resume#");
     }

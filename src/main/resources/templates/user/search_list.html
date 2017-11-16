@@ -1,10 +1,288 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Search List</title>
+    <title>网站名称</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../icon/iconfont.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/index.css"/>
+    <link rel="stylesheet" href="/css/job-content.css"/>
+
+    <script src="/js/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+            crossorigin="anonymous"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/vue.min.js"></script>
 </head>
 <body>
-<h3>Search List</h3>
+<div class="wrap">
+    <div class="header">
+        <div class="container row" id="header-vue-bind-div">
+            <a class="logo"></a>
+            <ul class="nav col-lg-8">
+                <!--<li class="address">全国</li>-->
+                <li class="nav_li"><a class="nav_item" href="/">首页</a></li>
+                <li class="nav_li current"><a class="nav_item" href="/searchlist?keyword=">职位搜索</a></li>
+                <li class="nav_li"><a class="nav_item" href="https://www.xiaoyuanzhao.com/">2018校招</a></li>
+                <li class="nav_li"><a class="nav_item" href="https://www.kongzhongtalk.com/">空中宣讲</a></li>
+                <li class="nav_li"><a class="nav_item" href="/user/info?type=person">我的简历</a></li>
+            </ul>
+
+            <ul class="clear_fix col-lg-2" v-if="type===null">
+                <li><a class="clear_fix_item login" href="user/user_login">登录</a></li>
+                <li><a class="clear_fix_item register" href="user/register">注册</a></li>
+            </ul>
+
+            <ul class="clear_fix col-lg-2 " v-if="type==='user'">
+                <li><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3803332007,2672307128&fm=58" alt=""
+                         class="img-circle" style="width: 48px;height: 48px"></li>
+                <li>
+
+                    <div class="dropdown">
+                        <a id="dLabel" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <h6>{{person.user.nickname}}</h6>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            <li><a href="/user/info">个人中心</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/user/logout">注销</a></li>
+                        </ul>
+                    </div>
+
+                </li>
+            </ul>
+            <ul class="clear_fix col-lg-2 " v-if="type==='hr'">
+                <li><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3803332007,2672307128&fm=58" alt=""
+                         class="img-circle" style="width: 48px;height: 48px"></li>
+                <li>
+
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <h6>{{person.hr.hrName}}</h6>
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            <li><a href="user/usercenter">个人中心</a></li>
+                            <li><a href="user/usercenter">管理中心</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="user/logout">注销</a></li>
+                        </ul>
+                    </div>
+
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    <script>
+        var headervue = new Vue({
+            el: '#header-vue-bind-div',
+            data: {
+                type: null,
+                person: {
+                    user: null,
+                    hr: null
+                }
+            }
+        });
+    </script>
+
+    <hr/>
+
+    <div class="search-content  container">
+
+        <div class="search-box text-center " id="SearchForm">
+            <form class="text-center row" name="search_form" action="/searchlist" method="get">
+                <input class="search-input col-md-7 col-md-offset-1" id="keyword" name="keyword" type="text"
+                       placeholder="搜索职位关键字">
+                <input class="col-md-2" type="submit" id="search-button" value="搜索"/>
+            </form>
+
+        </div>
+        <div class="hot-search ">
+            <dl class="row">
+                <div class="col-sm-1"></div>
+                <dt class="col-sm-1" style="padding-left: 0px;margin-left: 0px">热门搜索：</dt>
+                <dd class="col-sm-1" style="margin-left: -15px;"><a href="/searchlist?keyword=Java工程师">Java工程师</a></dd>
+                <dd style="width: 6%;margin-left: 15px;"><a href="/searchlist?keyword=数据挖掘">数据挖掘</a></dd>
+                <dd style="width: 6%;margin-left: 15px;"><a href="/searchlist?keyword=后台开发">后台开发</a></dd>
+                <dd style="width: 4%;margin-left: 15px;"><a href="/searchlist?keyword=Java">Java</a></dd>
+                <dd style="width: 4%;margin-left: 15px;"><a href="/searchlist?keyword=C++">C++</a></dd>
+                <dd style="width: 4%;margin-left: 15px;"><a href="/searchlist?keyword=Python">Python</a></dd>
+                <dd style="width: 4%;margin-left: 15px;"><a href="/searchlist?keyword=.NET工程师">.NET</a></dd>
+                <dd style="width: 4%;margin-left: 15px;"><a href="/searchlist?keyword=PHP">PHP</a></dd>
+            </dl>
+        </div>
+    </div>
+    <!--职位列表-->
+    <div class="job-list-container container">
+        <div class="jot-tab-content row">
+            <div class="line">
+                <ul class="col-md-4 no-margin-bottom">
+                    <li class="nav_item col-md-4"><a id="bySalary">最具价值</a></li>
+                    <li class="nav_item col-md-4"><a id="byRelease">最新发布</a></li>
+                    <li class="nav_item col-md-4"><a id="byHits">最具人气</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="job-summary-container container" id="posItem">
+
+            <div class="content " class="job-content" v-if="orderBy==='salaryUp'">
+
+                <div class="col-lg-4 summary-border" class="job-box" v-for="job in jobs">
+                    <div class="job-summary">
+                        <div class="line-1 row">
+                            <div class="job-name col-md-9"><a :href="['/position/'+job.positionId]">{{job.title}}</a><span class="create-item"><!--{{job.releaseDate.}}--><span
+                                    class="lianxi iconfont icon-lianxi"></span> </span></div>
+                            <div class="job-salary col-md-3  text-right">
+                                {{Math.floor(job.salaryDown/1000)}}K-{{Math.floor(job.salaryUp/1000)}}K
+                            </div>
+                        </div>
+
+                        <div class="line-3 job-tag-content row" style="margin-left: -58px">
+                            <ul>
+                                <li class="job-tag" style="width:120px">工作城市：{{job.workCity}}</li>
+                                <li class="job-tag" style="width:120px">招聘人数：{{job.quantity}}</li>
+                                <li class="job-tag" style="width:100px">浏览量：{{job.hits}}</li>
+                            </ul>
+                        </div>
+
+                        <div class="line-2 job-require">工作要求：{{job.requirement}}</div>
+
+                        <div class="company">
+                            <img style="width: 40px;height: 40px" class="img-rounded"
+                                 :src="'/img/img'+job.companyId+'.jpg'"/>
+                            <div class="company-right">
+                                <div class="row company-name">
+                                    <a href="">{{job.companyName}}</a>
+                                </div>
+                                <div class="row company-description">
+                                    {{job.description}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="content " class="job-content" v-if="orderBy==='releaseDate'">
+
+                <div class="col-lg-4 summary-border" class="job-box" v-for="job in jobs">
+                    <div class="job-summary">
+                        <div class="line-1 row">
+                            <div class="job-name col-md-9"><a :href="['/position/'+job.positionId]">{{job.title}}</a><span class="create-item"><!--{{job.releaseDate.}}--><span
+                                    class="lianxi iconfont icon-lianxi"></span> </span></div>
+                            <div class="job-salary col-md-3  text-right">
+                                {{Math.floor(job.salaryDown/1000)}}K-{{Math.floor(job.salaryUp/1000)}}K
+                            </div>
+                        </div>
+
+                        <div class="line-3 job-tag-content row" style="margin-left: -58px">
+                            <ul>
+                                <li class="job-tag" style="width:120px">工作城市：{{job.workCity}}</li>
+                                <li class="job-tag" style="width:120px">招聘人数：{{job.quantity}}</li>
+                                <li class="job-tag" style="width:100px">浏览量：{{job.hits}}</li>
+                            </ul>
+                        </div>
+
+                        <div class="line-2 job-require">工作要求：{{job.requirement}}</div>
+
+                        <div class="company">
+                            <img style="width: 40px;height: 40px" class="img-rounded"
+                                 :src="'/img/img'+job.companyId+'.jpg'"/>
+                            <div class="company-right">
+                                <div class="row company-name">
+                                    <a href="">{{job.companyName}}</a>
+                                </div>
+                                <div class="row company-description">
+                                    {{job.description}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="content " class="job-content" v-if="orderBy==='hits'">
+
+                <div class="col-lg-4 summary-border" class="job-box" v-for="job in jobs">
+                    <div class="job-summary">
+                        <div class="line-1 row">
+                            <div class="job-name col-md-9"><a :href="['/position/'+job.positionId]">{{job.title}}</a><span class="create-item"><!--{{job.releaseDate.}}--><span
+                                    class="lianxi iconfont icon-lianxi"></span> </span></div>
+                            <div class="job-salary col-md-3  text-right">
+                                {{Math.floor(job.salaryDown/1000)}}K-{{Math.floor(job.salaryUp/1000)}}K
+                            </div>
+                        </div>
+
+                        <div class="line-3 job-tag-content row" style="margin-left: -58px">
+                            <ul>
+                                <li class="job-tag" style="width:120px">工作城市：{{job.workCity}}</li>
+                                <li class="job-tag" style="width:120px">招聘人数：{{job.quantity}}</li>
+                                <li class="job-tag" style="width:100px">浏览量：{{job.hits}}</li>
+                            </ul>
+                        </div>
+
+                        <div class="line-2 job-require">工作要求：{{job.requirement}}</div>
+
+                        <div class="company">
+                            <img style="width: 40px;height: 40px" class="img-rounded"
+                                 :src="'/img/img'+job.companyId+'.jpg'"/>
+                            <div class="company-right">
+                                <div class="row company-name">
+                                    <a href="">{{job.companyName}}</a>
+                                </div>
+                                <div class="row company-description">
+                                    {{job.description}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <!--查看更多-->
+    <div class="container viewMoreContainer">
+        <div class="row">
+            <div class="viewMore" id="viewMoreButton" onclick="nextPage()">查看更多</div>
+        </div>
+    </div>
+    <!--//关于我们横线-->
+    <div class="job-list-container container">
+        <div class="jot-tab-content row">
+            <div class="line">
+                <ul class="col-md-4 no-margin-bottom">
+                    <li class="nav_item col-md-4 active"><a class="" href="#">关于我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--友情链接-->
+    <!--<div></div>-->
+</div>
+<script>
+    //    #TAB配置
+    $(".menu_box").hover(function () {
+        $(this).find(".menu_sub").removeClass("hidden");
+        $(this).find(".menu_sub").addClass("show");
+    }, function () {
+        $(this).find(".menu_sub").removeClass("show");
+        $(this).find(".menu_sub").addClass("hidden");
+    });
+
+    $('#myCarousel').carousel({
+        interval: 3000
+    })
+</script>
+<script src="/js/search_list.js"></script>
 </body>
 </html>

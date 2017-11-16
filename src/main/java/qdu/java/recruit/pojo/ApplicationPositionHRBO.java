@@ -13,9 +13,9 @@ public class ApplicationPositionHRBO extends PositionEntity{
     private int resumeId;
 
     private int hrId;
-    private String hrmobile;
+    private String hrMobile;
     private String hrName;
-
+    private String hrEmail;
 
     public int getApplicationId() {
         return applicationId;
@@ -32,7 +32,6 @@ public class ApplicationPositionHRBO extends PositionEntity{
     public void setState(int state) {
         this.state = state;
     }
-
 
     public Timestamp getRecentTime() {
         return recentTime;
@@ -58,12 +57,12 @@ public class ApplicationPositionHRBO extends PositionEntity{
         this.hrId = hrId;
     }
 
-    public String getHrmobile() {
-        return hrmobile;
+    public String getHrMobile() {
+        return hrMobile;
     }
 
-    public void setHrmobile(String hrmobile) {
-        this.hrmobile = hrmobile;
+    public void setHrMobile(String hrMobile) {
+        this.hrMobile = hrMobile;
     }
 
     public String getHrName() {
@@ -72,5 +71,13 @@ public class ApplicationPositionHRBO extends PositionEntity{
 
     public void setHrName(String hrName) {
         this.hrName = hrName;
+    }
+
+    public String getHrEmail() {
+        return hrEmail;
+    }
+
+    public void setHrEmail(String hrEmail) {
+        this.hrEmail = hrEmail;
     }
 }

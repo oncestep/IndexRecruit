@@ -3,175 +3,280 @@
 <head>
     <meta charset="UTF-8">
     <title>网站名称</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <script src="../../js/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" href="../../css/bootstrap.css"/>
-    <script src="/js/bootstrap.js"></script>
-
     <link rel="stylesheet" href="../../css/base.css"/>
     <link rel="stylesheet" type="text/css" href="../../icon/iconfont.css">
-
-
-    <script src="../../js/vue.min.js"></script>
     <link rel="stylesheet" href="/css/job_details.css"/>
+    <link rel="stylesheet" type="text/css" href="/layer/css/layui.css"/>
+    <link href="/css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
 
+    <script src="../../js/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+            crossorigin="anonymous"></script>
+    <script src="/js/vue.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/layer/layui.js"></script>
+    <script src="/js/star-rating.js" type="text/javascript"></script>
 </head>
 <body>
 <div class="wrap">
     <div class="header">
-        <div class="container row">
+
+        <div class="container row" id="header-vue-bind-div">
             <a class="logo"></a>
             <ul class="nav col-lg-8">
-                <li class="address">全国</li>
-                <li class="nav_li current"><a class="nav_item">首页</a></li>
-                <li class="nav_li"><a class="nav_item">我的简历</a></li>
-                <li class="nav_li"><a class="nav_item">发布职位</a></li>
-                <li class="nav_li"><a class="nav_item">2018校招</a></li>
-                <li class="nav_li"><a class="nav_item">招聘社区</a></li>
+                <!--<li class="address">全国</li>-->
+                <li class="nav_li"><a class="nav_item" href="/">首页</a></li>
+                <li class="nav_li current"><a class="nav_item" href="/searchlist?keyword=">职位搜索</a></li>
+                <li class="nav_li"><a class="nav_item" href="https://www.xiaoyuanzhao.com/">2018校招</a></li>
+                <li class="nav_li"><a class="nav_item" href="https://www.kongzhongtalk.com/">空中宣讲</a></li>
+                <li class="nav_li"><a class="nav_item" href="/user/info?type=person">我的简历</a></li>
             </ul>
 
-            <ul class="clear_fix col-lg-2  " th:unless="${user!= null}">
+            <ul class="clear_fix col-lg-2  " v-if="type===null">
                 <li><a class="clear_fix_item login" href="user/user_login">登录</a></li>
                 <li><a class="clear_fix_item register" href="user/register">注册</a></li>
             </ul>
 
-            <ul class="clear_fix col-lg-2 " th:if="${user!=null}">
-                <li><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3803332007,2672307128&fm=58" alt="" class="img-circle" style="width: 48px;height: 48px"></li>
+            <ul class="clear_fix col-lg-2 " v-if="type==='user'">
+                <li><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3803332007,2672307128&fm=58" alt=""
+                         class="img-circle" style="width: 48px;height: 48px"></li>
                 <li>
 
 
                     <div class="dropdown">
-                        <a id="dLabel"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <h6 th:text="${user.getName()}"></h6>
+                        <a id="dLabel" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <h6>{{person.user.nickname}}</h6>
                             <span class="caret"></span>
                         </a>
 
 
-                        <ul class="dropdown-menu" aria-labelledby="dLabel" th:if="${type=='user'}">
-                            <li><a href="user/usercenter">个人中心</a></li>
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            <li><a href="/user/usercenter">个人中心</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="user/logout">注销</a></li>
-                        </ul>
-
-                        <ul class="dropdown-menu" aria-labelledby="dLabel" th:if="${type=='hr'}">
-                            <li><a href="user/usercenter">个人中心</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="user/usermanagecenter">管理中心</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="user/logout">注销</a></li>
+                            <li><a href="/user/logout">注销</a></li>
                         </ul>
                     </div>
 
                 </li>
             </ul>
+            <ul class="clear_fix col-lg-2 " v-if="type==='hr'">
+                <li><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3803332007,2672307128&fm=58" alt=""
+                         class="img-circle" style="width: 48px;height: 48px"></li>
+                <li>
+
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <h6>{{person.hr.hrName}}</h6>
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            <li><a href="user/usercenter">个人中心</a></li>
+                            <li><a href="user/usercenter">管理中心</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="user/logout">注销</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
         </div>
+        <script>
+            var header = new Vue({
+                el: '#header-vue-bind-div',
+                data: {
+                    type: null,
+                    person: {
+                        user: null,
+                        hr: null
+                    }
+                }
+            });
+        </script>
     </div>
 
 
-
-    <hr class="no-bottom">
-
-
-    <div class="details_content">
-        <div class="job-header-content ">
-            <div class="job-header">
-                <div class="job-name">
-                    实习新闻编辑
-                </div>
-                <div class="job-request">
-                    <p>
-                        <span class="salary">15K-30K</span>
-                        <span>/深证</span>
-                        <span>/大专及以上/</span>
-                        <span>全职</span>
-                    </p>
-                    <ul class="position-label">
-                        <li class="job-label">软件开发</li>
-                        <li class="job-label">系统架构</li>
-                        <li class="job-label">Java</li>
-                    </ul>
-                    <p class="publish_time">1天前 发布于浙江招聘</p>
-                </div>
-                <div class="position-content-r">
-                    <div class="position-deal">
-                        <div class="collection">
-                            <a class="">收藏</a>
-                        </div>
-                        <div class="deliver">
-                            <a class="">投递</a>
-
+    <hr class="no-bottom"/>
+    <div id="position_content">
+        <div class="details_content">
+            <div class="job-header-content ">
+                <div class="job-header">
+                    <div class="job-name">
+                        {{position.title}}
+                    </div>
+                    <div class="job-request">
+                        <p>
+                            <span class="salary">{{Math.floor(position.salaryDown/1000)}}K-{{Math.floor(position.salaryUp/1000)}}K</span>
+                            <span>/深证</span>
+                            <!--<span>/{{position.requirement}}/</span>-->
+                            <span>全职/</span>
+                            <span>招聘人数：{{position.quantity}}</span>
+                        </p>
+                        <ul class="position-label" style="margin-top:10px;">
+                            <li class="job-label">软件开发</li>
+                            <li class="job-label">测试分析</li>
+                            <li class="job-label">{{category.categoryName}}</li>
+                        </ul>
+                        <p class="publish_time">职位浏览量：{{position.hits}}</p>
+                    </div>
+                    <div class="position-content-r" style="max-width: 430px;">
+                        <div class="position-deal">
+                            <div class="collection">
+                                <a id="favor_tag">收藏</a>
+                            </div>
+                            <div class="deliver">
+                                <a id="apply_tag">投递</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="detail container">
-        <div class="content_l">
-            <div class="job_detail">
-                <h4>职位诱惑：</h4><br />
-                五险一金,节日福利,员工旅游,定期体检<br />
-                职位描述：<br />
-                <br />
-                <h4>岗位职责：</h4><br />
-                1、根据项目方案和用户需求，进行项目需求分析，以及研发设计工作；<br />
-                2、负责用户和业务系统的设计与实现；<br />
-                3、负责新系统的技术调研。<br />
 
-                <h4>任职要求：</h4><br />
-                1、计算机相关专业，本科以上学历；<br />
-                2、5年以上java开发经验，有金融类项目、电商类项目经验者优先；<br />
-                3、熟练掌握Java、JSP、JavaScript、Html、CSS、XML等开发技术，精通Struts、Spring、Hibernate、 SpringMVC等开发框架；<br />
-                4.、熟悉数据库概念和技术，熟悉MySQL；<br />
-                5、具有良好的团队协作精神，以及较强的分析、学习和创新能力；<br />
-                6、具有高度责任心，工作态度认真，严谨踏实，积极主动，能在较大的压力下保持良好的工作状态。<br />
+        <div class="detail container">
+            <div class="content_l">
+                <br class="job_detail">
+                <!--<h4>职位诱惑：</h4><br/>-->
+                <!--五险一金,节日福利,员工旅游,定期体检<br/>-->
+                <!--职位描述：<br/>-->
+                <!--<br/>-->
+                <!--<h4>岗位职责：</h4><br/>-->
+                <!--1、根据项目方案和用户需求，进行项目需求分析，以及研发设计工作；<br/>-->
+                <!--2、负责用户和业务系统的设计与实现；<br/>-->
+                <!--3、负责新系统的技术调研。<br/>-->
 
-                <h4>福利待遇:</h4><br />
-                <br />
-                1、五险一金；<br />
-                <br />
-                2、上班时间：8：30-12:00,13:30-17:30，国家法定节假日<br />
-                <br />
-                3、生日福利卡；<br />
-                <br />
-                4、定期的员工活动，聚餐旅游等；<br />
-                <br />
-                5、扁平化管理，为员工提供公平公正公开的晋升渠道；<br />
-                <br />
-                <h4>工作地址</h4><br />
-                <br />
-                济南 - 市中区 - 杆石桥 - 经四路万达广场C座16层<br />
-                <br />
+                <h4><b>一.公司介绍：</b></h4>
+                公司名：{{company.companyName}}<br/>
+                公司描述：{{company.description}}<br/>
+                <br/><h4><b>二.部门介绍：</b></h4>
+                部门名：{{department.departmentName}}<br/>
+                部门描述：{{department.description}}<br/>
+                <br/><h4><b>三.任职要求：</b></h4>
+                {{position.requirement}}<br/>
+                <!--1、计算机相关专业，本科以上学历；<br/>-->
+                <!--2、5年以上java开发经验，有金融类项目、电商类项目经验者优先；<br/>-->
+                <!--3、熟练掌握Java、JSP、JavaScript、Html、CSS、XML等开发技术，精通Struts、Spring、Hibernate、 SpringMVC等开发框架；<br/>-->
+                <!--4.、熟悉数据库概念和技术，熟悉MySQL；<br/>-->
+                <!--5、具有良好的团队协作精神，以及较强的分析、学习和创新能力；<br/>-->
+                <!--6、具有高度责任心，工作态度认真，严谨踏实，积极主动，能在较大的压力下保持良好的工作状态。<br/>-->
+
+                <br/><h4><b>四.福利待遇:</b></h4>
+                <br/>
+                1、五险一金；<br/>
+                <br/>
+                2、上班时间：8：30-12:00,13:30-17:30，国家法定节假日<br/>
+                <br/>
+                3、生日福利卡；<br/>
+                <br/>
+                4、定期的员工活动，聚餐旅游等；<br/>
+                <br/>
+                5、扁平化管理，为员工提供公平公正公开的晋升渠道；<br/>
+                <br/>
+                <br/><h4><b>五.工作地址</b></h4>
+                {{position.workCity}}<br/>
+                <br/>
                 <div class="job_publisher">
 
                 </div>
-            </div>
-            <div class="interview_experience ">
-                <div class="review_anchor">职位评价</div>
-                <div class="review-area">
 
-                    <div class="list-empty">
-                       <i></i> 该职位尚未收到面试评价
-                    </div>
-                    <div class="list-notempty container">
-                        <div class="row review">
-                            <div class="uid">用户名</div>
-                            <div class="ustar">用户评分</div>
-                            <div class="ucomment">用户评价</div>
+                <div class="interview_experience " id="position_comment">
+                    <div class="review_anchor">职位评价</div>
+                    <div class="review-area">
+                        <div class="list-empty" v-if="!reviews">
+                            <i></i> 该职位尚未收到面试评价
                         </div>
+                        <div class="list-notempty container" v-if="reviews">
+                            <div class="row review">
+                                <ul class="layui-timeline" style="padding-top: 30px;     width: 656px;">
+                                    <li class="layui-timeline-item" v-for="review in reviews">
+                                        <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                                        <div class="layui-timeline-content layui-text">
+                                            <h3 class="layui-timeline-title">{{review.userName}}</h3>
+                                            <p>
+                                                {{review.reviewDetail}}
+                                            </p>
+                                        </div>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                        <form id="comment_form" action="/user/comment" method="post">
+                            <input type="hidden" id="posId" name="posId"/>
+                            <input id="comment_star" name="type" type="number" class="rating" min=1 max=3 step=1
+                                   data-size="xs" data-min=0 data-max=3 data-stars=3 data-step=1 required>
+
+                            <textarea id="review-editor" name="content" style="padding-top: 30px; width: 656px;" placeholder="对这个职位吐槽点啥。。。"></textarea>
+                            <div class="button-row row" style="float:right">
+                                <!--<div class="btn btn-default col-lg-3 col-lg-offset-2">重置</div>-->
+                                <!--<div class="btn btn-default col-lg-3 col-lg-offset-2">提交</div>-->
+                                <button type="reset" class="btn btn-default" style="margin-right: 10px;" onclick="window.location.reload();">重置评论</button>
+                                <button type="submit" class="btn btn-primary">发表评论</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
+                <script>
+                    //                    var comment = new Vue({
+                    //                        el: '#position_comment',
+                    //                        data: {
+                    //                            reviews: [
+                    ////                                {
+                    ////                                    userName: null,
+                    ////                                    reviewDetail: null
+                    ////                                }
+                    ////                            {
+                    ////                                userName: '测试',
+                    ////                                reviewDetail: '测试'
+                    ////                            },
+                    ////                                {
+                    ////                                    userName: '测试2',
+                    ////                                    reviewDetail: '测试2'
+                    ////                                }
+                    //                            ]
+                    //                        }
+                    //                    });
 
+                    var layedit;
+                    var index;
+                    layui.use('layedit', function () {
+                        layedit = layui.layedit;
+                        index = layedit.build('review-editor', {
+                            tool: ['strong'
+                                , 'italic' //斜体
+                                , 'underline' //下划线
+                                , 'del' //删除线
+                                , '|' //分割线
+                            ],
+                            height: 200
+                        }); //建立编辑器
+                    });
+                </script>
             </div>
-        </div>
-        <div class="content_r">
 
-            这里是右边部分
+
+            <div class="content_r">
+                <div class="thumbnail">
+                    <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1510069084770&di=039cecda74d59029496cb5459a6e64e8&imgtype=0&src=http%3A%2F%2Fdown.cnshu.cn%2F2013%2Fcnshu_images%2Fchenchunhong%2F201310070942.png"
+                         alt="...">
+                    <div class="caption">
+                        <h3>广告位</h3>
+                        <p>平面广告设计课程,火星时代Adobe平面课程,PS/a
+                            i/ID软件培训+创意思维训练+实战作品.更可免费申请Adobe资格认证考试,全行业就业无压力.平面广告设计课程,预约0元试学</p>
+                        <p><a href="" class="btn btn-primary" role="button">查看</a> <a href="" class="btn btn-default"
+                                                                                       role="button">关闭</a></p>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
     </div>
+    <script src="/js/position_detail.js"></script>
 </div>
-
 </body>
 </html>

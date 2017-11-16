@@ -29,8 +29,32 @@ public class ApplicationServiceImpl implements ApplicationService {
         return false;
     }
 
+    /**
+     * 申请处理完成
+     * @param resumeId
+     * @return
+     */
     @Override
     public List<ApplicationPositionHRBO> listApplyInfo(int resumeId){
+
         return applicationMapper.listAppPosHR(resumeId);
+    }
+
+    /**
+     * 申请待处理
+     * @param resumeId
+     * @return
+     */
+    @Override
+    public List<ApplicationPositionHRBO> listApplyInfoPub(int resumeId){
+
+        return applicationMapper.listAppPosHRPub(resumeId);
+    }
+
+
+    @Override
+    public List<ApplicationPositionHRBO> listApplyInfoByHr(int hrid) {
+        return applicationMapper.listAppPosHR(hrid);
+
     }
 }

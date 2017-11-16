@@ -19,12 +19,12 @@ public interface UserMapper {
     @Select("select COUNT(*) from user")
     int getUserSize();
 
-    @Update("update user set password = #{password},name=#{name},nickname=#{nickname},email=#{email},city=#{city}," +
-            "eduDegree = #{eduDegree},graduation=#{graduation},dirDesire=#{dirDesire} where userId = #{userId}")
+    @Update("update user set password = #{password},name=#{name},gender=#{gender},birthYear=#{birthYear},nickname=#{nickname},email=#{email},province=#{province},city=#{city}," +
+            "eduDegree = #{eduDegree},graduation=#{graduation},graYear=#{graYear},major=#{major},dirDesire=#{dirDesire} where userId = #{userId}")
     int updateUser(UserEntity userEntity);
 
-    @Insert("insert into user(mobile,password,name,nickname,email,city,eduDegree,graduation,dirDesire) " +
-            "values(#{mobile},#{password},#{name},#{nickname},#{email},#{city},#{eduDegree},#{graduation},#{dirDesire})")
+    @Insert("insert into user(mobile,password,name,gender,birthYear,nickname,email,province,city,eduDegree,graduation,graYear,major,dirDesire) " +
+            "values(#{mobile},#{password},#{name},#{gender},#{birthYear},#{nickname},#{email},#{province},#{city},#{eduDegree},#{graduation},#{graYear},#{major},#{dirDesire})")
     int saveUser(UserEntity userEntity);
 
     @Select("select * from user where mobile = #{mobile} limit 1")

@@ -1,10 +1,427 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
-    <title>User Information</title>
+    <meta charset="UTF-8">
+    <title>网站名称</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="../js/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+            integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+            crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../css/bootstrap.css"/>
+    <script src="../js/bootstrap.js"></script>
+
+    <link rel="stylesheet" href="../css/base.css"/>
+    <link rel="stylesheet" href="../css/user-center.css"/>
+    <link rel="stylesheet" type="text/css" href="../icon/iconfont.css"/>
+
+    <link rel="stylesheet" type="text/css" href="../css/index.css"/>
+    <script src="../js/vue.min.js"></script>
+
 </head>
 <body>
-<h3>User Information</h3>
+<div class="wrap">
+    <div class="header">
+
+        <div class="container row" id="header-vue-bind-div">
+            <a class="logo"></a>
+            <ul class="nav col-lg-8">
+                <!--<li class="address">全国</li>-->
+                <li class="nav_li"><a class="nav_item" href="/">首页</a></li>
+                <li class="nav_li"><a class="nav_item" href="/searchlist?keyword=">职位搜索</a></li>
+                <li class="nav_li"><a class="nav_item" href="https://www.xiaoyuanzhao.com/">2018校招</a></li>
+                <li class="nav_li"><a class="nav_item" href="https://www.kongzhongtalk.com/">空中宣讲</a></li>
+                <li class="nav_li current"><a class="nav_item" href="/user/info?type=person">我的简历</a></li>
+            </ul>
+
+            <ul class="clear_fix col-lg-2  " v-if="type===null">
+                <li><a class="clear_fix_item login" href="/user/user_login">登录</a></li>
+                <li><a class="clear_fix_item register" href="/user/register">注册</a></li>
+            </ul>
+
+            <ul class="clear_fix col-lg-2 " v-else-if="type==='user'">
+                <li><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3803332007,2672307128&fm=58" alt=""
+                         class="img-circle" style="width: 48px;height: 48px"></li>
+                <li>
+
+                    <div class="dropdown">
+                        <a id="dLabel" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <h6 id="nick">{{person.user.nickname}}</h6>
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            <li><a href="/user/info">个人中心</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/user/logout">注销</a></li>
+                        </ul>
+                    </div>
+
+                </li>
+            </ul>
+            <ul class="clear_fix col-lg-2 " v-if="type==='hr'">
+                <li><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3803332007,2672307128&fm=58" alt=""
+                         class="img-circle" style="width: 48px;height: 48px"></li>
+                <li>
+
+
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <h6>{{person.hr.name}}</h6>
+                            <span class="caret"></span>
+                        </a>
+
+
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            <li><a href="user/usercenter">个人中心</a></li>
+                            <li><a href="user/usercenter">管理中心</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="user/logout">注销</a></li>
+                        </ul>
+                    </div>
+
+                </li>
+            </ul>
+
+        </div>
+        <!--script-->
+        <script>
+            var header = new Vue({
+                el: '#header-vue-bind-div',
+                data: {
+                    type: null,
+                    person: {
+                        user: null,
+                        hr: null
+                    }
+
+                }
+            });
+        </script>
+    </div>
+
+    <hr/>
+
+
+    <div class="main container" id="vue-dom">
+        <div class="page-header row">
+            <h2 class="col-lg-6 ">{{navText}}
+                <!--<small id="nick_clone"></small>-->
+            </h2>
+        </div>
+        <div class="nav-content col-lg-3">
+            <div class="list-group">
+                <a class="list-group-item" href="?type=person">个人资料</a>
+                <a class="list-group-item" href="?type=resume">个人简历
+                    <!--<span class="badge">0</span>-->
+                </a>
+                <a class="list-group-item" href="?type=collection">个人收藏<span class="badge">{{collections.length}}</span></a>
+                <a class="list-group-item" href="?type=box">投件箱<span class="badge">{{boxs.length}}</span></a>
+            </div>
+
+            <div class="thumbnail">
+                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1510069084770&di=039cecda74d59029496cb5459a6e64e8&imgtype=0&src=http%3A%2F%2Fdown.cnshu.cn%2F2013%2Fcnshu_images%2Fchenchunhong%2F201310070942.png"
+                     alt="...">
+                <div class="caption">
+                    <h3>广告位</h3>
+                    <p>平面广告设计课程,火星时代Adobe平面课程,PS/a i/ID软件培训+创意思维训练+实战作品.更可免费申请Adobe资格认证考试,全行业就业无压力.平面广告设计课程,预约0元试学</p>
+                    <p><a href="" class="btn btn-primary" role="button">查看</a> <a href="" class="btn btn-default"
+                                                                                   role="button">关闭</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="main_content" id="main-content">
+
+            <div class="person-content right-content" v-if="type==='person'">
+                <form id="user_info" onsubmit="infoUpdate()">
+                    <div class="container">
+
+                        <div class="line1">
+                            <div class=" col-lg-4 l">
+                                <div class=" row">
+                                    <label for="tel" class="col-lg-4 col-lg-offset-1 lab">手机号码：</label>
+                                    <fieldset disabled class="col-lg-6" id="fiel">
+                                        <input type="number" class="form-control " id="tel" name="mobile"
+                                               placeholder="手机号码" maxlength="11">
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class=" col-lg-4 l">
+                                <div class=" row">
+                                    <label for="password" class="col-lg-4 col-lg-offset-1 lab">用户密码：</label>
+
+                                    <input type="password" class="form-control col-lg-6 " id="password" name="password"
+                                           required placeholder="密码重置">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="line2">
+                            <div class=" col-lg-4 l">
+                                <div class=" row">
+                                    <label for="nickname" class="col-lg-4 col-lg-offset-1 lab">用户昵称：</label>
+                                    <input type="text" class="form-control col-lg-6" id="nickname" name="nickname"
+                                           placeholder="输入昵称">
+                                </div>
+                            </div>
+
+                            <div class=" col-lg-4 l">
+                                <div class=" row">
+                                    <label for="email" class="col-lg-4 col-lg-offset-1 lab">用户邮箱：</label>
+                                    <input type="text" class="form-control col-lg-6 " id="email" name="email"
+                                           placeholder="电子邮箱"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="line2">
+                            <div class=" col-lg-4 l">
+                                <div class=" row">
+                                    <label for="inputName" class="col-lg-4 col-lg-offset-1 lab">真实姓名：</label>
+                                    <input type="text" class="form-control col-lg-6" id="inputName" name="name"
+                                           placeholder="输入姓名">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 l">
+                                <div class=" row">
+                                    <label for="sex" class="col-lg-4  col-lg-offset-1 lab">真实性别：</label>
+                                    <select class="form-control col-lg-6" id="sex" name="gender">
+                                        <option>- - - 选择性别 - - -</option>
+                                        <option value="0">男</option>
+                                        <option value="1">女</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line2">
+                            <div class=" col-lg-4 l">
+                                <div class=" row">
+                                    <label for="birthyear" class="col-lg-4 col-lg-offset-1 lab">出生年份：</label>
+                                    <select class="form-control col-lg-6" id="birthyear" name="birthYear">
+                                        <option v-model="year" v-for="year in years" :value="year">{{year}}</option>
+                                    </select>
+                                    <!--<select class="form-control col-lg-3 " id="birthmonth" name="birthmonth">-->
+                                    <!--<option value="01">1月</option>-->
+                                    <!--<option value="02">2月</option>-->
+                                    <!--<option value="03">3月</option>-->
+                                    <!--<option value="04">4月</option>-->
+                                    <!--<option value="05">5月</option>-->
+                                    <!--<option value="06">6月</option>-->
+                                    <!--<option value="07">7月</option>-->
+                                    <!--<option value="08">8月</option>-->
+                                    <!--<option value="09">9月</option>-->
+                                    <!--<option value="10">10月</option>-->
+                                    <!--<option value="11">11月</option>-->
+                                    <!--<option value="12">12月</option>-->
+                                    <!--</select>-->
+                                </div>
+                            </div>
+                            <div class="col-lg-4 l">
+                                <div class=" row">
+                                    <label for="sex" class="col-lg-4  col-lg-offset-1 lab">毕业年份：</label>
+                                    <select class="form-control col-lg-6" id="graduateyear" name="graYear">
+                                        <option v-model="year" v-for="year in years" :value="year">{{year}}</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="line3">
+                            <div class=" col-lg-4 l">
+                                <div class=" row">
+                                    <label class="col-lg-4 col-lg-offset-1 lab">所在省市：</label>
+                                    <select class="form-control col-lg-3" id="pro" name="province" v-model="selectProv"
+                                            @change="getProv();" placeholder="省份">
+                                        <option v-for="prov in provs" :value="prov.label">{{prov.value}}</option>
+                                    </select>
+                                    <select class="form-control col-lg-3" id="city" name="city" v-model="selectCity"
+                                            @change="" placeholder="城市" v-if="selectProv">
+                                        <option v-for="city in cities" :value="city.label">{{city.label}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="line4">
+                            <div class=" col-lg-4 l">
+                                <div class=" row">
+                                    <label for="education" class="col-lg-4 col-lg-offset-1 lab">最高学历：</label>
+                                    <select class="form-control col-lg-6" id="education" name="eduDegree">
+                                        <option value="本科">本科</option>
+                                        <option value="大专">大专</option>
+                                        <option value="高中">高中</option>
+                                        <option value="硕士">硕士</option>
+                                        <option value="博士">博士</option>
+                                        <option value="其他">其他</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class=" col-lg-4 l">
+                                <div class=" row">
+                                    <label for="school" class="col-lg-4 col-lg-offset-1 lab">学校名称：</label>
+                                    <input type="text" class="form-control col-lg-6" id="school" name="graduation"
+                                           placeholder="学校名称">
+                                </div>
+                            </div>
+                            <div class=" col-lg-4 l">
+                                <div class=" row">
+                                    <label for="major" class="col-lg-4 col-lg-offset-1 lab">专业名称：</label>
+                                    <input type="text" class="form-control col-lg-6" id="major" name="major"
+                                           placeholder="专业名称">
+
+                                </div>
+                            </div>
+                            <div class=" col-lg-4 l">
+                                <div class=" row">
+                                    <label for="dirDesire" class="col-lg-4 col-lg-offset-1 lab">方向选择：</label>
+                                    <select class="form-control col-lg-6" id="dirDesire" name="dirDesire"
+                                            :value="selectCategory.categoryId" v-model="selectCategory.categoryId">
+                                        <option v-for="category in categories" :value="category.categoryId">
+                                            {{category.categoryName}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class=" col-lg-4 l" style="visibility: hidden;height: 39px;"></div>
+
+                            <div class=" col-lg-4 l">
+                                <div class=" row">
+                                    <div class="btn-sm col-lg-5"></div>
+                                    <a class="btn btn-primary col-lg-6" href="" role="button"
+                                       onclick="location.reload()">重置</a>
+                                </div>
+                            </div>
+                            <div class=" col-lg-4 l">
+                                <div class=" row">
+                                    <div class="btn-sm col-lg-5"></div>
+                                    <a class="btn btn-primary col-lg-6 " href="" role="button" data-toggle="modal"
+                                       data-target="#myModal">保存</a>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal fade" tabindex="-1" role="dialog" id="myModal">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">确认框</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p>您真的要更改信息么？</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" class="btn btn-primary" id="info_submit">确认</button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                </form>
+            </div>
+
+            <div class="collection-content right-content" v-if="type==='collection'">
+                <div class="container collection-container">
+                    <table class="table table-striped table-hover">
+                        <tr>
+                            <th>#</th>
+                            <th>职位名</th>
+                            <th>薪水</th>
+                            <th>工作地</th>
+                            <th></th>
+                            <th>操作</th>
+                        </tr>
+                        <tr v-for="(collection,index) in collections" class="collection-item">
+                            <td>{{index}}+1</td>
+                            <td>{{collection.title}}</td>
+                            <td>{{collection.salary}}</td>
+                            <td>{{collection.place}}</td>
+                            <td>
+                                <input type="hidden" id="posId" :value="collection.posId"/>
+                            </td>
+                            <td>
+                                <button id="posReview" type="button" class="btn btn-info btn-sm" onclick="posJump()">
+                                    查看职位
+                                </button>
+                                <button id="posRemove" type="button" class="btn btn-danger btn-sm"
+                                        onclick="posRemove()">移除
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="resume-content right-content" v-if="type==='resume'">
+
+                <form action="/user/resume/update" method="post" role="form" style="width:75%;float:right;">
+                    <div class="form-group">
+                        <label for="ability">专业能力:</label>
+                        <textarea id="ability" name="ability" class="form-control" rows="3"
+                                  style="resize: none"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="internship">实习经历:</label>
+                        <textarea id="internship" name="internship" class="form-control" rows="3"
+                                  style="resize: none"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="workExperience">工作经历:</label>
+                        <textarea id="workExperience" name="workExperience" class="form-control" rows="3"
+                                  style="resize: none"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="certificate">获奖荣誉:</label>
+                        <textarea id="certificate" name="certificate" class="form-control" rows="3"
+                                  style="resize: none"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobDesire">就职期望:</label>
+                        <textarea id="jobDesire" name="jobDesire" class="form-control" rows="3"
+                                  style="resize: none"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-success" style="float:right">确认修改</button>
+                </form>
+
+            </div>
+
+            <div class="box-content right-content" v-if="type==='box'">
+                <div class="container box-container">
+                    <table class="table table-striped table-hover">
+                        <tr>
+                            <th>#</th>
+                            <th>职位名</th>
+                            <th>薪水</th>
+                            <th>工作地</th>
+                            <th>HR手机</th>
+                            <th>HR邮箱</th>
+                            <th>投件状态</th>
+                        </tr>
+                        <tr v-for="(box,index) in boxs" class="" :class="box.state">
+                            <td>{{index}}</td>
+                            <td>{{box.title}}</td>
+                            <td>{{box.salary}}</td>
+                            <td>{{box.place}}</td>
+                            <td>{{box.hrMobile}}</td>
+                            <td>{{box.hrEmail}}</td>
+                            <td>{{box.state}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="/js/user_info.js"></script>
+</div>
 </body>
 </html>

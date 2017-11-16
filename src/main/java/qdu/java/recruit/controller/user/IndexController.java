@@ -5,13 +5,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import qdu.java.recruit.controller.BaseController;
 
 
 @Controller
 @EnableAutoConfiguration
-@RequestMapping("/user")
 @Api("页面跳转控制器")
 public class IndexController extends BaseController {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -21,7 +21,7 @@ public class IndexController extends BaseController {
      *
      * @return
      */
-    @GetMapping(value = "/login")
+    @GetMapping(value = "user/login")
     public String userLogin() {
         return this.userDirect("user_login");
     }
@@ -41,10 +41,8 @@ public class IndexController extends BaseController {
      *
      * @return
      */
-    @GetMapping(value = "/search/{keyword}")
-    public String search() {
-        return this.userDirect("search_list");
-    }
+    @GetMapping(value = "/searchlist")
+    public String search() { return this.userDirect("search_list"); }
 
     /**
      * 职位分类 列表页
@@ -71,7 +69,7 @@ public class IndexController extends BaseController {
      *
      * @return
      */
-    @GetMapping(value = "/info")
+    @GetMapping(value = "user/info")
     public String userInfo() {
         return this.userDirect("user_info");
     }
@@ -80,15 +78,15 @@ public class IndexController extends BaseController {
      * 用户简历页
      * @return
      */
-    @GetMapping(value = "/resume")
+    @GetMapping(value = "user/resume")
     public String userResume() {
         return this.userDirect("user_resume");
     }
 
 
-    @GetMapping(value = "/test")
-    public String usertest() {
-        return this.userDirect("position_detail");
+    @GetMapping(value = "user/success")
+    public String applySuccess() {
+        return this.userDirect("apply_success");
     }
 
 }

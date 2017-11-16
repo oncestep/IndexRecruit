@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>网站名称</title>
@@ -25,12 +25,12 @@
         <div class="container row"  id="header-vue-bind-div">
             <a class="logo"></a>
             <ul class="nav col-lg-8">
-                <li class="address">全国</li>
-                <li class="nav_li current"><a class="nav_item">首页</a></li>
-                <li class="nav_li"><a class="nav_item">我的简历</a></li>
-                <li class="nav_li"><a class="nav_item">发布职位</a></li>
-                <li class="nav_li"><a class="nav_item">2018校招</a></li>
-                <li class="nav_li"><a class="nav_item">招聘社区</a></li>
+                <!--<li class="address">全国</li>-->
+                <li class="nav_li current"><a class="nav_item" href="/">首页</a></li>
+                <li class="nav_li"><a class="nav_item" href="/searchlist?keyword=">职位搜索</a></li>
+                <li class="nav_li"><a class="nav_item" href="https://www.xiaoyuanzhao.com/">2018校招</a></li>
+                <li class="nav_li"><a class="nav_item" href="https://www.kongzhongtalk.com/">空中宣讲</a></li>
+                <li class="nav_li"><a class="nav_item" href="/user/info?type=person">我的简历</a></li>
             </ul>
 
             <ul class="clear_fix col-lg-2  "  v-if="type===null">
@@ -38,22 +38,22 @@
                 <li><a class="clear_fix_item register" href="user/register">注册</a></li>
             </ul>
 
-            <ul class="clear_fix col-lg-2 " v-else-if="type==='user'" >
+            <ul class="clear_fix col-lg-2 " v-if="type==='user'" >
                 <li><img src="https://ss2.baidu.com/6ONYsjip0QIZ8tyhnq/it/u=3803332007,2672307128&fm=58" alt="" class="img-circle" style="width: 48px;height: 48px"></li>
                 <li>
 
 
                     <div class="dropdown">
-                        <a id="dLabel"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <h6 >{{person.user.nickname}}</h6>
+                        <a id="dLabel" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <h6>{{person.user.nickname}}</h6>
                             <span class="caret"></span>
                         </a>
 
 
                         <ul class="dropdown-menu" aria-labelledby="dLabel">
-                            <li><a href="user/usercenter">个人中心</a></li>
+                            <li><a href="/user/info">个人中心</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="user/logout">注销</a></li>
+                            <li><a href="/user/logout">注销</a></li>
                         </ul>
                     </div>
 
@@ -65,7 +65,7 @@
 
 
                     <div class="dropdown">
-                        <a id="dLabel"  data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <a data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <h6 >{{person.hr.hrName}}</h6>
                             <span class="caret"></span>
                         </a>
@@ -102,8 +102,8 @@
     <div class="search-content  container">
 
         <div class="search-box text-center ">
-            <form class="text-center row" name="search_form" action="" method="get">
-                <input class="search-input col-md-7 col-md-offset-1" id="search-input" type="text" placeholder="搜索职位名称关键字">
+            <form class="text-center row" name="search_form" action="/searchlist" method="get">
+                <input class="search-input col-md-7 col-md-offset-1" id="search-input" name="keyword" type="text" placeholder="搜索职位名称关键字">
                 <input  class="col-md-2" type="submit" id="search-button" value="搜索"/>
             </form>
 
@@ -111,15 +111,15 @@
         <div class="hot-search ">
             <dl class="row">
                 <div class="col-sm-1"></div>
-                <dt class="col-sm-1" style="padding-left: 15px;margin-left: 15px">热门搜索：</dt>
-                <dd class="col-sm-1"><a href="#">数据安全</a></dd>
-                <dd class="col-sm-1"><a href="#">新媒体运营</a></dd>
-                <dd class="col-sm-1"><a href="#">UI设计师</a></dd>
-                <dd class="col-sm-1"><a href="#">产品经理</a></dd>
-                <dd class="col-sm-1"><a href="#">投资经理</a></dd>
-                <dd class="col-sm-1"><a href="#">内容运营</a></dd>
-                <dd class="col-sm-1"><a href="#">销售经理</a></dd>
-                <dd class="col-sm-1"><a href="#">PHP</a></dd>
+                <dt class="col-sm-1" style="padding-left: 0px;margin-left: 0px">热门搜索：</dt>
+                <dd class="col-sm-1" style="margin-left: -15px;"><a href="/searchlist?keyword=Java工程师">Java工程师</a></dd>
+                <dd style="width: 6%;margin-left: 15px;"><a href="/searchlist?keyword=数据挖掘">数据挖掘</a></dd>
+                <dd style="width: 6%;margin-left: 15px;"><a href="/searchlist?keyword=后台开发">后台开发</a></dd>
+                <dd style="width: 4%;margin-left: 15px;"><a href="/searchlist?keyword=Java">Java</a></dd>
+                <dd style="width: 4%;margin-left: 15px;"><a href="/searchlist?keyword=C++">C++</a></dd>
+                <dd style="width: 4%;margin-left: 15px;"><a href="/searchlist?keyword=Python">Python</a></dd>
+                <dd style="width: 4%;margin-left: 15px;"><a href="/searchlist?keyword=.NET工程师">.NET</a></dd>
+                <dd style="width: 4%;margin-left: 15px;"><a href="/searchlist?keyword=PHP">PHP</a></dd>
             </dl>
         </div>
     </div>
@@ -129,10 +129,10 @@
                 <div class="menu_main ">
                     <div class="category-list ">
                         <h4>技术</h4>
-                        <a href="#">Java</a>
-                        <a href="#">PHP</a>
-                        <a href="#">C++</a>
-                        <span class=" right-span glyphicon glyphicon-menu-right"></span>
+                        <a href="/searchlist?keyword=Java">Java</a>
+                        <a href="/searchlist?keyword=PHP">PHP</a>
+                        <a href="/searchlist?keyword=C++">C++</a>
+                        <span class="right-span glyphicon glyphicon-menu-right"></span>
                     </div>
                 </div>
                 <div class="menu_sub hidden">
@@ -141,18 +141,18 @@
                             <span>后端开发</span>
                         </dt>
                         <dd>
-                            <a href="#" class="current" >Java</a>
-                            <a href="#" >C++</a>
-                            <a href="#" >PHP</a>
-                            <a href="#" >数据挖掘</a>
+                            <a href="/searchlist?keyword=Java" class="current" >Java</a>
+                            <a href="/searchlist?keyword=C++" >C++</a>
+                            <a href="/searchlist?keyword=PHP" >PHP</a>
+                            <a href="/searchlist?keyword=数据挖掘" >数据挖掘</a>
                             <a href="#" >搜索算法</a>
                             <a href="#" >精准推荐</a>
                             <a href="#" >C</a>
                             <a href="#" >C#</a>
                             <a href="#"  class="current">全栈工程师</a>
                             <a href="#" >Hadoop</a>
-                            <a href="#" >.NET</a>
-                            <a href="#" >Python</a>
+                            <a href="/searchlist?keyword=.Net" >.NET</a>
+                            <a href="/searchlist?keyword=Python" >Python</a>
                             <a href="#" >Delphi</a>
                             <a href="#" >VB</a>
                             <a href="#" >Perl</a>
@@ -574,13 +574,13 @@
                 <!-- 轮播（Carousel）项目 -->
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508257694801&di=c9468c03970d03b3692e1e0d377dffd2&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F8718367adab44aed264776f6b91c8701a18bfb93.jpg" alt="First slide">
+                        <img src="/img/poster1.png" alt="First slide">
                     </div>
                     <div class="item">
-                        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508257694807&di=34dc216fab2a1943e635d501c1970bd2&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2Fb7fd5266d01609247c346a09de0735fae6cd348b.jpg" alt="Second slide">
+                        <img src="/img/poster2.png" alt="Second slide">
                     </div>
                     <div class="item">
-                        <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1508257694805&di=0f58d0aea3d76b30c6321add6aff0fd6&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fimgad%2Fpic%2Fitem%2F2e2eb9389b504fc2caf2d91befdde71190ef6d7a.jpg" alt="Third slide">
+                        <img src="img/poster3.png" alt="Third slide">
                     </div>
                 </div>
                 <!-- 轮播（Carousel）导航 -->
@@ -599,9 +599,7 @@
         <div class="jot-tab-content row">
             <div class="line">
                 <ul class="col-md-4 no-margin-bottom">
-                    <li class="nav_item col-md-4 active"><a  class="" href="#">热门职位</a></li>
-                    <li class="nav_item col-md-4"><a href="#">最新职位</a></li>
-                    <li class="nav_item col-md-4"><a href="#">高薪职位</a></li>
+                    <li class="nav_item col-md-4 active"><a  class="" href="#">热门推荐</a></li>
                 </ul>
             </div>
         </div>
@@ -643,19 +641,18 @@
                 <div class="col-lg-4 summary-border" id="job-box" v-for="job in jobs">
                     <div class="job-summary">
                         <div class="line-1 row">
-                            <div class="job-name col-md-8"><a href="">{{job.title}}</a><span class="create-item">两日前发布<span class="lianxi iconfont icon-lianxi"></span> </span></div>
-                            <div class="job-salary col-md-4  text-right">{{Math.floor(job.salaryUp/1000)}}K-{{Math.floor(job.salaryDown/1000)}}K</div>
+                            <div class="job-name col-md-8"><a :href="'http://localhost:8080/position/'+job.positionId">{{job.title}}</a><span class="create-item">数日前发布<span class="lianxi iconfont icon-lianxi"></span> </span></div>
+                            <div class="job-salary col-md-4  text-right">{{Math.floor(job.salaryDown/1000)}}K-{{Math.floor(job.salaryUp/1000)}}K</div>
                         </div>
-                        <div class="line-2 job-require">{{job.requirement}}</div>
+                        <div class="line-2 job-require"><!--{{job.requirement}}--></div>
                         <div class="line-3 job-tag-content row">
                             <ul class="" >
-                                <li class="col-md-3 job-tag" >Hadoop</li>
-                                <li class="col-md-3 job-tag" >架构师</li>
-                                <!--!!!!!!!TAG-->
+                                <li class="col-md-3 job-tag" >数据分析</li>
+                                <li class="col-md-3 job-tag" >全栈开发</li>
                             </ul>
                         </div>
                         <div class="company">
-                            <img style="width: 40px;height: 40px" class="img-rounded" src="http://static.lagou.com/thumbnail_100x100/i/image/M00/68/A7/CgqKkVgRYweAD4MtAAAzR3Jd4fM663.png"/>
+                            <img style="width: 40px;height: 40px" class="img-rounded" :src="'/img/img'+job.companyId+'.jpg'"/>
                             <div class="company-right">
                                 <div class="row company-name">
                                     <a href="">{{job.companyName}}</a>

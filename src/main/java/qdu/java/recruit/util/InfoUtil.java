@@ -1,6 +1,7 @@
 package qdu.java.recruit.util;
 
 import qdu.java.recruit.constant.GlobalConst;
+import qdu.java.recruit.entity.HREntity;
 import qdu.java.recruit.entity.UserEntity;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,4 +21,11 @@ public class InfoUtil {
     }
 
 
+    public static HREntity getLoginHR(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        if(null == session){
+            return null;
+        }
+        return (HREntity) session.getAttribute(GlobalConst.LOGIN_SESSION_KEY);
+    }
 }

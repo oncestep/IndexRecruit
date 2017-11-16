@@ -53,7 +53,7 @@ public class Verify {
             HttpResponse response = httpClient.execute(httpPost);
 //            System.out.println(EntityUtils.toString(response.getEntity(), "utf-8"));
             JSONObject jsonObject = JSONObject.fromObject(EntityUtils.toString(response.getEntity()));
-            if(jsonObject.getString("code").equals("413")){
+            if(jsonObject.getString("code").equals("413")||jsonObject.getString("code").equals("404")){
                 return 0;
             }else {
                 return 1;

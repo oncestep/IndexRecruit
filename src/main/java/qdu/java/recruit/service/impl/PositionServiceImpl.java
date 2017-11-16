@@ -76,11 +76,11 @@ public class PositionServiceImpl implements PositionService {
      * @return
      */
     @Override
-    public PageInfo<PositionCompanyBO> searchPosition(String keyword, int page, int limit) {
+    public PageInfo<PositionCompanyBO> searchPosition(String keyword,String orderBy, int page, int limit) {
 
         PageHelper.startPage(page, limit);
 
-        List<PositionCompanyBO> searchList = positionMapper.listSearchPos("%" + keyword + "%");
+        List<PositionCompanyBO> searchList = positionMapper.listSearchPos("%" + keyword + "%",orderBy);
 
         return new PageInfo<>(searchList);
     }
@@ -114,6 +114,26 @@ public class PositionServiceImpl implements PositionService {
         return positionMapper.getPosition(positionId);
     }
 
+    /**
+     *采用PositionEntity而不是PositionCompanyBO，因为我不想让hr权限过高
+     * @param hrid
+     * @return
+     */
+    @Override
+    public PageInfo<PositionEntity> listPositionByHr(int hrid,int page, int limit) {
+        int total = positionMapper.countHRPos(hrid);
+        PageHelper.startPage(page, limit);
+        List<PositionEntity> posList = listPositionByHr(hrid);
+        PageInfo<PositionEntity> pagination = new PageInfo<>(posList);
+        pagination.setTotal(total);
+        return pagination;
+    }
+
+    @Override
+    public List<PositionEntity> listPositionByHr(int hrid) {
+        return positionMapper.listHRPos(hrid);
+    }
+
 
     @Override
     public boolean updateHits(int positionId) {
@@ -122,5 +142,26 @@ public class PositionServiceImpl implements PositionService {
         }
         return false;
     }
+
+    @Override
+    public int deletePosition(int positionId) {
+        return positionMapper.delete(positionId);
+    }
+
+    @Override
+    public int updatePosition(PositionEntity positionEntity) {
+        return positionMapper.updatePosition(positionEntity);
+    }
+
+    @Override
+    public int updatePositionState(int statePub, int posId) {
+        return positionMapper.updatePositionState(statePub,posId);
+    }
+
+    @Override
+    public int savePosition(PositionEntity positionEntity) {
+        return positionMapper.savePosition(positionEntity);
+    }
+
 
 }

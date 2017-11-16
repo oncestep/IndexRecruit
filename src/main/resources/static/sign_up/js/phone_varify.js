@@ -58,16 +58,19 @@ function phone_varify_code() {
                 if (msg == 1) {
 
                     $.ajax({
-                        url: "http://localhost:8080/user/registerPost" + "?mobile=" + mobile.value + "&password=" + pass+"&nickName="+nickName,
+                        url: "http://localhost:8080/user/registerPost" + "?mobile=" + mobile.value + "&password=" + pass + "&nickName=" + nickName,
                         type: "post",
                         dataType: "json",
                         success: function (output) {
-                            alert(output);
 
                             if (output == "1") {
-                                window.location.href = "http://localhost:8080/user/login";
+                                swal("注册成功", "注册成功", "success");
+                                setTimeout(function () {
+                                    window.location.href = "http://localhost:8080/user/login";
+                                }, 3000);
+
                             } else {
-                                swal("注册失败","注册失败","error");
+                                swal("注册失败", "注册失败", "error");
                             }
                         }
                     });

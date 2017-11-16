@@ -1,3 +1,4 @@
+
 package qdu.java.recruit.service.impl;
 
 import org.apache.logging.log4j.LogManager;
@@ -28,7 +29,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updateUser(UserEntity userEntity) {
 
-        int result = userMapper.updateUser(userEntity);
+        String password = userEntity.getPassword();
+
+        int result = -1;
+        try {
+            String encPass = this.EncodingByMd5(password);
+            userEntity.setPassword(encPass);
+            result = userMapper.updateUser(userEntity);
+        } catch (NoSuchAlgorithmException e) {
+            System.out.println("md5加密出错");
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("编码转化出错");
+        }
+
         if (result > 0) {
             return true;
         }
@@ -37,6 +50,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registerUser(UserEntity userEntity) {
+
+        String mobile = userEntity.getMobile();
+        if (userMapper.getUserByMobile(mobile) != null) {
+            return false;
+        }
 
         String password = userEntity.getPassword();
 
@@ -50,12 +68,13 @@ public class UserServiceImpl implements UserService {
             System.out.println("md5加密出错");
         } catch (UnsupportedEncodingException e) {
             System.out.println("编码转化出错");
-        } finally {
-            if (result > 0) {
-                return true;
-            }
-            return false;
         }
+
+        if (result > 0) {
+            return true;
+        }
+        return false;
+
     }
 
     @Override
@@ -67,8 +86,6 @@ public class UserServiceImpl implements UserService {
         String passwordDB = userMapper.getUserByMobile(mobile).getPassword();
 
         try {
-            System.out.println(passwordDB);
-            System.out.println(this.EncodingByMd5(password));
             if (this.EncodingByMd5(password).equals(passwordDB)) {
                 return true;
             }
@@ -100,3 +117,4 @@ public class UserServiceImpl implements UserService {
 
 
 }
+

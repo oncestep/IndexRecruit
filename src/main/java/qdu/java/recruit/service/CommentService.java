@@ -7,6 +7,7 @@ public interface CommentService {
 
     PageInfo<UserCommentBO> listComment(int positionId, int page, int limit);
 
-    boolean commentPosition(int type,String content,int userId,int positionId);
+    boolean commentPosition(int type, String content, int userId, int positionId);
+
 
 }

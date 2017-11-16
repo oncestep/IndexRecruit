@@ -19,7 +19,7 @@ var form =new Vue({
                     }else {
                         layer.msg('登录成功，3S后跳转！');
                         setTimeout(function(){
-                            self.location='/user';
+                            self.location='/';
                         },3000);
                     }
                 },error:function (msg) {

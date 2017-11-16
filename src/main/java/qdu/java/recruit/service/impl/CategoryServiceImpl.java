@@ -8,6 +8,7 @@ import qdu.java.recruit.mapper.CategoryMapper;
 import qdu.java.recruit.service.CategoryService;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -27,5 +28,9 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.getCategory(categoryId);
     }
 
+    @Override
+    public List<CategoryEntity> getAll() {
+        return categoryMapper.getAll();
+    }
 
 }

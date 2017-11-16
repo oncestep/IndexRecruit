@@ -1,6 +1,6 @@
 .nav-content{
     max-width: 300px;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .list-group a{
@@ -10,4 +10,40 @@
 .page-header{
     margin-top: 0 !important;
     margin-left: 20px;
+}
+
+.right-content{
+    margin-top: 35px;
+}
+.lab{
+    height: 34px;
+    padding: 6px 12px;
+}
+
+#sex,#birthmonth,#pro,#city,#education{
+
+    padding: 0 0 0 6px;
+}
+.line1{
+    margin-bottom: 15px;
+}
+#fiel {
+    padding: 0!important;
+}
+
+.collection-container{
+    max-width: 800px;
+    margin-left: 300px;
+}
+
+.box-container{
+    max-width: 800px;
+    margin-left: 300px;
+}
+.table td{
+    vertical-align: middle!important;
+}
+.modal-dialog{
+    margin-top: 20%;
+
 }

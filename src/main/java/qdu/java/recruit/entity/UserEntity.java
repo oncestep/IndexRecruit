@@ -6,11 +6,16 @@ public class UserEntity {
     private String mobile;
     private String password;
     private String name;
+    private int gender;
+    private int birthYear;
     private String nickname;
     private String email;
+    private String province;
     private String city;
     private String eduDegree;
     private String graduation;
+    private int graYear;
+    private String major;
     private int dirDesire;
 
     public String getMobile() { return mobile; }
@@ -41,6 +46,22 @@ public class UserEntity {
         this.name = name;
     }
 
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    public int getBirthYear() {
+        return birthYear;
+    }
+
+    public void setBirthYear(int birthYear) {
+        this.birthYear = birthYear;
+    }
+
     public String getNickname() {
         return nickname;
     }
@@ -55,6 +76,14 @@ public class UserEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
     }
 
     public String getCity() {
@@ -79,6 +108,22 @@ public class UserEntity {
 
     public void setGraduation(String graduation) {
         this.graduation = graduation;
+    }
+
+    public int getGraYear() {
+        return graYear;
+    }
+
+    public void setGraYear(int graYear) {
+        this.graYear = graYear;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
     }
 
     public int getDirDesire() {

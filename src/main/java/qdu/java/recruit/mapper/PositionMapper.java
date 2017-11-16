@@ -1,9 +1,10 @@
 package qdu.java.recruit.mapper;
 
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.RequestParam;
+import qdu.java.recruit.entity.HREntity;
 import qdu.java.recruit.entity.PositionEntity;
+import qdu.java.recruit.entity.UserEntity;
 import qdu.java.recruit.pojo.PositionCompanyBO;
 
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public interface PositionMapper {
     @Select("select p.*,c.* from position p,department d,company c \n" +
             "where p.departmentId = d.departmentId and d.companyId = c.companyId \n" +
             "and title like #{keyword} and statePub = 1 \n" +
-            "order by releaseDate DESC")
-    ArrayList<PositionCompanyBO> listSearchPos(@Param("keyword") String keyword);
+            "order by ${order} DESC")
+    ArrayList<PositionCompanyBO> listSearchPos(@Param("keyword") String keyword,@Param("order") String order);
 
     @Select("select p.*,c.* from position p,department d,company c\n" +
             "where p.departmentId = d.departmentId and d.companyId = c.companyId \n" +
@@ -40,4 +41,26 @@ public interface PositionMapper {
     @Select("select p.*,c.* from position p,department d,company c \n" +
             "where p.departmentId = d.departmentId and d.companyId = c.companyId and p.positionId = #{posId} limit 1")
     PositionCompanyBO listPosCompany(@Param("posId") int posId);
+
+    @Select("select count(*) from position where hrIdPub=#{hrIdPub}")
+    int countHRPos(@Param("hrIdPub") int hrIdPub);
+
+    @Delete("delete position where positionId = #{posId}")
+    int delete(@Param("posId") int posId);
+
+    @Update("update position set title = #{title},requirement=#{requirement},quantity=#{quantity}," +
+            "workCity=#{workCity},salaryUp=#{salaryUp},salaryDown=#{salaryDown}," +
+            "validDate=#{validDate},statePub=#{statePub}" +
+            " where positionId = #{posId}")
+    int updatePosition(PositionEntity positionEntity);
+
+    @Update("update position set statePub= #{statePub} where positionId = #{posId}")
+    int updatePositionState(@RequestParam("statePub") int statePub, @RequestParam("posId") int posId);
+
+    @Insert("insert into position(title,requirement,quantity,workCity,salaryUp,salaryDown,releaseDate,validDate,statePub," +
+            "departmentId,categoryId,hrIdPub) " +
+            "values(#{title},#{requirement},#{quantity},#{workCity},#{salaryUp},#{salaryDown},#{releaseDate},#{validDate},#{statePub}," +
+            "#{departmentId},#{categoryId},#{hrIdPub}")
+    int savePosition(PositionEntity positionEntity);
+
 }

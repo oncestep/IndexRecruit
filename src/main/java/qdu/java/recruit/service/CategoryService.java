@@ -2,6 +2,8 @@ package qdu.java.recruit.service;
 
 import qdu.java.recruit.entity.CategoryEntity;
 
+import java.util.List;
+
 public interface CategoryService {
 
     /**
@@ -11,4 +13,5 @@ public interface CategoryService {
      */
     CategoryEntity getCategory(int categoryId);
 
+    List<CategoryEntity> getAll();
 }
