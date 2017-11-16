@@ -29,3 +29,4 @@ public interface FavorMapper {
     @Delete("delete from favor where userId = #{userId} and positionId = #{posId}")
     int removeFavor(@Param("userId") int userId,@Param("posId") int posId);
 }
+

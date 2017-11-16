@@ -44,5 +44,4 @@ public interface ApplicationMapper {
             "order by p.releaseDate;")
     ArrayList<ApplicationPositionHRBO> listAppPosHRPub(@Param("resumeId") int resumeId);
 
-
 }

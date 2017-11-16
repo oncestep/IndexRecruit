@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns:form="http://www.w3.org/1999/html">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>ZJ招聘后台管理系统 - 公司管理</title>
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+    <link href="/css/animate.css" rel="stylesheet">
+    <link href="/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row animated fadeInRight" id="company">
+        </div>
+    </div>
+    <div class="widget style1 navy-bg" style="width: 210px;margin: 0 auto;cursor:pointer" id="add_company">
+        <div class="row vertical-align">
+            <div class="col-xs-3">
+                <i class="fa fa-user fa-3x"></i>
+            </div>
+            <div class="col-xs-9 text-right">
+                <h2 class="font-bold">公司入驻</h2>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <div class="panel panel-primary" style="margin:0 auto;width: 1200px;display: none" id="companyform">
+        <div class="panel-heading">
+            公司登记
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal m-t" id="cform" onsubmit="return false;">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">公司名称：</label>
+                    <div class="col-sm-8">
+                        <input id="companyName" name="companyName" minlength="2" type="text" class="form-control" required="" aria-required="true"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">所在城市：</label>
+                    <div class="col-sm-8">
+                        <input id="city" name="city" minlength="2" type="text" class="form-control" required="" aria-required="true"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">HR码：</label>
+                    <div class="col-sm-8">
+                        <input id="companyCode" type="text" class="form-control" name="hrcode" required="" aria-required="true"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">简介：</label>
+                    <div class="col-sm-8">
+                        <textarea style="resize:none" id="description" name="description" class="form-control" required="" aria-required="true"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">联系方式：</label>
+                    <div class="col-sm-8">
+                        <input id="phone" name="phone" type="tel" class="form-control"  required="" aria-required="true"/>
+                    </div>
+                </div>
+                <div class="form-group" style="text-align: center">
+                    <div class="col-sm-6 col-sm-offset-3" >
+                        <button class="btn btn-primary" type="submit">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <!-- 全局js -->
+    <script src="/js/jquery.min.js?v=2.1.4"></script>
+    <script src="/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url:"getcompany",
+                type:'get',
+                contentType:'application/json',
+                data:"",
+                success:function (data) {
+                    if(data!=null&&data!=""){
+                        var array = jQuery.parseJSON(data);
+                        $(array).each(function () {
+                            $("#company").append("<div class=\"col-sm-4 animated fadeInRight\">\n" +
+                                "                <div class=\"contact-box\">\n" +
+                            "                        <div class=\"col-sm-4\">\n" +
+                            "                            <div class=\"text-center\">\n" +
+                            "                                <img alt=\"image\" class=\"img-circle m-t-xs img-responsive\" src=\"/img/a2.jpg\">\n" +
+                            "                                <div class=\"m-t-xs font-bold\">CTO</div>\n" +
+                            "                            </div>\n" +
+                            "                        </div>\n" +
+                            "                        <div class=\"col-sm-8\">\n" +
+                            "                            <h3><strong>"+this.companyName+"</strong></h3>\n" +
+                            "                            <p><i class=\"fa fa-map-marker\"></i>"+"    "+this.city+"</p>\n" +
+                            "                            <address>\n" +
+                            "                            <strong class='badge-info'>"+this.companyCode+"</strong><br><br>\n" +
+                            "                            "+this.description+"<br>\n" +
+                            "                            <abbr title=\"Phone\">Tel:</abbr> "+this.phone+"\n" +
+                            "                        </address>\n" +
+                            "                        </div>\n" +
+                            "                        <div class=\"clearfix\"></div>\n" +
+                                "                </div>\n" +
+                                "            </div>")
+                        })
+                        $('.contact-box').each(function () {
+                            animationHover(this, 'pulse');
+                        });
+                    }
+                }
+            })
+            
+            $("#add_company").click(function () {
+                $("#companyform").fadeToggle();
+            })
+
+            $("#cform").submit(function (e) {
+                var companyName = $("#companyName").val();
+                var city = $("#city").val();
+                var companyCode = $("#companyCode").val();
+                var description = $("#description").val();
+                var phone = $("#phone").val();
+                $.ajax({
+                    url:"addcompany",
+                    type:"get",
+                    contentType:"application/json",
+                    data:{"companyName":companyName,"city":city,"companyCode":companyCode,"description":description,"phone":phone},
+                    dataType:"json",
+                    success: function (data) {
+                        if (data!=null && data!=""){
+                            if(data.state.trim()=="0"){
+                                swal({
+                                    title: "错误",
+                                    text: "增加公司信息失败"
+                                });
+                            }
+                            else {
+                                swal({
+                                    title: "成功",
+                                    text: "成功添加该公司"
+                                },function () {
+                                    window.location.reload();
+                                });
+                            }
+                        }
+                    }
+                })
+            })
+        });
+    </script>
+
+
+
+    <!-- 自定义js -->
+    <script src="/js/content.js?v=1.0.0"></script>
+
+</body>
+
+</html>

@@ -24,6 +24,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyEntity getCompany(String companyCode) {
+
         return companyMapper.getCompanyByCode(companyCode);
     }
 

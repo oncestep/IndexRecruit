@@ -30,3 +30,4 @@ public interface UserMapper {
     @Select("select * from user where mobile = #{mobile} limit 1")
     UserEntity getUserByMobile(@Param("mobile") String moblie);
 }
+
