@@ -22,7 +22,7 @@ a{
     padding: 12px 0;
     background: url("../img/logo.png") no-repeat;
     background-position-y: 24px;
-    background-size: auto;
+    background-size: 100% 100%;
 
 }
 .header > .container > * {
