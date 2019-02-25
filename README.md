@@ -3,4 +3,4 @@
     * 前端Vue.js实现双向数据绑定；  
     * 后端基于用户和基于项协同过滤推荐算法职位推荐；
 
-！[homepage](https://github.com/oncestep/IndexRecruit/img/homepage.png)
+！[homepage](https://github.com/oncestep/IndexRecruit/blob/master/img/homepage.png)
