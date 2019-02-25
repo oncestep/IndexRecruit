@@ -20,9 +20,9 @@ public class Verify {
 
 
     private static final String
-            APP_KEY="fc965993a329f65452a90f22d1bb79b2";
+            APP_KEY="de6bd7b7d5cdaa24b142880cd7ed031a";
     //网易云信分配的密钥，请替换你在管理后台应用下申请的appSecret
-    private static final String APP_SECRET="0dfaae48dba5";
+    private static final String APP_SECRET="86cae9945b52";
 
     private static final String NONCE="1234";
 
@@ -54,11 +54,15 @@ public class Verify {
 //            System.out.println(EntityUtils.toString(response.getEntity(), "utf-8"));
             JSONObject jsonObject = JSONObject.fromObject(EntityUtils.toString(response.getEntity()));
             if(jsonObject.getString("code").equals("413")||jsonObject.getString("code").equals("404")){
+                System.out.println(jsonObject.toString());
+                System.out.println("验证未通过");
                 return 0;
             }else {
+                System.out.println("验证已通过");
                 return 1;
             }
         } catch (IOException e) {
+            System.out.println("验证出错");
             e.printStackTrace();
         }
         return 0;

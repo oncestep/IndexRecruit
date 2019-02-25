@@ -13,5 +13,5 @@ public interface BackManagerService {
     ArrayList<CompanyEntity> getAllCompanies();
     ArrayList<UserEntity> getAllUsers();
     WebCountEntity getWebCount();
-    int addCompany(String companyName,String city,String companyCode,String description,String phone);
+    int addCompany(String companyName,String companyCode,String description);
 }

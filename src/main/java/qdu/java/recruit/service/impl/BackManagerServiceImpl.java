@@ -43,7 +43,7 @@ public class BackManagerServiceImpl implements BackManagerService{
     }
 
     @Override
-    public int addCompany(String companyName,String city,String companyCode,String description,String phone){
-        return backManagerMapper.addCompany(companyName,city,companyCode,description,phone);
+    public int addCompany(String companyName,String companyCode,String description){
+        return backManagerMapper.addCompany(companyName,companyCode,description);
     }
 }

@@ -37,8 +37,8 @@
             </ul>
 
             <ul class="clear_fix col-lg-2  " v-if="type===null">
-                <li><a class="clear_fix_item login" href="/user/user_login">登录</a></li>
-                <li><a class="clear_fix_item register" href="/user/register">注册</a></li>
+                <li><a class="clear_fix_item login" href="/user/login">登录</a></li>
+                <li><a class="clear_fix_item register" href="/register">注册</a></li>
             </ul>
 
             <ul class="clear_fix col-lg-2 " v-else-if="type==='user'">
@@ -340,7 +340,7 @@
                             <th>操作</th>
                         </tr>
                         <tr v-for="(collection,index) in collections" class="collection-item">
-                            <td>{{index}}+1</td>
+                            <td>{{index}}</td>
                             <td>{{collection.title}}</td>
                             <td>{{collection.salary}}</td>
                             <td>{{collection.place}}</td>

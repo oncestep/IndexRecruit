@@ -27,7 +27,7 @@ var box = new Vue({
                     $(msg.comList.list).each(function (key, val) {
                         box.reviews.push({
                             userName: val.nickname,
-                            reviewDetail: val.content
+                            reviewDetail: val.content.replace(/<[^>]+>/g,"")
                         });
                     });
 
@@ -117,6 +117,7 @@ $("#favor_tag").click(function () {
 
 //隐藏表单项提交
 $("#posId").val(posId);
+
 
 /**
  * 评论ajax表单提交

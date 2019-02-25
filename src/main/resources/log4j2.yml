@@ -26,6 +26,6 @@ Loggers:
         additivity: false #去除重复的log
         level: trace
 #        level: debug
-#        AppenderRef:
-#          - ref: CONSOLE #复数加上-
-#          - ref: ROLLING_FILE #复数加上-
+        AppenderRef:
+          - ref: CONSOLE #复数加上-
+          - ref: ROLLING_FILE #复数加上-

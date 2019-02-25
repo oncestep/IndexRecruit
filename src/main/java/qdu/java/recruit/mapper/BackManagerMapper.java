@@ -27,6 +27,6 @@ public interface BackManagerMapper {
     @Select("SELECT COUNT(companyId) AS `companynum`,(SELECT COUNT(applicationId) FROM `application`) AS `offernum`, (SELECT COUNT(userId) FROM `user`) AS `usernum`, (SELECT max(hits) FROM `position`) AS `visitnum` FROM `company`")
     WebCountEntity getWebCount();
 
-    @Insert("INSERT INTO `company`(`companyName`,`city`,`companyCode`,`description`,`phone`) VALUES (#{companyName},#{city},#{companyCode},#{description},#{phone})")
-    Integer addCompany(@Param("companyName") String companyName,@Param("city") String city,@Param("companyCode") String companyCode,@Param("description") String description,@Param("phone") String phone);
+    @Insert("INSERT INTO `company`(`companyLogo`,`state`,`companyName`,`companyCode`,`description`) VALUES (7,1,#{companyName},#{companyCode},#{description})")
+    Integer addCompany(@Param("companyName") String companyName,@Param("companyCode") String companyCode,@Param("description") String description);
 }

@@ -37,8 +37,8 @@
             </ul>
 
             <ul class="clear_fix col-lg-2  " v-if="type===null">
-                <li><a class="clear_fix_item login" href="user/user_login">登录</a></li>
-                <li><a class="clear_fix_item register" href="user/register">注册</a></li>
+                <li><a class="clear_fix_item login" href="/user/login">登录</a></li>
+                <li><a class="clear_fix_item register" href="/register">注册</a></li>
             </ul>
 
             <ul class="clear_fix col-lg-2 " v-if="type==='user'">
@@ -55,7 +55,7 @@
 
 
                         <ul class="dropdown-menu" aria-labelledby="dLabel">
-                            <li><a href="/user/usercenter">个人中心</a></li>
+                            <li><a href="/user/info">个人中心</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="/user/logout">注销</a></li>
                         </ul>
@@ -210,11 +210,14 @@
                             <input id="comment_star" name="type" type="number" class="rating" min=1 max=3 step=1
                                    data-size="xs" data-min=0 data-max=3 data-stars=3 data-step=1 required>
 
-                            <textarea id="review-editor" name="content" style="padding-top: 30px; width: 656px;" placeholder="对这个职位吐槽点啥。。。"></textarea>
+                            <textarea id="review-editor" name="content" style="padding-top: 30px; width: 656px;"
+                                      placeholder="对这个职位吐槽点啥。。。"></textarea>
                             <div class="button-row row" style="float:right">
                                 <!--<div class="btn btn-default col-lg-3 col-lg-offset-2">重置</div>-->
                                 <!--<div class="btn btn-default col-lg-3 col-lg-offset-2">提交</div>-->
-                                <button type="reset" class="btn btn-default" style="margin-right: 10px;" onclick="window.location.reload();">重置评论</button>
+                                <button type="reset" class="btn btn-default" style="margin-right: 10px;"
+                                        onclick="window.location.reload();">重置评论
+                                </button>
                                 <button type="submit" class="btn btn-primary">发表评论</button>
                             </div>
                         </form>
@@ -268,7 +271,7 @@
                         <p>平面广告设计课程,火星时代Adobe平面课程,PS/a
                             i/ID软件培训+创意思维训练+实战作品.更可免费申请Adobe资格认证考试,全行业就业无压力.平面广告设计课程,预约0元试学</p>
                         <p><a href="" class="btn btn-primary" role="button">查看</a> <a href="" class="btn btn-default"
-                                                                                       role="button">关闭</a></p>
+                                                                                      role="button">关闭</a></p>
                     </div>
                 </div>
             </div>

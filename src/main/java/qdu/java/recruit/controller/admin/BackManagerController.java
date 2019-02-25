@@ -1,4 +1,4 @@
-package qdu.java.recruit.controller;
+package qdu.java.recruit.controller.admin;
 
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,9 +78,9 @@ public class BackManagerController {
 
     @RequestMapping("/addcompany")
     @ResponseBody
-    public Map<String,Object> addcompany(String companyName,String city,String companyCode,String description,String phone){
+    public Map<String,Object> addcompany(String companyName,String companyCode,String description){
         Map<String,Object> map = new HashMap<>();
-        int result = backManagerService.addCompany(companyName,city,companyCode,description,phone);
+        int result = backManagerService.addCompany(companyName,companyCode,description);
         if (result==0){
             map.put("state","0");
         }

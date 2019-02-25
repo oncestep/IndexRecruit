@@ -83,10 +83,18 @@ public class IndexController extends BaseController {
         return this.userDirect("user_resume");
     }
 
-
+    /**
+     * 职位申请成功页
+     * @return
+     */
     @GetMapping(value = "user/success")
     public String applySuccess() {
         return this.userDirect("apply_success");
     }
 
+    /**
+     * HR登录
+     *
+     */
+//    @GetMapping(value= "hr/login")
 }
